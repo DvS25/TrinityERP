@@ -1,0 +1,316 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Setting";
+}
+
+
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-12">
+        <div class="panel" id="panelmaingoldview">
+            <div class="panel-body">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item active" role="presentation" id="navtabgold"><a class="nav-link" data-toggle="tab" href="#tabgold">Gold Rate</a></li>
+                        <li class="nav-item" role="presentation" id="navExchangeRate"><a class="nav-link" data-toggle="tab" role="tab" aria-expanded="true" href="#tabExchangeRate">Currency Exchange Rate</a></li>
+                        <li class="nav-item" role="presentation" id="navdatasync"><a class="nav-link" data-toggle="tab" role="tab" aria-expanded="true" href="#tabdatasync">Data Sync</a></li>
+                        <li class="nav-item" role="presentation" id="navdataemailnotification"><a class="nav-link" data-toggle="tab" role="tab" aria-expanded="true" href="#tabeamilnotification">Email Notification</a></li>
+                        <li class="nav-item" role="presentation" id="navNewDesignDays"><a class="nav-link" data-toggle="tab" role="tab" aria-expanded="true" href="#tabNewDesignDays">New Design Days</a></li>
+                    </ul>
+
+                </div>
+                <div class="tab-content">
+                    <div id="tabgold" class="tab-pane active" role="tabpanel" style="margin-top:10px;">
+                        <form id="frmgold">
+                            <div id="pnlEditGold" style="display:none;background-color:#fff">
+                                <div style="height:32px;margin-bottom: 10px;margin-right: 19px;padding-top: 19px;">
+                                    <button class="btn btn-sm pull-right purple" id="btngoldback" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-sm-offset-2 form-control-label star">Gold Rate </label>
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <input type="number" placeholder="Enter Gold Rate" class="form-control required" name="Goldrate" id="txtgoldrate" />
+                                            <span class="input-group-addon">Rs./10gm (24Kt)</span>
+                                        </div>
+                                        <lable id="errorgoldrate" class="error" style="color:red;display:none">This Field Is Required.</lable>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-sm-offset-2 form-control-label star">Export Gold Rate </label>
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <input type="number" placeholder="Enter GJEPC Export Gold Rate" class="form-control required" name="ExportRate" id="txtExportRate" />
+                                            <span class="input-group-addon">Rs./10gm (24Kt)</span>
+                                        </div>
+                                        <lable id="errorExportRate" class="error" style="color:red;display:none">This Field Is Required.</lable>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-sm-offset-2 form-control-label">Effective Date<span style="color:red"> *</span></label>
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <input class="form-control" id="txteffectivedate" name="effactivedate" placeholder="dd MMM yyyy" type="text" data-provide="datepicker" />
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                        <lable id="erroreffactivedate" class="error" style="color:red;display:none">This Field Is Required.</lable>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="hdngoldid" value="" />
+                                <div class="form-group row">
+                                    <div class="col-sm-9 col-sm-offset-4" style="padding-bottom: 13px;">
+                                        <button type="button" id="btnSavegold" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="pnlViewgold" style="display:block;background-color:#fff">
+                                @if (Model.ISADD == 1)
+                                {
+                                <div class="Pull_Text_Left">
+                                    <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNewGold" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Gold Details </button>
+                                </div>
+                                }
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_Gold">
+                                        <table id="table_list_Gold"></table>
+                                        <div id="pager_list_Gold"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div id="tabExchangeRate" class="tab-pane" role="tabpanel" style="margin-top:10px;">
+                        <form id="frm_ExchangeRate">
+                            <div id="pnl_ExchangeRate" style="background-color:#fff">
+                                <div class="form-group row">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <table class="table" id="tbl_ExchangeRate">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No.</th>
+                                                    <th>Currency Name</th>
+                                                    <th>Currency Code</th>
+                                                    <th>Exchange Rate (Rs.)</th>
+                                                    <th>Extra Charge On Gold (%)<br /><small>(Will be added in Touch)</small></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                        <small style="color: red;font-style:italic;">Note: The Amount in Exchange Rate should be respected to Country's Currency in INR.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 col-sm-offset-8 text-right" style="padding-bottom: 13px;">
+                                        <button type="button" id="btnSaveExchangeRate" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div id="tabdatasync" class="tab-pane" role="tabpanel">
+                        <div class="loadingtrinity" style="display:none">
+                            @*<img src="~/Content/images/trinityloader.gif" style="border-radius:100px;background-color: #fff;background-position:center;opacity:.75; " />*@
+                        </div>
+                        <form id="frmdatasync">
+                            <div id="pnlEditPrivacyPolicy" style="background-color:#fff;margin-top:10px;display:none">
+                                <div style="height:32px;margin-bottom: 10px;margin-right: 19px;padding-top: 19px;">
+                                    <button class="btn btn-sm pull-right purple" id="btndatasyncback" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-sm-2 form-control-label">Select Table : </label>
+                                    <div class="col-sm-2" style="margin-top: 8px;">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checkbusiness" class="checkdataclass" type="checkbox" name="checkdata" value="Business Policy">
+                                            <label for="checkbusiness">Business Policy</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2" style="margin-top: 8px;">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checkitem" class="checkdataclass" type="checkbox" name="checkdata" value="Item Master">
+                                            <label for="checkitem">Item Master</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" style="margin-top: 8px;">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checkdesignmaster" class="checkdataclass" type="checkbox" name="checkdata" value="Design Master">
+                                            <label for="checkdesignmaster">Design Master , Design Detail , Design Code</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 col-sm-offset-2">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checkcharni" class="checkdataclass" type="checkbox" name="checkdata" value="Charni Master">
+                                            <label for="checkcharni">Charni Master</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checkmetal" class="checkdataclass" type="checkbox" name="checkdata" value="Metal Factor">
+                                            <label for="checkmetal">Metal Factor</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checkproductmaster" class="checkdataclass" type="checkbox" name="checkdata" value="Product Master">
+                                            <label for="checkproductmaster">Product Master , Product Detail</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 col-sm-offset-2">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checkpricelist" class="checkdataclass" type="checkbox" name="checkdata" value="PriceList">
+                                            <label for="checkpricelist">PriceList</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checkmakingprice" class="checkdataclass" type="checkbox" name="checkdata" value="Making PriceList">
+                                            <label for="checkmakingprice">Making PriceList</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checkcategory" class="checkdataclass" type="checkbox" name="checkdata" value="Category">
+                                            <label for="checkcategory">Category</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @*<div class="col-sm-2">
+                                            <div class="checkboxdata checkbox-primary checkbox-inline">
+                                                <input id="checkcategory" type="checkbox" name="checkdata" value="Category">
+                                                <label for="checkcategory">Category</label>
+                                            </div>
+                                        </div>*@
+                                    <div class="col-sm-2 col-sm-offset-2">
+                                        <div class="checkboxdata checkbox-primary checkbox-inline">
+                                            <input id="checksubcategory" class="checkdataclass" type="checkbox" name="checkdata" value="SubCategory">
+                                            <label for="checksubcategory">SubCategory</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @if (Model.ISADD == 1)
+                                    {
+                                    <div class="col-sm-2 col-sm-offset-2">
+                                        <button type="button" class="btn btn-success waves-effect waves-light m-r-30" id="btn_datasync">Submit</button>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            <div id="pnldatasync" style="display:block;background-color:#fff">
+                                @if (Model.ISADD == 1)
+                                {
+                                <div class="Pull_Text_Left">
+                                    <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAdddatasync" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Click Here For Data Sync</button>
+                                </div>
+                                }
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_Datasync">
+                                        <table id="table_list_Datasync"></table>
+                                        <div id="pager_list_Datasync"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tabeamilnotification" class="tab-pane" role="tabpanel">
+                        <input id="hdnemailnotificationId" type="hidden" />
+                        <form id="frmeamilnotification">
+                            <div id="pnleamilnotification" style="background-color:#fff;margin-top:10px">
+                                <div class="form-group row">
+                                    @*<label for="example-text-input" class="col-sm-3 col-sm-offset-1 form-control-label">B2B New Registration : </label>
+                                        <div class="col-sm-7" style="margin-top: 8px;">
+                                            <input type="text" class="form-control" id="txt_b2bregistration"/>
+                                        </div>*@
+                                    <label class="col-sm-3 form-control-label">B2B New Registration :<span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <select class="js-example-basic-multiple b2bregistration" name="states[]" multiple="multiple" id="txt_b2bregistration"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @*<label for="example-text-input" class="col-sm-3 col-sm-offset-1 form-control-label">New Quotation Generation : </label>
+                                        <div class="col-sm-7" style="margin-top: 8px;">
+                                            <input type="text" class="form-control" id="txt_quotgeneration" />
+                                        </div>*@
+                                    <label class="col-sm-3 form-control-label">New Order Place :<span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <select class="js-example-basic-multiple quotationgeneration" name="states[]" multiple="multiple" id="txt_quotgeneration"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @if (Model.ISADD == 1 || Model.ISUPDATE == 1)
+                                    {
+                                    <div class="col-sm-7 col-sm-offset-3" style="margin-top: 8px;">
+                                        <button type="button" class="btn btn-success waves-effect waves-light m-r-30" id="buttonquotgeneration">Submit</button>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tabNewDesignDays" class="tab-pane" role="tabpanel">
+                        <form id="frmNewDesignDays">
+                            <div id="pnlNewDesignDays" style="background-color:#fff;margin-top:10px">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">New Design Days :<span style="color:red"> *</span></label>
+                                    <div class="col-sm-2">
+                                        <input type="number" class="form-control required" name="txt_NewDesignDays" id="txt_NewDesignDays" />
+                                    </div>
+                                    <div class="col-sm-7">
+                                        (This days will take effect in new items flag in B2B and B2C product list pages.)
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @if (Model.ISADD == 1 || Model.ISUPDATE == 1)
+                                    {
+                                        <div class="col-sm-7 col-sm-offset-3" style="margin-top: 8px;">
+                                            <button type="button" class="btn btn-success waves-effect waves-light m-r-30" id="btnSubmitNewDesignDays">Submit</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 15px">
+
+
+</div>
+
+<link href="~/Content/plugin/summernote-master/summernote.css" rel="stylesheet" />
+@section Scripts{
+
+    <script src="~/Content/plugin/summernote-master/summernote.js"></script>
+    <script src="~/Script/AppManagement/Setting.js"></script>
+
+    <script id="DataB2BNewregistration" type="text/x-jsrender">
+        <option value="{{>userid}}">{{>sal_empfullname}}</option>
+    </script>
+
+    <script id="Dataquotationgeneration" type="text/x-jsrender">
+        <option value="{{>userid}}">{{>sal_empfullname}}</option>
+    </script>
+
+    <script id="render_CurrencyList" type="text/x-jsrender">
+        <tr id="Currency{{:currencyid}}" currencyid="{{:currencyid}}">
+            <td>{{:rownum}}.</td>
+            <td>{{:currencyname}}</td>
+            <td>{{:currencycode}}</td>
+            <td><input type="text" class="form-control required number ExRate text-right" name="ExRate{{:currencyid}}" id="txt_ExRate{{:currencyid}}" value="{{:exchangerate}}" /></td>
+            <td><input type="text" class="form-control required number ExCharge text-right" name="ExCharge{{:currencyid}}" id="txt_ExCharge{{:currencyid}}" value="{{:addextrachargeper}}" /></td>
+        </tr>
+    </script>
+
+}

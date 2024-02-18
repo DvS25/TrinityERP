@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Contact Us";
+}
+<div style="padding-top: 15px;">
+    <div class="panel">
+        <div class="panel-body">
+            <div class="row">
+                <div id="pnldatacontactus" style="display:block;background-color:#fff">
+                    <div class="table-responsive" style="padding:12px 0px;">
+                        <div class="jqGrid_wrapper" id="jqGrid_contactus">
+                            <table id="table_list_contactus"></table>
+                            <div id="pager_list_contactus"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+
+@section Scripts{
+<script src="~/Script/AppManagement/ContactUs.js"></script>
+    }

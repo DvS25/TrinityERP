@@ -1,0 +1,222 @@
+﻿@{
+    Layout = "~/Views/Shared/_SharingLayout.cshtml";
+    ViewBag.Title = "Shared Portal";
+}
+
+<style>
+    #btnheart_fa.icon-heart5, #btnheart_fa.icon-heart-broken2 {
+        color: red;
+    }
+
+    .owl-carousel .owl-nav {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        width: 108.5%;
+        /* top: calc(53% - 51px); */
+        top: 15px;
+        left: -20px;
+    }
+
+    div.owl-carousel .owl-nav .owl-prev, div.owl-carousel .owl-nav .owl-next {
+        font-size: 36px;
+        top: unset;
+        bottom: 15px;
+    }
+
+    .owl-dots {
+        display: none;
+    }
+
+    .owl-theme .owl-nav [class*='owl-'] {
+        font-size: 23px !important;
+        margin: 0px 12px !important;
+    }
+
+    .sharebox .owl-nav {
+        display: none;
+    }
+</style>
+
+<div class="container-fluid hrb" style="background-color:#000000e8;height:100vh;position:relative;">
+    <div class="pageitem">
+        @*<h6><a>1 of 25</a></h6>*@
+        <h6><a><lable class="control-label" style="font-size:16px" id="lblindex"></lable>  OF  <lable class="control-label" style="font-size:16px" id="lbltotal"></a></h6>
+    </div>
+    <div class="container">
+        <div class="container-shareing">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @*<p class="tagline">These Designs are shared by <span id="lblSharedByName"></span> on <span id="lblSharedDate"></span> from Trinity Jewells.</p>*@
+            </div>
+            <div class="main_parent row new-class-add" id="div_DesignList">
+
+            </div>
+        </div>
+        <div class="spaceup">
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-lg-10 col-md-10 col-sm-10" style="padding-bottom: 25px;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 pdr" style="padding-right:0;padding-top:10px;padding-bottom:10px;background-color:#fff;position:relative;">
+                        <div class="arwrleft">
+                            <i id="btnPrevious" class="fa fa-chevron-left"></i>
+                        </div>
+                        <div class="box-view" style="background-color:#fff;">
+                            <a id="lbl_MainImage_a" href="" data-fancybox="gallery">
+                                @*<img src="" alt="" title="" id="lbl_MainImage" class="list-img">*@
+                                <div class="productimg" data-image="" id="lbl_MainImage">
+
+                                </div>
+                            </a>
+                            <video id="lbl_MainImage_a_video" style="display:none;width:100%;height:100% !important" class="detail-wdth" loop="" controls="" muted="" autoplay="autoplay" disablePictureInPicture controlsList="nodownload">
+                                <source src="" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="itemshowsubitem">
+                            @*<div class="owl-carousel owl-theme" id="div_SubImage">
+                                </div>*@
+
+                            <div class="slidedex" style="height:90px;">
+                                <div class="owl-carousel owl-theme" id="slidertopview">
+                                    @*<div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="arwright">
+                            <i id="btnnext" class="fa fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pdb" style="background-color:#fff;padding-top:10px;padding-bottom:102px;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sharebtn side-brdr" style="background-color:#fff;padding:19px 10px;border-bottom:0;">
+                            <div style="float:left;">
+                                <h5 class="modal-title" style="font-weight: 600;color: #6b6b6b;">Product Details&nbsp;<i class="fa fa-chevron-right"></i>&nbsp;<a style="font-size:16px;" href="javascript:void(0)" id="lblDesignHeader"></a> </h5>
+                            </div>
+
+                            <div style="float:right;">
+                                <button type="button" chkclick="0" class="heart" id="btnlike">
+                                    <i id="btnheart_fa" class="icon-heart6" style="color:black"></i>
+                                </button>
+                                @*<button type="button" class="add">
+                                        <i class="icon-add"></i>
+                                    </button>*@
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 side-brdr addpdd" style="padding:0px !important;">
+                            <div class="container-fluid" style="width:auto;color:#6b6b6b">
+                                <div class="row">
+                                    <div class="col-centered col-sm-6 col-xs-6 mob-nopad pro_detail">
+                                        <p>
+                                            <b class="mob-12">Gross Wgt:</b>
+                                        </p>
+                                        <p>
+                                            <b class="mob-12">Net Wgt:</b>
+                                        </p>
+                                        <p>
+                                            <b class="mob-12">DiaPcs:</b>
+                                        </p>
+                                        <p>
+                                            <b class="mob-12">DiaWgt:</b>
+                                        </p>
+                                        <p>
+                                            <b class="mob-12">Gold priority:</b>
+                                        </p>
+                                        <p>
+                                            <b class="mob-12">Gold price:</b>
+                                        </p>
+                                        <p>
+                                            <b class="mob-12">Rating:</b>
+                                        </p>
+                                        <p>
+                                            <b class="mob-12">Color:</b>
+                                        </p>
+                                    </div>
+                                    <div class="col-centered col-sm-6 col-xs-6 mob-nopad pro_detail_right">
+                                        <p style="text-align:right" id="lblSize"></p>
+                                        <p class="mob-12" style="text-align:right" id="lblGrossWgt">0.00</p>
+                                        <p class="mob-12" style="text-align:right" id="lblNetWgt">0.00</p>
+                                        <p class="mob-12" style="text-align:right" id="lblDiaPcs">0.00</p>
+                                        <p class="mob-12" style="text-align:right" id="lblDiaWgt">0.00</p>
+                                        <p class="mob-12" style="text-align:right" id="lblpurity">0.00</p>
+                                        <p class="mob-12" style="text-align:right" id="lblGoldPrice">0.00</p>
+                                        <p class="mob-12" style="text-align:right" id=""><div id="lblGoldRateing"></div></p>
+                                        <p class="mob-12" style="text-align:right" id="">
+                                            <div>
+                                                <select class="form-control" name="ddlColorType" id="ddlColorType">
+                                                    <option value="ROSE">Rose</option>
+                                                    <option value="WHITE">White</option>
+                                                    <option value="YELLOW">Yellow</option>
+                                                </select>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+    </div>
+
+    <input type="hidden" id="hdnShareId" value="@ViewBag.ShareId" />
+
+</div>
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+<link href="~/Content/plugin/owl_carousel/dist/assets/owl.carousel.css" rel="stylesheet" />
+<link href="~/Content/plugin/owl_carousel/dist/assets/owl.theme.default.css" rel="stylesheet" />
+
+@section Scripts{
+
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Content/plugin/owl_carousel/dist/owl.carousel.min.js"></script>
+    <script src="~/Script/Sharing/DesignShared.js?v=@DateTime.UtcNow"></script>
+    <script id="Render_Subimage" type="text/x-jsrender">
+
+        @*<a href="@System.Configuration.ConfigurationManager.AppSettings["DesignImgPath"]/{{:desgcate}}/{{:desgsubcate}}/{{:virtualname}}" data-fancybox="gallery">*@
+        {{if imgtype == 'IMG'}}
+        <div class="itmsdesign item">
+            <img filetype="{{:imgtype}}" onclick="DesignSharedView.imageadditionalouter(this)" data-image="{{:imgpath}}" alt="{{:designcode}}" src="{{:imgpath_thumb}}" />
+
+        </div>
+        {{else}}
+        <div class="itmsdesign item">
+            <img filetype="{{:imgtype}}" onclick="DesignSharedView.imageadditionalouter(this)" data-image="{{:imgpath}}" alt="{{:designcode}}" class="DesignImg" src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/Content/images/play.png" style="height:84px" title="Click here for zoom...">
+        </div>
+        {{/if}}
+        @*</a>*@
+    </script>
+}

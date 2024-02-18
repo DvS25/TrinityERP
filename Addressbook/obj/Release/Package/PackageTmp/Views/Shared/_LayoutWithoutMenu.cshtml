@@ -1,0 +1,173 @@
+﻿@model Addressbook.Models.PagePermission
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<title>@{ var title = ""; if (Model != null) { title = Model.NAME; } }@title</title>*@
+    <title>Trinity Jewells | @ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/png" href="~/Content/images/favicon.png" />
+
+    @Styles.Render("~/Content/New/css")
+
+    @*<script src="~/Content/plugin/jquery-ui/jquery-3.2.1.js"></script>*@
+    <script src="~/Content/js/core/libraries/jquery.min.js"></script>
+    @Scripts.Render("~/Content/New/js")
+    <style>
+        .dropdown-content-heading {
+            padding: 15px !important;
+        }
+
+        .p_m_0px {
+            margin: 0px !important;
+        }
+
+        #modules_container .btn {
+            width: 125px;
+            height: 125px;
+            margin: 5px;
+        }
+
+        #customLoader {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: #0000009e;
+            top: 0;
+            text-align: center;
+        }
+
+            #customLoader img {
+                top: 50%;
+                position: fixed;
+                margin-top: -25px;
+            }
+    </style>
+
+</head>
+
+<body class="custom-scrollbars">
+    <!-- Page container -->
+    <div class="page-container">
+
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+
+    <div id="dx_loaderTrinity"></div>
+
+    <div id="customLoader" style="display:none;">
+        <img src="../Content/images/trinityloaderwhite.gif" alt="Loading" width="50" height="50">
+    </div>
+
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        function getDomain() {
+            var domainPath = '@System.Configuration.ConfigurationManager.AppSettings["domainPath"]';
+            return domainPath;
+        }
+        function getERPDomain() {
+            var ERPdomainPath = '@System.Configuration.ConfigurationManager.AppSettings["ERPdomainPath"]';
+            return ERPdomainPath;
+        }
+        function getB2BDomain() {
+            var B2BdomainPath = '@System.Configuration.ConfigurationManager.AppSettings["B2BdomainPath"]';
+            return B2BdomainPath;
+        }
+        function getDesignImgVirtualPath() {
+            var DesignImgPath = '@System.Configuration.ConfigurationManager.AppSettings["DesignImgPath"]';
+            return DesignImgPath;
+        }
+        function getDesignImgPhysicalPath() {
+            var DesignImgPhysicalPath = '@System.Configuration.ConfigurationManager.AppSettings["DesignImgPhysicalPath"]';
+            return DesignImgPhysicalPath;
+        }
+        function getCurrencyCode() {
+            var CurrCode = '@Addressbook.CommonClasses.SessionFacade.UserSession.CURRENCYCODE';
+            return CurrCode;
+        }
+        function getDisLanguage() {
+            var CurrCode = '@Addressbook.CommonClasses.SessionFacade.UserSession.LANGUAGE';
+            return CurrCode;
+        }
+        function isA() {
+            if ('@Model' != null && '@Model.ISADD' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isU() {
+            if ('@Model' != null && '@Model.ISUPDATE' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isAU() {
+            if ('@Model' != null && '@Model.AUTHORIZE' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isD() {
+            if ('@Model' != null && '@Model.ISDELETE' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isDW() {
+            if ('@Model' != null && '@Model.ISDOWNLOAD' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function getBranchId() {
+            return '@Addressbook.CommonClasses.SessionFacade.UserSession.EMPBRANCHID';
+        }
+        function getAccountYearId() {
+            return '@Addressbook.CommonClasses.SessionFacade.UserSession.ACCOUNTYEARID';
+        }
+        function getUserId() {
+            return '@Addressbook.CommonClasses.SessionFacade.UserSession.USERID';
+        }
+        function getIsAllowedVerify() {
+            if ('@Addressbook.CommonClasses.SessionFacade.UserSession.ISALLOWEDVERIFY' == '1') {
+                return true;
+            }
+            return false;
+        }
+
+        var dx_LoaderTrinity = "";
+        $(document).ready(function () {
+            dx_LoaderTrinity = $("#dx_loaderTrinity").dxLoadPanel({
+                shadingColor: "rgba(0,0,0,0.4)",
+                position: { of: "body" },
+                visible: false,
+                showIndicator: true,
+                showPane: false,
+                shading: true,
+                closeOnOutsideClick: false,
+                indicatorSrc: "../Content/images/trinityloaderwhite.gif",
+                Height: 70,
+                Width: 70,
+            }).dxLoadPanel("instance");
+        });
+
+    </script>
+
+    @*<script src="~/Script/Common/Layout.js"></script>*@
+
+</body>
+</html>

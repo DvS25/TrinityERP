@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Item Master";
+}
+
+<style>
+    #tbl_HSNDetails tbody {
+        counter-reset: rowNumber;
+    }
+
+        #tbl_HSNDetails tbody tr {
+            counter-increment: rowNumber;
+        }
+
+            #tbl_HSNDetails tbody tr td.TableRowNo::before {
+                content: counter(rowNumber);
+                min-width: 1em;
+                margin-right: 0.5em;
+            }
+</style>
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    @*<button type="button" class="btn btn-primary" id="btnAddNew"><i class="fa fa-plus"></i>&nbsp; Add New Company</button>*@
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_HSNCodeMaster" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label addstar">Item Name</label>
+                    <div class="col-sm-6">
+                        <div id="dx_txtItemName"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label addstar">HSN Code</label>
+                    <div class="col-sm-4">
+                        <div id="dx_txtHSNCODE"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Description</label>
+                    <div class="col-sm-9">
+                        <div id="dx_txtDescription"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">RM Sub Category</label>
+                    <div class="col-sm-6">
+                        <div id="dx_ddlSubCategory"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Is Active</label>
+                    <div class="col-sm-4">
+                        <div id="dx_switchIsActive" style="margin-top: 5px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="form-group">
+                    <table class="table table-bordered" id="tbl_HSNDetails" style="margin-bottom:10px;">
+                        <thead style="background-color: #fafafa;">
+                            <tr>
+                                <th width="5%">No.</th>
+                                <th width="25%">Tax Name</th>
+                                <th width="15%">Tax Value</th>
+                                <th width="25%">Tax Value In</th>
+                                <th width="25%">Effective Date</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_HSNDetails"></tbody>
+                        <tfoot style="background-color: #fafafa;">
+                            <tr>
+                                <td colspan="6">
+                                    <a href="javascript:void(0);" style="text-decoration:underline;" id="lnk_AddNewRow"><i class="fa fa-plus"></i>&nbsp;Add New Row</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+@section Scripts{
+    <script src="~/Script/Master/ItemMaster.js?v=@DateTime.UtcNow"></script>
+}

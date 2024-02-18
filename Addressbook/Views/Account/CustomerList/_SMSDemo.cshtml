@@ -1,0 +1,80 @@
+﻿
+<div style="padding-top: 15px;">
+
+    <div id="pnlAddSMS" style="display:none;background-color:#fff">
+        <div style="height:32px;margin-bottom: 30px;margin-right: 19px;">
+            <button name="cancelSMS" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+        </div>
+        <form id="frmSmsDemo">
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-3 form-control-label">Template Name *</label>
+                <div class="col-sm-6">
+                    <input class="form-control" type="text" id="txtSmsName">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-3 form-control-label">languages*</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="text_languages">
+                        <option value="EN" selected="selected">English</option>
+                        <option value="UC">UC</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-3 form-control-label">SMS Body *</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control required" rows="4" id="txtSmsBody"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-9 col-sm-offset-3" style="padding-bottom: 13px;">
+                    @*<button type="button" class="btn btn-default waves-effect" name="cancelSMS">Cancel</button>*@
+                    <button type="button" class="btn btn-success waves-effect waves-light m-r-30" id="btnSaveSms">Submit</button>
+
+                    @if (ViewBag.Isview == "0")
+                    {
+                        @*<button type="button" id="BtnsendSMS" class="btn btn-success waves-effect waves-light m-r-30">Send</button>*@
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="pnlViewSMS">
+        <div style="display:block;background-color:#fff">
+            <div class="Pull_Text_Left">
+                <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNewSMS" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Sms</button>
+
+                @if (ViewBag.Isview == "0")
+                {
+                }
+            </div>
+            <div class="table-responsive" style="padding:12px 0px;">
+                <div class="jqGrid_wrapper" id="jqGrid_sms">
+                    <table id="table_list_SMS"></table>
+                    <div id="pager_list_SMS"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel" id="pnlDeleteSMS" style="display:none;">
+            <div class="panel-body">
+                <div class="row">
+                    <label class="col-sm-3 f-bold form-control-label">Template Name:</label>
+                    <label id="delTemplateName" class="col-sm-9"></label>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3 f-bold form-control-label">SMS Body:</label>
+                    <label id="delSMSBody" class="col-sm-9"></label>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-10 col-sm-offset-3">
+                        <button type="button" name="cancelSMS" class="btn btn-default waves-effect">Cancel</button>
+                        <button type="button" class="btn btn-danger waves-effect waves-light" id="btnDeleteSMS">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <input type="hidden" id="hdnSmsID" value="" />
+</div>

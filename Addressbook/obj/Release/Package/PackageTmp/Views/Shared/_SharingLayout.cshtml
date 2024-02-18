@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/Shared/css")
+    <script src="~/Content/plugin/jquery-ui/jquery-3.2.1.js"></script>
+    @Scripts.Render("~/Content/Shared/js")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="col-md-2 col-sm-3 col-xs-3 col-3">
+            <a class="navbar-brand" href="#0" style="padding: 5px 20px;">
+                <img src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/Content/images/trinity.png" />
+            </a>
+        </div>
+
+        <div class="col-md-8 col-sm-6 col-xs-6 col-6" style="text-align:center;">
+            <h4>@ViewBag.Title</h4>
+        </div>
+        <div class="col-md-2 col-sm-3 col-xs-3 col-3 headuser" style="text-align:center;">
+            <h6>Share By&nbsp;:&nbsp;<a style="color:white;" id="lblshareing"></a></h6>
+        </div>
+    </div>
+
+    @RenderBody()
+
+    <div class="foot_navshare">
+
+    </div>
+
+    <div id="dx_loaderTrinity"></div>
+
+
+    <script type="text/javascript">
+        function getDomain() {
+            var domainPath = '@System.Configuration.ConfigurationManager.AppSettings["domainPath"]';
+            return domainPath;
+        }
+        function getDesignImgVirtualPath() {
+            var DesignImgPath = '@System.Configuration.ConfigurationManager.AppSettings["DesignImgPath"]';
+            return DesignImgPath;
+        }
+        function getDesignImgPhysicalPath() {
+            var DesignImgPhysicalPath = '@System.Configuration.ConfigurationManager.AppSettings["DesignImgPhysicalPath"]';
+            return DesignImgPhysicalPath;
+        }
+       
+        var dx_LoaderTrinity = "";
+        $(document).ready(function () {
+            dx_LoaderTrinity = $("#dx_loaderTrinity").dxLoadPanel({
+                shadingColor: "rgba(0,0,0,0.4)",
+                position: { of: "body" },
+                visible: false,
+                showIndicator: true,
+                showPane: false,
+                shading: true,
+                closeOnOutsideClick: false,
+                indicatorSrc: "../Content/images/trinityloaderwhite.gif",
+                Height: 70,
+                Width: 70,
+            }).dxLoadPanel("instance");
+        });
+
+        function InvalidResponseCode(data) {
+            var code = $(data).find('RESPONSECODE').text();
+            var msg = '';
+
+            if (code == "-405") {
+                window.location.href = getDomain() + "/Login/LogOut?code=-405";
+            }
+            else if (code == "-406") {
+                window.location.href = getDomain() + "/Login/LogOut";
+            }
+            else if (code != "0") {
+                msg = "<div><b>Response Code:</b> " + code + "</div>";
+                msg += "<div><br /><b>Response Message:</b> " + $(data).find('RESPONSEMESSAGE').text() + "</div>";
+
+                OperationMessage('VALIDATION RESPONSECODE', msg, 'error');
+            }
+        }
+        function OnError(xhr, errorType, exception) {
+            var responseText;
+            var ErrorDetail = "";
+
+            try {
+                responseText = jQuery.parseJSON(xhr.responseText);
+
+                ErrorDetail = "<div><b>" + errorType + " " + exception + "</b></div>";
+                ErrorDetail += "<div><b>Exception</b>: " + responseText.ExceptionType + "</div>";
+                ErrorDetail += "<div><b>StackTrace</b>: " + responseText.StackTrace + "</div>";
+                ErrorDetail += "<div><b>Message</b>: " + responseText.Message + "</div>";
+            } catch (e) {
+                ErrorDetail = "<div><b>Error Message</b>: " + xhr.responseText + "</div>";
+            }
+
+            if (ErrorDetail.indexOf('-405') > 0) {
+                //window.location.href = getDomain() + "/Login/LogOut?code=-405";
+            }
+            else {
+                //notificationMessage 
+                OperationMessage('AJAX ERROR RESPONSE', ErrorDetail, 'error');
+            }
+        }
+        function OperationMessage(title, message, type) {
+            var timeout = 3000;
+            if (type == 'warning') {
+                timeout = 4000;
+            }
+            else if (type == 'info') {
+                timeout = 10000;
+            }
+            var positionClass = "toast-top-center";
+            if (message.length > 50)
+                positionClass = "toast-top-full-width";
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": positionClass,
+                "onclick": null,
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": timeout,
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr[type](message, title);
+        }
+
+        function htmlEncode(value) {
+            return $('<div/>').text(value).html();
+        }
+
+        // To decode HTML text format tag to actual tag. like &lt; to <
+        function htmlDecode(value) {
+            return $('<div/>').html(value).text();
+        }
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

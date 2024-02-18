@@ -1,0 +1,245 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "City,State,Country";
+}
+<div class="panel">
+    <div class="panel-body">
+        <div class="row" style="background-color: white;" role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist" style="padding: 15px 0px 0px 0px;margin-left: 10px;">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" data-toggle="tab" href="#Currencytab" id="Currencyslidetab" role="tab">Currency</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" data-toggle="tab" href="#Countrytab" id="contryslidetab" role="tab">Country</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" data-toggle="tab" href="#StateTab" id="stateslidetab" role="tab">State</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" data-toggle="tab" href="#DistrictTab" id="districtslidetab" role="tab">District</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" data-toggle="tab" href="#CityTab" id="cityslidetab" role="tab">City</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active m-t-15" id="Currencytab" role="tabpanel">
+                <form id="frmCurrency">
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-3 col-form-label form-control-label star">Currency Name</label>
+                        <div class="col-sm-2">
+                            <input class="form-control required" type="text" name="txtCurrency" id="txtCurrency">
+                        </div>
+
+                        <label for="example-text-input" class="col-sm-2 col-form-label form-control-label star">Symbol</label>
+                        <div class="col-sm-2">
+                            <input class="form-control required" type="text" name="txtSymbol" id="txtSymbol">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-3 col-form-label form-control-label star">Currency Code</label>
+                        <div class="col-sm-2">
+                            <input class="form-control required" type="text" name="txtCurrencyCode" id="txtCurrencyCode">
+                        </div>
+
+                        <label for="example-text-input" class="col-sm-2 col-form-label form-control-label star">Language</label>
+                        <div class="col-sm-2">
+                            <input class="form-control required" type="text" name="txtLanguage" id="txtLanguage">
+                        </div>
+                    </div>
+                    
+                    @if (Model.ISADD == 1)
+                    {
+                        <div class="form-group row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button type="button" id="btnCurrency" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </form>
+                <div class="row" style="padding:12px 10px 0px 10px;">
+                    <div class="table-responsive">
+                        <div class="jqGrid_wrapper" id="jqGrid_Currency">
+                            <table id="table_list_Currency"></table>
+                            <div id="pager_list_Currency"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane m-t-15" id="Countrytab" role="tabpanel">
+                <form id="frmCountry">
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-3 col-form-label form-control-label star">Country Name</label>
+                        <div class="col-sm-5">
+                            <input class="form-control required" type="text" name="txtcountry" id="txtcountry">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-3 col-form-label form-control-label star">Currency</label>
+                        <div class="col-sm-2">
+                            <select class="form-control required" name="ddlCurrency" id="ddlCurrency"></select>
+                        </div>
+
+                        <div class="col-md-1" style="text-align: right;">
+                            <img width="35" src="" id="img_CountryFlag" />
+                            <label id="FlagimgError" class="error" style="margin-left:2px; display:none">This field is required.</label>
+                            <input type="hidden" id="hdnDeletedImg" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label title="Upload image file" class="btn btn-primary" for="btnFlagUpload">
+                                <input type="file" accept="jpg,jpeg,png,gif" name="file" id="btnFlagUpload" class="hide">
+                                Upload Flag
+                            </label>
+                        </div>
+                    </div>
+                    @if (Model.ISADD == 1)
+                    {
+                        <div class="form-group row">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <button type="button" id="btnCountry" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                            </div>
+                        </div>
+                    }
+                </form>
+                <div class="row" style="padding:12px 10px 0px 10px;">
+                    <div class="table-responsive">
+                        <div class="jqGrid_wrapper" id="jqGrid_Country">
+                            <table id="table_list_Country"></table>
+                            <div id="pager_list_Country"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane m-t-15" id="StateTab" role="tabpanel">
+                <form id="frmState">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-control-label star">Country Name</label>
+                        <div class="col-sm-5">
+                            <select class="form-control required" name="ddlCountry" id="ddlCountry"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-control-label star">State Name</label>
+                        <div class="col-sm-5">
+                            <input class="form-control required" type="text" name="txtState" id="txtState">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-control-label star">State Code</label>
+                        <div class="col-sm-5">
+                            <input class="form-control required" name="statecode" type="text" id="txtStatecode">
+                        </div>
+                    </div>
+                    @if (Model.ISADD == 1)
+                    {
+                    <div class="form-group row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button type="button" id="btnState" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+
+                        </div>
+                    </div>
+                    }
+                </form>
+                <div class="row" style="padding:12px 10px 0px 10px;">
+                    <div class="table-responsive">
+                        <div class="jqGrid_wrapper" id="jqGrid_State">
+                            <table id="table_list_State"></table>
+                            <div id="pager_list_State"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane m-t-15" id="DistrictTab" role="tabpanel">
+                <form id="frmDistrict">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-control-label star">State Name</label>
+                        <div class="col-sm-5">
+                            <select class="form-control required" name="ddlState" id="ddlState"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-3 col-form-label form-control-label star">District Name</label>
+                        <div class="col-sm-5">
+                            <input class="form-control required" type="text" name="txtDistrict" id="txtDistrict">
+                        </div>
+                    </div>
+                    @if (Model.ISADD == 1)
+                    {
+                    <div class="form-group row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button type="button" id="btnDistrict" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+
+
+                        </div>
+                    </div>
+                    }
+                </form>
+                <div class="row" style="padding:12px 10px 0px 10px;">
+                    <div class="table-responsive">
+                        <div class="jqGrid_wrapper" id="jqGrid_District">
+                            <table id="table_list_District"></table>
+                            <div id="pager_list_District"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane m-t-15" id="CityTab" role="tabpanel">
+                <form id="frmCity">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label form-control-label star">District Name</label>
+                        <div class="col-sm-5">
+                            <select class="form-control required" name="ddlDistrict" id="ddlDistrict"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-3 col-form-label form-control-label star">City Name</label>
+                        <div class="col-sm-5">
+                            <input class="form-control required" type="text" name="txtCity" id="txtCity">
+                        </div>
+                    </div>
+                    @if (Model.ISADD == 1)
+                    {
+                    <div class="form-group row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button type="button" id="btnCity" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+
+                        </div>
+                    </div>
+                    }
+                </form>
+                <div class="row" style="padding:12px 10px 0px 10px;">
+                    <div class="table-responsive">
+                        <div class="jqGrid_wrapper" id="jqGrid_City">
+                            <table id="table_list_City"></table>
+                            <div id="pager_list_City"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/Script/Master/CountryCityState.js"></script>
+
+    <script id="CurrencyDropdownList" type="text/x-jsrender">
+        <option value="{{>currencyid}}">{{>currencyname}}</option>
+    </script>
+
+    <script id="CountryDropdownList" type="text/x-jsrender">
+        <option value="{{>countryid}}">{{>countryname}}</option>
+    </script>
+
+    <script id="StateDropdownList" type="text/x-jsrender">
+        <option value="{{>stateid}}">{{>statename}}</option>
+    </script>
+
+    <script id="DistrictDropdownList" type="text/x-jsrender">
+        <option value="{{>districtid}}">{{>districtname}}</option>
+    </script>
+}

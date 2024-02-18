@@ -1,0 +1,150 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Tax Profile";
+}
+
+<style>
+    #tbl_TaxDetails tbody {
+        counter-reset: rowNumber;
+    }
+
+        #tbl_TaxDetails tbody tr {
+            counter-increment: rowNumber;
+        }
+
+            #tbl_TaxDetails tbody tr td.TableRowNo::before {
+                content: counter(rowNumber);
+                min-width: 1em;
+                margin-right: 0.5em;
+            }
+
+    ul#txttaxname li {
+        height: 30px;
+        padding-top: 4px;
+        padding-left: 6px;
+        border-radius: 2px;
+        margin-bottom: 5px;
+        border: none;
+        color: #000000;
+        font-weight: 500;
+        background-color: #ffffff;
+        box-shadow: 0 4px 2px 0 rgb(0 0 0 / 20%), 0 0px 4px 0 rgb(0 0 0 / 19%);
+        cursor: pointer;
+    }
+
+    #txttaxname input[type="checkbox"]{
+        margin-top: 0;
+    }
+
+    .TaxLabel{
+        padding-left: 10px;
+    }
+</style>
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_TaxProfile" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-md-3 control-label addstar">Tax Profile Name</label>
+                    <div class="col-md-6">
+                        <div id="dx_txtTaxProfileName"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Description</label>
+                    <div class="col-md-9">
+                        <div id="dx_txtDescription"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Is Active</label>
+                    <div class="col-sm-4">
+                        <div id="dx_switchIsActive" style="margin-top: 5px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <table class="table table-bordered" id="tbl_TaxDetails" style="margin-bottom:10px;">
+                        <thead style="background-color: #fafafa;">
+                            <tr>
+                                <th width="5%">No.</th>
+                                <th width="35%">Tax Name</th>
+                                <th width="50%">Calculate On</th>
+                                <th width="10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot style="background-color: #fafafa;">
+                            <tr>
+                                <td colspan="4">
+                                    <a href="javascript:void(0);" style="text-decoration:underline;" id="lnk_AddNewRow"><i class="fa fa-plus"></i>&nbsp;Add New Row</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="Modal_TaxCalc" tabindex="-1" role="dialog" aria-labelledby="ModalSelectionList" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 320px;">
+        <div class="modal-content">
+            <div class="modal-header bg-grey-800">
+                <h5 class="modal-title">Tax Calculate</h5>
+            </div>
+            <div class="modal-body">
+                <ul id="txttaxname" style="list-style: none;font-size: 14px;"></ul>
+                <input type="hidden" id="hdnrowid" value="" />
+            </div>
+            <div class="modal-footer text-center">
+                <div id="dx_TaxCalc_btnSubmit"></div>
+                <div id="dx_TaxCalc_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="dx_popupRecordDelete"></div>
+
+@section Scripts{
+    <script src="~/Script/Manufacturing/TaxProfile.js?v=@DateTime.UtcNow"></script>
+
+    <script type="text/x-jsrender" id="renderTaxList">
+        <li style="width:225px;">
+            <div style="display:flex;width:210px;">
+                <input type="checkbox" value="{{:taxid}}" />
+                <div class="TaxLabel">{{:taxname}}</div>
+            </div>
+        </li>
+    </script>
+}
+
+

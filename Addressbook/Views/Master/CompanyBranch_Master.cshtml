@@ -1,0 +1,176 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Company Branch Master";
+}
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    @*<button type="button" class="btn btn-primary" id="btnAddNew"><i class="fa fa-plus"></i>&nbsp; Add New Company</button>*@
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_CompanyMaster" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label addstar">Branch Name</label>
+                        <div class="col-sm-5">
+                            <div id="dx_txtBranchName"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="dx_txtBranchCode"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Bank Name</label>
+                        <div class="col-sm-8">
+                            <div id="dx_txtBankName"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Company<sapn style="color:red">*</sapn></label>
+                        <div class="col-sm-8">
+                            <div id="dx_ddlComapny"></div>
+                        </div>
+
+                        @*<label class="col-sm-1 control-label">GST NO</label>
+                            <div class="col-sm-2">
+                                <div id="dx_txtGstNo"></div>
+                            </div>*@
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Mobile No</label>
+                        <div class="col-sm-8">
+                            <div id="dx_txtMobileNo"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Email Id</label>
+                        <div class="col-sm-8">
+                            <div id="dx_txtEmailId"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Address</label>
+                        <div class="col-sm-8">
+                            <div id="dx_txtaddress"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">PIN Code</label>
+                        <div class="col-sm-8">
+                            <div id="dx_txtPINCode"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Country<span style="color:red">*</span></label>
+                        <div class="col-sm-6">
+                            <div id="dx_ddlcountry"></div>
+                        </div>
+
+                        <label class="col-sm-4 control-label">State<span style="color:red">*</span></label>
+                        <div class="col-sm-6">
+                            <div id="dx_ddlState"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">City<span style="color:red">*</span></label>
+                        <div class="col-sm-6">
+                            <div id="dx_ddlCity"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Is Active</label>
+                        <div class="col-sm-2">
+                            <div id="dx_switchIsActive" style="margin-top: 5px;"></div>
+                        </div>
+                    </div>
+                </div>
+                @* File *@ 
+                <div class="col-md-8">
+                    <div class="form-group" id="AttachmentsList">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary pull-right" type="button" data-preview="tbody_AttachmentsList" data-toggle="modal"
+                                    data-ext="jpg,jpeg,png,pdf,doc,docx,xls,xlsx" id="btnAddNewAttachment" data-backdrop="static" data-target="#modalUpload">
+                                <i class="fa fa-plus"></i>&nbsp;Add Attachment
+                            </button>
+                        </div>
+                        <div class="col-md-12" style="max-height: 310px;overflow: auto;margin-top: 5px;">
+                            <table class="table table-bordered">
+                                <thead style="background-color: #eee;">
+                                    <tr>
+                                        <th width="5%" class="text-center">File</th>
+                                        <th width="18%" class="text-center">Description</th>
+                                        <th width="20%" class="text-center">IssueDate</th>
+                                        <th width="20%" class="text-center">ExpiryDate</th>
+                                        <th width="18%" class="text-center">Document Type</th>
+                                        <th width="15%" class="text-center">Document No</th>
+                                        <th width="5%" class="text-center"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_AttachmentsList"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="modalUploadlbl" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="modalUploadlbl">Add Files</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <img width="100" height="100" src="" id="imgBanner" style="display:none" />
+                                    <input type="hidden" id="hdnPreviewUploader" />
+                                    <input type="hidden" id="hdnExtUploader" />
+                                    <div class="text-red">Allow extensions: (<span id="spExtension"></span>)</div>
+                                    <div id="imgUploader">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="btnAddFile" type="button" class="btn btn-success">Ok</button>
+                                    <button type="button" class="btn btn-quaternary" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*----*@
+            </div>
+        </div>
+
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Script/Master/CompanyBranch_Master.js?V=@DateTime.UtcNow"></script>
+}

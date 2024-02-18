@@ -1,0 +1,1163 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Account Master";
+}
+
+@*<style>
+.dx-switch-handle::before{
+    background-color:#f44336;
+}
+.dx-switch-on-value .dx-switch-handle::before {
+    background-color: #4caf50;
+}
+</style>*@
+
+
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    @*<button type="button" class="btn btn-primary" id="btnAddNew"><i class="fa fa-plus"></i>&nbsp; Add New Company</button>*@
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<div id="AccountMaster" style="display:none;">
+
+    <div class="panel">
+        <div class="panel-body">
+            <div class="tabbable">
+                <ul class="nav nav-tabs nav-tabs-highlight" role="tablist">
+                    <li class="active" role="presentation"><a id="tbl_AccountInfo" data-toggle="tab" href="#tabAccount">Account Info</a></li>
+                    <li><a id="tbl_Personal" data-toggle="tab" href="#tabPersonal">Personal Detail</a></li>
+                    <li><a id="tbl_BankDetails" data-toggle="tab" href="#tabBank">Bank Detail</a></li>
+                    <li><a id="tbl_AddressInfo" data-toggle="tab" href="#tabAddress">Address Info</a></li>
+                    <li><a id="tbl_ReferenceDetails" data-toggle="tab" href="#tabReference">Reference Details</a></li>
+                    <li><a id="tbl_Document_Upload" data-toggle="tab" href="#tabDocument">Document Upload</a></li>
+                    <li><a id="tbl_StaffInfo" data-toggle="tab" href="#tabStaffFamily">Staff/Family Info</a></li>
+                    <li><a id="tbl_Other_Info" data-toggle="tab" href="#tabOther">Other Info</a></li>
+                    <li><a id="tbl_Price_Policy" data-toggle="tab" href="#tabPrice">Price Policy</a></li>
+                    <li id="tablink_LoginSetting" style="display:none;"><a id="tbl_LoginSetting" data-toggle="tab" href="#tabLoginSetting">Login Setting</a></li>
+                    <div style="float:right">
+                        <div id="dx_btnCancel_AccountInfo"></div>
+                    </div>
+                </ul>
+                <div class="tab-content">
+                    <div id="tabAccount" class="tab-pane active" role="tabpanel">
+                        <form class="form-horizontal" id="frm_AccountInfo">
+                            <div class="col-md-7" style="padding-bottom:20px;">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label addstar">Account Name</label>
+                                    <div class="col-md-6">
+                                        <div id="dx_txtAccountName"></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div id="dx_txtAccCode"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label addstar">Head Name</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtHead"></div>
+                                    </div>
+
+                                    <label class="col-md-2 control-label">Sub Head</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlSubHeadName"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Department</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtDepartment"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label">Group Name</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtGroup"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Mobile1</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtMobile1"></div>
+                                    </div>
+
+                                    <label class="col-md-2 control-label">Mobile2</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtMobile2"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Email Id</label>
+                                    <div class="col-md-4">
+                                        <div id="dx_txtEmailId"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fax No</label>
+                                    <div class="col-md-4">
+                                        <div id="dx_txtFaxNo"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label addstar">Country</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlCountry"></div>
+                                    </div>
+
+                                    <label class="col-md-2 control-label addstar">State</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlState"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label addstar">City</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlCity"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label addstar">Tax Profile</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtTaxPro"></div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label addstar">Currency</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlCurrency"></div>
+                                    </div>
+                                            <label class="col-md-2 control-label">Allow Login</label>
+                                           <div class="col-md-3">
+                                                <div id="dx_swAllowLogin" style="margin-top: 5px;"></div>
+                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Credit Limit</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtcreditLimit"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label">Credit Days</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtCreditDays"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Date Of Joining</label>
+                                    <div class="col-md-4">
+                                        <div id="dx_dtdoj"></div>
+                                    </div>
+                                </div>
+                              
+                                    
+                            </div>
+                            <div class="col-md-2">
+                                @*<div class="form-group text-center">
+                                        <div style="padding: 0 5px 5px 5px;">
+                                            <img src="/Content/images/upimg.png" class="required" id="ItemimgPreview" style="max-width: 150px; max-height: 150px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" aria-required="true">
+                                        </div>
+                                        <div class="text-center" style="margin-top:5px;margin-bottom:25px;">
+                                            <span class="btn btn-primary btn-file">
+                                                <input type="file" accept="image/*" name="inputItemImage" id="inputItemImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload Image
+                                            </span>
+                                        </div>
+                                        <input type="hidden" id="hdnMainImg">
+                                    </div>*@
+                                <div class="form-group text-center">
+                                    <div style="padding: 0 5px 5px 5px;">
+                                        <img src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/Content/images/upimg.png" class="required" id="ItemimgPreview" style="max-width: 150px; max-height: 150px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" aria-required="true">
+                                    </div>
+                                    <div class="text-center" style="margin-top:5px;margin-bottom:25px;">
+                                        <span class="btn btn-primary btn-file">
+                                            <input type="file" accept="image/*" name="inputItemImage" id="inputItemImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload Image
+                                        </span>
+                                    </div>
+                                    <input type="hidden" id="hdnMainImg" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <div style="float:right">
+                                        <div id="dx_btnSubmit_AccountInfo"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tabPersonal" class="tab-pane" role="tabpanel">
+                        <form class="form-horizontal" id="frm_PersonalInfo">
+                            <div class="col-md-12" style="padding-bottom:20px;">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Person Name</label>
+                                    <div class="col-md-5">
+                                        <div id="dx_txtPerson_Name"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Mobile No</label>
+                                    <div class="col-md-2">
+                                        <div id="dx_txtPerson_No"></div>
+                                    </div>
+                                    <label class="col-md-1 control-label">Gender</label>
+                                    <div class="col-md-2">
+                                        <div id="dx_rdGender" style="margin-top: 5px;"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Personal Address</label>
+                                    <div class="col-md-5">
+                                        <div id="dx_txtPersonAddress"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Birth Date</label>
+                                    <div class="col-md-2">
+                                        <div id="dx_PersonBirthDate"></div>
+                                    </div>
+                                    <label class="col-md-1 control-label">Anniversary</label>
+                                    <div class="col-md-2">
+                                        <div id="dx_PersonAnniversary"></div>
+                                    </div>
+                                </div>
+                                @*<div class="form-group">
+                                        <label class="col-md-2 control-label">GST No</label>
+                                        <div class="col-md-3">
+                                            <div id="dx_txtGSTNo"></div>
+                                        </div>
+
+                                        <label class="col-md-2 control-label">PAN No</label>
+                                        <div class="col-md-3">
+                                            <div id="dx_txtPANNo"></div>
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Religion</label>
+                                    <div class="col-md-2">
+                                        <div id="dx_txtPersonRelligion"></div>
+                                    </div>
+                                    <label class="col-md-1 control-label">Profession</label>
+                                    <div class="col-md-2">
+                                        <div id="dx_txtPerson_profession"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row text-center">
+                                    <div style="float:left">
+                                        <div id="dx_btnCancel_PersonalInfo"></div>
+                                    </div>
+                                    <div style="float:right">
+                                        <div id="dx_btnSubmit_PersonalInfo"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tabBank" class="tab-pane" role="tabpanel">
+                        <form class="form-horizontal" id="frm_BankDetail">
+                            <div class="col-md-12" style="padding-bottom:20px;">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Bank Name</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtBankName"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label">Branch Name</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtBranchName"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Bank Account Name</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtBankAccount"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label">Bank AccType</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtBankAccType"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Account No</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtAccNo"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label">IFSC Code</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtIFSC"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 clearfix">
+                                <div style="float:left">
+                                    <div id="dx_btnprevious_BankDeatils"></div>
+                                </div>
+                                <div style="float:right;">
+                                    <div id="dx_btnSubmit_BankDeatils"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tabAddress" class="tab-pane" role="tabpanel">
+                        <div id="Addressfrom" class="form-group" style="margin-top:20px;">
+                            <div class="col-md-12 text-right">
+                                <div id="dx_btnAddNew_ShipmentInfo"></div>
+                            </div>
+                            <div class="col-md-12" style="margin-top: 5px;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th width="20%" class="text-center">Name</th>
+                                            <th width="20%" class="text-center">Mobile No</th>
+                                            <th width="20%" class="text-center">Zip Code</th>
+                                            <th width="20%" class="text-center">Address</th>
+                                            <th width="10%" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl_ShipmentInfo_tbody"></tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-12" style="text-align:center;margin-top:15px">
+                                <div style="float:left">
+                                    <div id="dx_btnPrevious_ShipmentInfo"></div>
+                                </div>
+                                <div style="float:right">
+                                    <div id="dx_btnNext_ShipmentInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="shipmentEdit" class="col-md-12" style="padding-bottom:20px;display:none;">
+                            <form class="form-horizontal" id="frm_AddressDetail">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label addstar">Name</label>
+                                    <div class="col-md-3">
+                                        <div style="display:none" id="hdn_accountmaster_shipinginfoid"></div>
+                                        <div id="dx_txtShipName"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label addstar">Mobile No</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtShipMobile"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label addstar">Country</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlShipCountry"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label addstar">State</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlShipState"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label addstar">City</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlShipCity"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label addstar">Zip Code</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtZipCode"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label addstar">Address</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtShipAddress"></div>
+                                    </div>
+
+                                    <label class="col-md-2 control-label addstar">Address Type</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtAddressType"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <lable class="col-md-2 control-label">GST No</lable>
+                                    <div class="col-md-3">
+                                        <div id="dx_GST_AddressInfo"></div>
+                                    </div>
+                                    <lable class="col-md-2 control-label">PAN Card</lable>
+                                    <div class="col-md-3">
+                                        <div id="dx_PANCARD_AddressInfo"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <lable class="col-md-2 control-label">TAN No</lable>
+                                    <div class="col-md-3">
+                                        <div id="dx_TANNO_AddressInfo"></div>
+                                    </div>
+                                    <lable class="col-md-2 control-label">CIN No</lable>
+                                    <div class="col-md-3">
+                                        <div id="dx_CINNO_Addressinfo"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-md-offset-5" style="margin-top:20px;">
+                                    <div id="dx_btnCancel__ShipmentInfo"></div>
+                                    <div id="dx_btnSave_ShipmentInfo"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="tabReference" class="tab-pane" role="tabpanel">
+                        <div id="ReferenceDetailsfrom" class="form-group" style="margin-top:20px;">
+                            <div class="col-md-12 text-right">
+                                <div id="dx_btnAddNew_Reference"></div>
+                            </div>
+                            <div class="col-md-12" style="margin-top: 5px;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%" class="text-center">Reference</th>
+                                            <th width="30%" class="text-center">Reference By</th>
+                                            <th width="30%" class="text-center">Notes</th>
+                                            <th width="20%" class="text-center">Add Favourite List</th>
+                                            <th width="10%" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl_ReferenceDetails_tbody"></tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-12" style="text-align:center;margin-top:15px">
+                                <div style="float:left">
+                                    <div id="dx_btnPrevious_ReferenceDetails"></div>
+                                </div>
+                                <div style="float:right">
+                                    <div id="dx_btnNext_ReferenceDetails"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="ReferenceEdit" class="col-md-12" style="padding-bottom:20px;display:none;">
+                            <form class="form-horizontal" id="frm_ReferenceDetail">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label addstar">Name</label>
+                                    <div class="col-md-3">
+                                        <div style="display:none" id="hdn_accountmaster_ReferenceId"></div>
+                                        <div id="dx_rdReference" style="margin-top: 5px;"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label addstar">Reference By</label>
+                                    <div class="col-md-5">
+                                        <div id="dx_txtReferenceBy"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Notes</label>
+                                    <div class="col-md-5">
+                                        <div id="dx_txtReferenceNotes"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Add Favourite List</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_swAddFavList" style="margin-top: 5px;"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-md-offset-5" style="margin-top:20px;">
+                                    <div id="dx_btnCancel_ReferenceDetails"></div>
+                                    <div id="dx_btnSave_ReferenceDetails"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="tabDocument" class="tab-pane" role="tabpanel">
+                        <form class="form-horizontal" id="frm_Document">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="form-group">
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="btn btn-primary" name="btnAddNewFile" id="btnAddNewFile" data-preview="FilePreviewList"
+                                                data-toggle="modal" data-ext="jpg,jpeg,png,pdf" data-backdrop="static" data-target="#modalUpload">
+                                            <i class="fa fa-plus"></i> Add File
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12" style="max-height: 350px;overflow: auto;margin-top: 5px;">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th width="30%" class="text-center">Is Verified</th>
+                                                    <th width="30%" class="text-center">File</th>
+                                                    <th width="60%" class="text-center">Description</th>
+                                                    <th width="10%" class=""></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="FilePreviewList"></tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-lg-12" style="text-align:center;padding-top:15px">
+                                        <div style="float:left">
+                                            <div id="dx_btnprevious_Document_Upload"></div>
+                                        </div>
+                                        <div style="float:right">
+                                            <div id="dx_btnSave_Document_Upload"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tabStaffFamily" class="tab-pane" role="tabpanel">
+                        <div id="stafffrom" class="form-group" style="margin-top:20px;">
+                            <div class="col-md-12 text-right">
+                                <div id="dx_AddNew_StaffInfo"></div>
+                            </div>
+                            <div class="col-md-12" style="margin-top: 5px;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th width="20%" class="text-center">Name</th>
+                                            <th width="20%" class="text-center">Relation</th>
+                                            <th width="20%" class="text-center">Mobile No.</th>
+                                            <th width="20%" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl_StaffInfo_tbody"></tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-12" style="margin-top:15px">
+                                <div style="float:left">
+                                    <div id="dx_previous_StaffInfo"></div>
+                                </div>
+                                <div style="float:right">
+                                    <div id="dx_SAVE_AND_NEXT_StaffInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="staffEdit" class="col-md-12" style="padding-bottom:20px;display:none;">
+                            <form class="form-horizontal" id="frm_Staff">
+                                <div class="form-group">
+                                    <label style="display:none" id="hdn_accountmaster_staffinfoid"></label>
+                                    <label class="col-md-2 control-label addstar">Name</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtStaffName"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label addstar">Relation</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlStaffRelation"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label addstar">Birthdate</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddtstaffBirthdate"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label addstar">Age</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtAge"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Mobile</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtStaffMobile"></div>
+                                    </div>
+
+                                    <label class="col-md-2 control-label">Email</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtStaffEmail"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label addstar">Country</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlStaffCountry"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label addstar">State</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlStaffState"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label addstar">City</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlStaffCity"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label">Anniversary Date</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddtAnniversaryDate"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-md-offset-5" style="margin-top:20px;">
+                                    <div id="dx_btnStaffCancel"></div>
+                                    <div id="dx_btnStaffSave_staffinfo"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="tabOther" class="tab-pane" role="tabpanel">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" id="frm_tabOther">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align:right">Hall Mark ?</label>
+                                    <div class="col-md-2">
+                                        <div id="dx_SwitchHallMark" style="margin-top:5px;"></div>
+                                        <label id="hdn_AccountMaster_OtherInfo_id" style="display:none"></label>
+                                    </div>
+                                    <label class="col-md-1 control-label" style="text-align:right">Stamping ?</label>
+                                    <div class="col-md-2">
+                                        <div id="dx_SwitchStamping" style="margin-top:5px;"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label" style="text-align:right">Diamond Detail ?</label>
+                                    <div class="col-md-1">
+                                        <div id="dx_SwitchDiamond" style="margin-top:5px;"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align:right">Certification</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlCertification"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label" style="text-align:right">Office Instruction</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtOfficeIns"></div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align:right">Customer Instruction</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtCustomerIns"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label" style="text-align:right">User</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtUser"></div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align:right">Admin</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtAdmin"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label" style="text-align:right">Instruction</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtInstruction"></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12" style="margin-top:15px;text-align:center;">
+                                    <div style="float:left">
+                                        <div id="dx_btnCancel_OtherInfo"></div>
+                                    </div>
+                                    <div style="float:right">
+                                        <div id="dx_btnSave_OtherInfo"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="tabPrice" class="tab-pane" role="tabpanel">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" id="frm_tabPrice">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align:right">Material Price</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtMaterialPrice"></div>
+                                        <lable id="hdn_PPM_ID" style="display:none"></lable>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align:right">Labour Price</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtLabourPrice"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label" style="text-align:right">Setting Price</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddlSettingPrice"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align:right">Policy Due Date</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_ddtPolicyDueDate"></div>
+                                    </div>
+                                    <label class="col-md-2 control-label" style="text-align:right">Discount</label>
+                                    <div class="col-md-3">
+                                        <div id="dx_txtDiscount"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="margin-top:15px;text-align:center;">
+                                    <div id="dx_btnCancel_Price"></div>
+                                    <div id="dx_btnSave_Price"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="tabLoginSetting" class="tab-pane" role="tabpanel">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" id="frm_tabLoginSetting">
+                                <div class="col-md-6" style="border-right:1px solid #dddddd;">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">User Name</label>
+                                        <div class="col-md-3">
+                                            <div id="dx_txtUserName"></div>
+                                        </div>
+                                        <label class="col-md-2 control-label">Password</label>
+                                        <div class="col-md-3">
+                                            <div id="dx_txtPassword"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">User Group</label>
+                                        <div class="col-md-8">
+                                            <div id="dx_ddlUserGroup"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Branch Access</label>
+                                        <div class="col-md-8">
+                                            <div id="dx_ddlBranchAccess"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Locker Access</label>
+                                        <div class="col-md-8">
+                                            <div id="dx_ddlLockerAccess"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Subbook Access</label>
+                                        <div class="col-md-8">
+                                            <div id="dx_ddlSubbookAccess"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Is Allowed Verify</label>
+                                        <div class="col-md-3">
+                                            <div id="dx_swAllowedVerify" style="margin-top:5px;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Default Dia. Color</label>
+                                        <div class="col-md-3">
+                                            <div id="dx_ddlDefDiaColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Default Dia. Clarity</label>
+                                        <div class="col-md-3">
+                                            <div id="dx_ddlDefDiaClarity"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Stock Month From</label>
+                                        <div class="col-md-3">
+                                            <div id="dx_numStockMonthFrom"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Stock Month To</label>
+                                        <div class="col-md-3">
+                                            <div id="dx_numStockMonthTo"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Consider In Gross Wgt</label>
+                                        <div class="col-md-8">
+                                            <div id="dx_ddlConsInGWgt"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">App Active Till Date</label>
+                                        <div class="col-md-5">
+                                            <div id="dx_dtAppActiveDate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Web Active Till Date</label>
+                                        <div class="col-md-5">
+                                            <div id="dx_dtWebActiveDate"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Design Concept</label>
+                                        <div class="col-md-8">
+                                            <div id="dx_ddlDesignConcept"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Policy</label>
+                                        <div class="col-md-8">
+                                            <div id="dx_ddlPolicy"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <legend><b>Mac Address Permissions</b></legend>
+                                        <table class="table table-bordered" id="tbl_MacPermission">
+                                            <thead>
+                                                <tr>
+                                                    <th>MAC Address</th>
+                                                    <th>IP Address</th>
+                                                    <th>Device Name</th>
+                                                    <th style="text-align:center;">Allow</th>
+                                                    <th style="text-align:center;">Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </fieldset>
+                                    
+                                </div>
+                                <div class="col-md-12" style="margin-top:15px;text-align:center;">
+                                    <div id="dx_btnCancel_LoginSetting"></div>
+                                    <div id="dx_btnSave_LoginSetting"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="dx_popupRecordDelete"></div>
+<div id="dx_popupConfirmMac"></div>
+<div id="dx_popupConfirmMacDelete"></div>
+
+
+<div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="modalUploadlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modalUploadlbl">Add Files</h4>
+            </div>
+            <div class="modal-body">
+                <img width="100" height="100" src="" id="imgBanner" style="display:none" />
+                <input type="hidden" id="hdnPreviewUploader" />
+                <input type="hidden" id="hdnExtUploader" />
+                <div class="text-red">Allow extensions: (<span id="spExtension"></span>)</div>
+                <div id="imgUploader">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnAddFile" type="button" class="btn btn-success">Ok</button>
+                <button type="button" class="btn btn-quaternary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal_Delete_ShipmentInfo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Address Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <dl class="dl-horizontal">
+                        <dt>Name:</dt>
+                        <dd id="del_Name_ShipmentInfo"></dd>
+                        <dd style="display:none" id="del_id_ShipmentInfo"></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="btn_Delete_ShipmentInfo">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal_Delete_ReferenceDetails" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reference Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <dl class="dl-horizontal">
+                        <dt>Name:</dt>
+                        <dd id="del_Name_ReferenceDetails"></dd>
+                        <dd style="display:none" id="del_id_ReferenceDetails"></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="btn_Delete_ReferenceDetails">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal_Delete_StaffInfo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Staff Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <dl class="dl-horizontal">
+                        <dt>Name:</dt>
+                        <dd id="del_Name_StaffInfo"></dd>
+                        <dd style="display:none" id="del_id_StaffInfo"></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="btn_Delete_StaffInfo">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="ModelImageCropper" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h5 class="modal-title">Upload Photo</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="frmUploadImage" method="get">
+                    <div class="row" style="margin:0px 5px;">
+                        <div class="col-md-6 col-md-6">
+                            <div class="image-cropper-container content-group" style="width:400px;background:gray !important;">
+                                <img src="" id="imgCropPreview" alt="" class="cropper">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-6 col-xs-12">
+                            <div class="col-md-12 col-md-12 col-xs-6 pl0 pr0">
+                                <div class="content-group">
+                                    <div class="eg-preview">
+                                        <div class="preview preview-lg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-md-12 col-xs-6 pl0 pr0 MarginDesktop">
+                                <div class="docs-buttons1">
+                                    <div class="btn-group btn-group-crop">
+                                        <button type="button" class="btn bg-blue btn-icon legitRipple" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 2506, &quot;height&quot;: 1200 }">
+                                            <span id="pictursetbtn" class="docs-tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;, { width: 1200, height: 300 })">
+                                                Set Photo
+                                            </span>
+                                        </button>
+                                        <button type="button" class="btn bg-blue btn-icon legitRipple" data-method="rotate" data-option="-45" title="Rotate Left">
+                                            <span class="icon-rotate-ccw3"></span>
+                                        </button>
+                                        <button type="button" class="btn bg-blue btn-icon legitRipple" data-method="rotate" data-option="45" title="Rotate Right">
+                                            <span class="icon-rotate-cw3"></span>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="hdnCropperImgName" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0px 5px;">
+                        <div class="col-md-12 col-md-12 col-xs-12">
+                            <div id="divCropCanvas">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*MODAL*@
+<div id="ModelImageCropper" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h5 class="modal-title">Upload Photo</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="frmUploadImage" method="get">
+                    <div class="row" style="margin:0px 5px;">
+                        <div class="col-md-6 col-md-6">
+                            <div class="image-cropper-container content-group" style="width:400px;background:gray !important;">
+                                <img src="" id="imgCropPreview" alt="" class="cropper">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-6 col-xs-12">
+                            <div class="col-md-12 col-md-12 col-xs-6 pl0 pr0">
+                                <div class="content-group">
+                                    <div class="eg-preview">
+                                        <div class="preview preview-lg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-md-12 col-xs-6 pl0 pr0 MarginDesktop">
+                                <div class="docs-buttons1">
+                                    <div class="btn-group btn-group-crop">
+                                        <button type="button" class="btn bg-blue btn-icon legitRipple" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 2506, &quot;height&quot;: 1200 }">
+                                            <span id="pictursetbtn" class="docs-tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;, { width: 1200, height: 300 })">
+                                                Set Photo
+                                            </span>
+                                        </button>
+                                        <button type="button" class="btn bg-blue btn-icon legitRipple" data-method="rotate" data-option="-45" title="Rotate Left">
+                                            <span class="icon-rotate-ccw3"></span>
+                                        </button>
+                                        <button type="button" class="btn bg-blue btn-icon legitRipple" data-method="rotate" data-option="45" title="Rotate Right">
+                                            <span class="icon-rotate-cw3"></span>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="hdnCropperImgName" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0px 5px;">
+                        <div class="col-md-12 col-md-12 col-xs-12">
+                            <div id="divCropCanvas">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*MODAL*@
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Content/plugin/Cropper/cropper.min.js"></script>
+    <script src="~/Script/Manufacturing/PartyMaster.js?@DateTime.UtcNow"></script>
+    <script type="text/x-jsrender" id="RenderFileList_ShipmentInfo">
+        <tr>
+            <td style="text-align:center">
+                {{:shipname}}
+            </td>
+            <td style="text-align:center">
+                {{:shipmobileno}}
+            </td>
+            <td style="text-align:center">
+                {{if shipzipecode != '[object Object]'}}
+                {{:shipzipecode}}
+                {{else}}
+
+                {{/if}}
+            </td>
+            <td style="text-align:center">
+                {{if shipaddress != '[object Object]'}}
+                {{:shipaddress}}
+                {{else}}
+
+                {{/if}}
+            </td>
+            <td style="text-align: center;">
+                <span class="btn btn-primary" style="padding: 2px 6px !important;" onclick="AccountMasterView.triggerId_ShipmentInfo('{{:accountmaster_shipinginfoid}}', 'Edit')"><i class="fa fa-pencil"></i></span>
+                <span class="btn btn-danger" style="padding: 2px 6px !important;" onclick="AccountMasterView.deleteFile_ShipmentInfo('{{:accountmaster_shipinginfoid}}', '{{:shipname}}')"><i class="fa fa-trash-o"></i></span>
+                <span class="btn btn-warning" style="padding: 2px 6px !important;"><i class="fa fa-print"></i></span>
+            </td>
+        </tr>
+    </script>
+<script type="text/x-jsrender" id="RenderFileList_ReferenceDetails">
+    <tr>
+        <td style="text-align:center">
+            {{:reference}}
+        </td>
+        <td>
+            {{:referenceby}}
+        </td>
+        <td>
+            {{:notes}}
+        </td>
+        <td style="text-align:center">
+            {{if addfavlist == '1'}}
+                Yes
+            {{else}}
+                No
+            {{/if}}
+        </td>
+        <td style="text-align: center;">
+            <span class="btn btn-primary" style="padding: 2px 6px !important;" onclick="AccountMasterView.triggerId_ReferenceDetails('{{:referenceid}}', 'Edit')"><i class="fa fa-pencil"></i></span>
+            <span class="btn btn-danger" style="padding: 2px 6px !important;" onclick="AccountMasterView.deleteFile_ReferenceDetails('{{:referenceid}}', '{{:referenceby}}')"><i class="fa fa-trash-o"></i></span>
+        </td>
+    </tr>
+</script>
+    <script type="text/x-jsrender" id="RenderList_StaffInfo">
+        <tr>
+            <td style="text-align:center">
+                {{:staffname}}
+            </td>
+            <td style="text-align:center">
+                {{:staffrelation}}
+            </td>
+            <td style="text-align:center">
+                {{if staffmobile != '[object Object]'}}
+                {{:staffmobile}}
+                {{else}}
+
+                {{/if}}
+            </td>
+            <td style="text-align: center;">
+                <span class="btn btn-primary" style="padding: 2px 6px !important;" onclick="AccountMasterView.triggerId_StaffInfo('{{:accountmaster_staffinfoid}}', 'Edit')"><i class="fa fa-pencil"></i></span>
+                <span class="btn btn-danger" style="padding: 2px 6px !important;" onclick="AccountMasterView.deleteFile_StaffInfo('{{:accountmaster_staffinfoid}}', '{{:staffname}}')"><i class="fa fa-trash-o"></i></span>
+            </td>
+        </tr>
+    </script>
+    <script type="text/x-jsrender" id="RenderFileList">
+        <tr id="{{:fileid}}">
+            {{if chkverified != 1}}
+            <td style="text-align:center"><input type="checkbox" class="chk_isVerified" style="width:20px;height:10px" /></td>
+            {{else}}
+            <td style="text-align:center"><input type="checkbox" class="chk_isVerified" style="width:20px;height:10px" checked /></td>
+            {{/if}}
+            <td style="text-align:center">
+                <a class="label-click" href="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/UploadFiles/AccountMaster/{{:virtualname}}" target="blank">{{:actualname}}</a>
+            </td>
+            <td><input type="text" class="form-control Description" name="Description" value="{{:description}}" /></td>
+            <td style="text-align: center;">
+                <span class="btn btn-danger" style="padding: 2px 6px !important;" onclick="AccountMasterView.deleteFile('{{>fileid}}', '{{>virtualname}}')"><i class="fa fa-trash-o"></i></span>
+            </td>
+        </tr>
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            //$("#addbtnship").click(function(){
+            //    $("#shipmentEdit").show();
+            //    $("#shipmentfrom").hide();
+            //});
+
+            //$("#addbtnStaff").click(function(){
+            //    $("#staffEdit").show();
+            //    $("#stafffrom").hide();
+            //});
+
+        });
+
+
+    </script>
+
+
+}
+
+
+
+
+

@@ -1,0 +1,304 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "User Group";
+}
+
+<style>
+
+        input[type="text"] {
+
+        width: 50px ;
+    }
+
+</style>
+
+<div id="dMain">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row" style="margin-top:10px">
+            <div class="col-lg-12">
+                <input type="hidden" id="hidenindex" value="" />
+                <div class="panel" id="panelView">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12" style="overflow-x: auto; overflow-y: hidden;">
+                                @if (Model.ISADD == 1)
+                                {
+                                <div class="req-header-view">
+                                    <button class="formstylebutton btn btn-success" type="button" id="btnAdd"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New User Group</button>
+                                </div>
+                                }
+                                <div class="jqGrid_wrapper">
+                                    <table id="table_list_UserGroup"></table>
+                                    <div id="pager_list_UserGroup"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel" id="panelEdit" style="display: none;">
+                    <div class="panel-body">
+                        <div id="userWizard">
+                            <div style="height:32px;">
+                                <button id="btnCancelUserGroup" class="btn btn-sm pull-right purple" type="button" name="CancelUserGroup"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                            </div>
+                            <div role="tabpanel">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item active" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab-6">User Access Group</a></li>
+                                    <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" role="tab" aria-expanded="true" href="#tab-7">Permissions</a></li>
+                                    <li class="nav-item" role="presentation" id="navallowiplist"><a class="nav-link" data-toggle="tab" role="tab" aria-expanded="true" href="#taballowiplist">Allow Ip List</a></li>
+                                </ul>
+
+                            </div>
+                            <div class="progress progress-sm m-t-sm" style="margin-top:10px">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div id="tab-6" class="tab-pane active" role="tabpanel">
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <form method="get" id="frmDetails" class="form-horizontal">
+                                                <label id="loginuserid" style="display:none">@ViewBag.Userlogin</label>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label addstar">User Group</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" placeholder="User Group Name" class="form-control required" name="UserGroupName" id="txtUserGroupName" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label addstar">Display Order</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" placeholder="Display Order" class="form-control required" name="DisplayOrder" id="txtDisplayOrder" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Active</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="checkbox" id="chkActive" />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-7" class="tab-pane" role="tabpanel">
+                                    @*<div class="row">
+                                            <span id="spUserGroup" class="pull-left uppercase bold p-v-xs"></span>
+                                        </div>*@
+                                    <div class="row">
+                                        <div role="tabpanel">
+                                            <ul class="nav nav-tabs" id="tabheader_menupermissions">
+                                                @*<li class="nav-item active" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab-Setting">Setting</a></li>
+                                                    <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab-Administration">Administration</a></li>
+                                                    <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab-B2B">B2B</a></li>
+                                                    <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab-B2C">B2C</a></li>
+                                                    <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab-Outlet">Outlet</a></li>
+                                                    <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab-Manufacturing">Manufacturing</a></li>
+                                                    <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab-Report">Report</a></li>*@
+                                            </ul>
+                                        </div>
+                                        <div class="tab-content" id="tabcontent_menupermissions">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="taballowiplist" class="tab-pane" role="tabpanel" style="margin-top:10px;">
+                                    <form id="frmallowip">
+                                        <div id="pnlEditallowiplist" style="background-color:#fff">
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-sm-offset-2 form-control-label">IP Address Range<span style="color:red"> *</span></label>
+                                                <div class="col-sm-5" style="display:inline">
+                                                    <div class="row">
+                                                        <div class="col-sm-6" style="padding-right:3px!important">
+                                                            <input type="text" placeholder="From" class="form-control" id="text_ipaddfrom" />
+                                                        </div>
+                                                        <div class="col-sm-6" style="padding-left:3px!important">
+                                                            <input type="text" placeholder="To" class="form-control col-sm-3" id="text_ipaddto" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-sm-offset-2 form-control-label">Individual IPs<span style="color:red"> *</span></label>
+                                                <div class="col-sm-5 col-sm-12">
+                                                    <textarea class="form-control" rows="5" id="text_individualip" name="date" placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="hdnalloeipid" value="" />
+                                            @*<div class="form-group row">
+                                                    <div class="col-sm-9 col-sm-offset-4" style="padding-bottom: 13px;">
+                                                        <button type="button" id="btnSaveipllist" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                                    </div>
+                                                </div>*@
+                                        </div>
+
+
+                                    </form>
+
+                                </div>
+                            </div>
+                            <ul class="pager wizard no-m">
+                                <li class="previous"><a href="javascript:void(0);" class="btn btn-sm purple" style="text-decoration:none; border:none">Previous</a></li>
+                                <li id="liNext" class="next"><a href="javascript:void(0);" class="btn btn-sm purple" style="text-decoration:none; border:none" id="permissionusergropdiv">Save & Next</a></li>
+                            </ul>
+
+                            <input type="hidden" id="hdnUserGroupId" value="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel" id="panelChartPermission" style="display:none;">
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            <form id="FrmChartDesigner" class="form-horizontal">
+                                <div style="height:32px;">
+                                    <button id="btnBackPermission" class="btn btn-sm pull-right purple" type="button" name="CancelUserGroup"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped" style="font-size:13px !important;margin-bottom:0px !important">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:5%">Sr No.</th>
+                                                        <th style="width:25%">Chart</th>
+                                                        <th style="width:30%">Description</th>
+                                                        <th style="width:40%">
+                                                            <input id="ChkViewAll" type="checkbox" name="ViewAll" />
+                                                            <label for="ChkViewAll">View</label>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbChartList"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12" style="margin-top:10px;">
+                                        <button id="btnSaveChartPermission" type="button" class="btn btn-success waves-effect waves-light pull-right">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <link href="~/Content/plugin/newbootstrap/bootstrap.min.css" rel="stylesheet" />
+
+    <script id="JSRMenuPermissionTabsHeader" type="text/x-jsrender">
+        <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#tab-{{>moduleid}}" id="tabhead-{{>moduleid}}"><i class="{{>icon}}"></i>&nbsp;&nbsp;{{>modulename}}</a></li>
+    </script>
+
+    <script id="JSRMenuPermissionTabsContent" type="text/x-jsrender">
+        <div id="tab-{{>moduleid}}" class="tab-pane" role="tabpanel">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-7"></div>
+                            <label class="col-sm-2 control-label">Default Right</label>
+                            <div class="col-sm-3">
+                                <select id="ddlRight{{>moduleid}}" onchange="setRights('tb{{>moduleid}}', 'ddlRight{{>moduleid}}');" class="form-control" style="padding-top:0px!important;padding-bottom: 0px!important;">
+                                    <option value="0">Select Right</option>
+                                    <option value="0">None</option>
+                                    <option value="1">Full Right</option>
+                                    <option value="2">Only View</option>
+                                    <option value="3">View &amp; Add</option>
+                                    <option value="4">View/Add/Update</option>
+                                    <option value="5">View/Add/Delete</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-7 text-left">Menu</th>
+                                        <th class="col-md-1 text-center">
+                                            View
+                                            <div style="height: 15px;">
+                                                <input name="chkHead" class="icheckminimal" type="checkbox" data-oper="View" data-module="tb{{>moduleid}}" />
+                                            </div>
+                                        </th>
+                                        <th class="col-md-1 text-center">
+                                            Add
+                                            <div style="height: 15px;">
+                                                <input name="chkHead" class="icheckminimal" type="checkbox" data-oper="Add" data-module="tb{{>moduleid}}" />
+                                            </div>
+                                        </th>
+                                        <th class="col-md-1 text-center">
+                                            Update<div style="height: 15px;">
+                                                <input name="chkHead" class="icheckminimal" type="checkbox" data-oper="Update" data-module="tb{{>moduleid}}" />
+                                            </div>
+                                        </th>
+                                        <th class="col-md-1 text-center">
+                                            Allow Days<div style="height: 15px;">
+                                                @*<input name="chkhead" type="text" data-oper="allowdays" data-module="tbsetting" />*@
+                                            </div>
+                                        </th>
+                                        <th class="col-md-1 text-center">
+                                            Authorize<div style="height: 15px;">
+                                                <input name="chkHead" class="icheckminimal" type="checkbox" data-oper="Authorize" data-module="tb{{>moduleid}}" />
+                                            </div>
+                                        </th>
+                                        <th class="col-md-1 text-center">
+                                            Delete<div style="height: 15px;">
+                                                <input name="chkHead" class="icheckminimal" type="checkbox" data-oper="Delete" data-module="tb{{>moduleid}}" />
+                                            </div>
+                                        </th>
+                                        <th class="col-md-1 text-center">
+                                            Download<div style="height: 15px;">
+                                                <input name="chkHead" class="icheckminimal" type="checkbox" data-oper="Download" data-module="tb{{>moduleid}}" />
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tb{{>moduleid}}">
+                                    {{if menulist}}
+                                    {{for menulist.menu}}
+                                    <tr data-id="{{>menuid}}">
+                                        <td class="col-md-7 text-left">{{>submodulename}} : {{>menuname}}</td>
+                                        <td class="col-md-1 text-center"><input id="chkView{{>menuid}}" class="icheckminimal" data-oper="View" type="checkbox" {{if isview==1}} checked {{/if}} /></td>
+                                        <td class="col-md-1 text-center"><input id="chkAdd{{>menuid}}" class="icheckminimal" data-oper="Add" type="checkbox" {{if isadd==1}} checked {{/if}} /></td>
+                                        <td class="col-md-1 text-center"><input id="chkUpdate{{>menuid}}" class="icheckminimal" data-menuid="update{{>menuid}}" data-oper="Update" type="checkbox" {{if isupdate==1}} checked {{/if}} /></td>
+                                        <td class="col-md-1 text-center"><input id="txtAllowDays{{>menuid}}" class="icheckminimal" data-oper="AllowDays" type="text" value="{{>allowdays}}" /></td>
+                                        <td class="col-md-1 text-center"><input id="chkAuthorize{{>menuid}}" class="icheckminimal" data-oper="Authorize" type="checkbox" {{if authorize==1}} checked {{/if}} /></td>
+                                        <td class="col-md-1 text-center"><input id="chkDelete{{>menuid}}" class="icheckminimal" data-oper="Delete" type="checkbox" {{if isdelete==1}} checked {{/if}} /></td>
+                                        <td class="col-md-1 text-center"><input id="chkDownload{{>menuid}}" class="icheckminimal" data-oper="Download" type="checkbox" {{if isdownload==1}} checked {{/if}} /></td>
+                                    </tr>
+                                    {{/for}}
+                                    {{/if}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script src="~/Script/Account/UserGroup.js?v=@DateTime.UtcNow"></script>
+
+    <script id="ChartsPermissionList" type="text/x-jsrender">
+        <tr data-id="{{>chartid}}">
+            <td>{{>rowno}}</td>
+            <td>{{>title}}</td>
+            <td>{{>description}}</td>
+            <td>
+                <input class="ChartsView" id="chkChartsView{{:chartid}}" type="checkbox" name="chkChartsView{{:chartid}}" {{if isview == 1}} checked {{/if}} />
+                @*<div class="checkboxdata checkbox-primary checkbox-inline">
+                        <input class="ChartsView" id="chkChartsView{{:chartid}}" type="checkbox" name="chkChartsView{{:chartid}}" {{if isview == 1}} checked {{/if}} />
+                        <label for="chkChartsView{{:chartid}}" style="padding-bottom: 8px;"></label>
+                    </div>*@
+            </td>
+        </tr>
+    </script>
+}

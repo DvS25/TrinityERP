@@ -1,0 +1,497 @@
+﻿
+
+
+
+.sf-left {
+    float: left
+}
+.sf-right {
+    float: right
+}
+.sf-step>fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    height: auto !important;
+    overflow: hidden !important;
+    display: block;
+    outline:0 !important;
+   
+}
+.sf-hide-legend legend,
+.sf-hide-buttons {
+    display: none 
+}
+.sf-nav {
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0px 0px 0px;
+}
+.sf-viewport {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    outline:0 !important;
+}
+.sf-viewport legend {
+    font-size: 20px;
+    padding: 15px 0;
+    font-weight: bold;
+    background: 0;
+    margin: 0;
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 15px
+}
+.sf-viewport .sf-btn.sf-btn-finish {
+    margin: 0 0 0 10px
+}
+.sf-nav-bottom {
+    margin-top: 6px
+}
+.sf-nav-wrap {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    left: 0
+}
+.sf-nav-top,
+.sf-nav-bottom {
+    height: 40px
+}
+.sf-nav-top .sf-nav,
+.sf-nav-bottom .sf-nav {
+    width: 9999px;
+    position: absolute
+}
+.sf-nav-left {
+    float: left;
+    width: 20%;
+    height: auto;
+    overflow: hidden
+}
+.sf-nav-right {
+    float: right;
+    width: 20%;
+    height: auto
+}
+.sf-nav-wrap.sf-nav-left li,
+.sf-nav-wrap.sf-nav-right li {
+    float: none;
+    margin-bottom: 10px
+}
+.sf-nav li {
+    float: left;
+    position: relative;
+    margin-right: 10px
+}
+.sf-nav li.sf-nav-link {
+    cursor: pointer
+}
+.sf-nav-right li,
+sf-nav-left li {
+    padding-right: 10px
+}
+.sf-nav-on-top {
+    width: 100%;
+}
+sf-nav-on-bottom
+{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #dadada;
+}
+
+.sf-nav-on-left {
+    width: 80%;
+    margin-left: 20%
+}
+.sf-nav-on-right {
+    width: 80%;
+    margin-right: 20%
+}
+.sf-nav-right li {
+    margin-right: 0;
+    margin-left: 10px
+}
+.sf-step>fieldset {
+    overflow: auto;
+    overflow-x: hidden
+}
+.sf-step-no-active {
+    height: 1px
+}
+.sf-step-no-active>fieldset {
+    display: none
+}
+li.sf-li-nonumber {
+    text-align: center
+}
+.sf-li-nonumber .sf-nav-number {
+    display: none
+}
+.sf-wizard .sf-btn,
+form .nocsript-sf-btn {
+    padding: 0 35px
+}
+.sf-wizard>form {
+    box-sizing: border-box
+}
+.sf-wizard>form.sf-hide-legend {
+    padding-top: 30px
+}
+.sf-controls input {
+    margin: 0
+}
+.sf-sky .sf-nav-bottom {
+    margin-top: 20px
+}
+.sf-sky .sf-nav-top,
+.sf-sky .sf-nav-bottom {
+    height: 80px
+}
+.sf-sky .sf-nonumbers .sf-nav-top {
+    height: 65px
+}
+.sf-sky .sf-nonumbers .sf-nav-bottom {
+    height: 42px
+}
+.sf-sky .sf-nav {
+    margin-bottom: 25px
+}
+.sf-sky .sf-nav li {
+    font-size: 14px;
+    color: #adb3b8;
+    background: #e2e2e2;
+    height: 52px;
+    line-height: 42px;
+    padding: 0 20px;
+    text-align: center;
+    border-radius: 3px;
+    font-family: sans-serif;
+    margin-right: 30px;
+    font-weight: 600
+}
+.sf-sky .sf-nav li.sf-li-nonumber {
+    height: 42px
+}
+.sf-sky .sf-nav-left .sf-nav li.sf-li-nonumber,
+.sf-sky .sf-nav-right .sf-nav li.sf-li-nonumber {
+    margin-bottom: 32px
+}
+.sf-sky .sf-nav-top li.sf-li-nonumber:after,
+.sf-sky .sf-nav-bottom li.sf-li-nonumber:after {
+    top: -8px
+}
+.sf-sky .sf-nav-right li.sf-li-nonumber:after,
+.sf-sky .sf-nav-left li.sf-li-nonumber:after {
+    bottom: -47px
+}
+.sf-sky .sf-nav li:after {
+    content: "";
+    position: absolute;
+    right: -30px;
+    top: 0;
+    background: url("../images/t2-nav-arr.png") no-repeat center center transparent;
+    width: 30px;
+    height: 54px;
+}
+.sf-sky .sf-nav li:last-child:after {
+    display: none
+}
+.sf-sky .sf-nav-right li {
+    margin-right: 0;
+    margin-left: 30px
+}
+    .sf-sky .sf-nav-right li:after,
+    .sf-sky .sf-nav-left li:after {
+        background: url("../images/t2-nav-arr-down.png") no-repeat center center transparent;
+        left: 50%;
+        top: auto;
+        bottom: -55px;
+        margin-left: -15px;
+    }
+.sf-sky .sf-nav li.sf-active,
+.sf-sky .sf-nav li.sf-nav-link:hover {
+    background: #000;
+    color: #FFF
+}
+.sf-sky .sf-nav li.sf-nav-prev-step {
+    background: #e2e2e2;
+}
+.sf-sky .sf-nav li.sf-nav-prev-step .sf-nav-number {
+    background: #36b28c
+}
+.sf-sky .sf-nav-top li.sf-active {
+    margin-top: 0
+}
+.sf-sky .sf-nav-wrap.sf-nav-left li,
+.sf-sky .sf-nav-wrap.sf-nav-right li {
+    margin-bottom: 40px
+}
+.sf-sky .sf-nav-number {
+    position: absolute;
+    left: 50%;
+    bottom: -15px;
+    margin-left: -15px;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+    background: #c7c7c7;
+    border-radius: 50px;
+    border: 3px solid #FFF;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    color: #FFF
+}
+.sf-sky .sf-nav li.sf-active .sf-nav-number {
+    background: #47a447;
+}
+.sf-sky .sf-li-number .sf-nav-subtext {
+    padding-left: 0
+}
+.sf-sky .sf-wizard .sf-btn,
+.sf-sky form .nocsript-sf-btn {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 30px;
+    border-radius: 3px;
+    border: 0;
+    color: #FFF;
+    text-decoration: none;
+    background: #000;
+    position: relative
+}
+    .sf-sky .sf-wizard .sf-btn:after {
+        content: "";
+        position: absolute;
+        right: -15px;
+        top: 10px;
+        margin-left: -15px;
+        font-size: 14px;
+        line-height: 26px;
+        font-weight: 700;
+        background: url("../images/t2-arr-right.png") no-repeat center center #47a447;
+        border-radius: 50px;
+        border: 3px solid #FFF;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        color: #FFF;
+    }
+.sf-sky .sf-wizard .sf-btn.sf-btn-next {
+    padding-right: 35px;
+    margin-right: 12px
+}
+.sf-sky .sf-wizard .sf-btn.sf-btn-prev {
+    padding-left: 35px;
+    margin-left: 12px
+}
+    .sf-sky .sf-wizard .sf-btn.sf-btn-prev:after {
+        right: auto;
+        left: 0;
+        background-image: url("../images/t2-arr-left.png");
+    }
+.sf-sky .sf-wizard .sf-btn.sf-btn-next:hover {
+    background-position: right -35px
+}
+.sf-sky .sf-wizard .sf-btn.sf-btn-prev:hover {
+    background-position: left -35px
+}
+.sf-sky .sf-wizard>form {
+    background: transparent;
+    padding: 15px;
+    border-radius: 3px;
+    border: 1px solid #e7e7e7
+}
+
+/*Simple theme*/
+.sf-simple .sf-nav-top,
+.sf-simple .sf-nav-bottom {
+    height: 80px
+}
+.sf-simple .sf-nonumbers .sf-nav-top,
+.sf-simple .sf-nonumbers .sf-nav-bottom {
+    height: 50px
+}
+.sf-simple .sf-nav-top {
+    padding-bottom: 20px;
+    /*border-bottom: 1px solid #dadada*/
+}
+.sf-simple .sf-nav-bottom {
+    margin-top: 20px
+}
+.sf-simple .sf-nav {
+    margin-bottom: 25px
+}
+.sf-simple .sf-nav li {
+    font-size: 13px;
+    color: #929292;
+    height: 60px;
+    line-height: 40px;
+    text-align: left;
+    font-family: sans-serif;
+    margin-right: 0;
+    padding: 30px 25px 0 0;
+    font-weight: 400
+}
+.sf-simple .sf-nav li.sf-active,
+.sf-simple .sf-nav li.sf-nav-link:hover {
+    color: #7a6fbe;
+    /*background-color: #f5f5f5;
+    box-shadow: 0px 0px 6px 1px #7a6fbe;*/
+}
+.sf-simple .sf-nav-top li,
+.sf-simple .sf-nav-bottom li {
+    background: url("../images/t2-nav-bg.png") repeat-x left 15px transparent
+}
+.sf-simple .sf-nav-top li:last-child,
+.sf-simple .sf-nav-bottom li:last-child {
+    background: 0
+}
+.sf-simple .sf-nav li.sf-li-nonumber {
+    background: 0;
+    height: 30px;
+    padding-top: 0;
+    line-height: 30px
+}
+.sf-simple .sf-nav-top li.sf-active {
+    margin-top: 0
+}
+.sf-simple .sf-nav-wrap.sf-nav-left li,
+.sf-simple .sf-nav-wrap.sf-nav-right li {
+    padding: 0 20px 0 40px;
+    height: 30px;
+    /*margin-bottom: 30px;*/ /*anand*/
+     margin-bottom: 5px;
+    line-height: 30px
+}
+.sf-simple .sf-nav-wrap.sf-nav-right li {
+    margin-left: 20px
+}
+.sf-simple .sf-wizard .sf-nav-on-left {
+    padding: 1%;
+    background-color: #F5F5F5;
+    box-shadow: 1px 0px 8px #000;
+}
+.sf-simple .sf-wizard .sf-nav-on-right {
+    padding-right: 20px;
+    border-right: 1px solid #dadada
+}
+.sf-simple .sf-nav-right li.sf-li-nonumber,
+.sf-simple .sf-nav-left li.sf-li-nonumber {
+    padding-left: 0;
+    margin-bottom: 10px
+}
+.sf-simple .sf-nav-number {
+    background: #FFF;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 700;
+    height: 30px;
+    width: 30px;
+    border: 1px solid #c1c1c1;
+    text-align: center;
+    color: #929292
+}
+.sf-simple .sf-nav li.sf-active .sf-nav-number {
+    background: #7a6fbe;
+    color: #FFF;
+    border-color: #7a6fbe;
+}
+.sf-simple .sf-nav li.sf-nav-prev-step .sf-nav-number {
+    background: #b21948;
+    color: #FFF;
+    border-color: #b21948
+}
+.sf-simple .sf-li-number .sf-nav-subtext {
+    padding-left: 0;
+    font-weight:bold;
+}
+.sf-simple .sf-wizard .sf-btn,
+.sf-simple form .nocsript-sf-btn {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 40px;
+    border: 1px solid #c1c1c1;
+    color: #929292;
+    text-decoration: none;
+    background: #FFF
+}
+.sf-simple .sf-wizard .sf-btn:hover,
+.sf-simple .sf-wizard .sf-btn:hover {
+    background: #7a6fbe;
+    color: #FFF;
+    border-color: #7a6fbe;
+}
+.sf-simple .sf-wizard>form {
+    background: transparent;
+    padding: 0;
+    border: 0
+}
+.sf-simple .sf-wizard .sf-nav-on-bottom {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #dadada
+}
+
+@media screen,
+projection {
+    .sf-wizard *,
+    .sf-wizard *:after,
+    .sf-wizard *:before {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box
+    }
+}
+@media all and (max-width: 1200px) {
+    .sf-sky .sf-nav li {
+        padding: 0 10px
+    }
+}
+@media all and (max-width: 992px) {
+    .sf-sky .sf-nav li {
+        padding: 0;
+        width: 42px;
+        height: 42px
+    }
+    .sf-sky .sf-nav li .sf-nav-subtext {
+        display: none
+    }
+    .sf-sky .sf-nav-top .sf-li-number:after {
+        height: 42px
+    }
+    .sf-sky .sf-nav-left li {
+        margin-right: 20px
+    }
+    .sf-sky .sf-wizard .sf-btn {
+        padding: 0 10px
+    }
+    .sf-sky .sf-wizard .sf-btn.sf-btn-next {
+        padding-right: 22px
+    }
+    .sf-sky .sf-wizard .sf-btn.sf-btn-prev {
+        padding-left: 22px
+    }
+}
+/*.mCustomScrollbar {
+    -ms-touch-action: none;
+    touch-action: none;
+}
+.mCustomScrollbar.mCS_no_scrollbar {
+    -ms-touch-action: auto;
+    touch-action: auto;
+}
+.mCustomScrollBox {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    max-width: 100%;
+    outline: 0;
+    direction: ltr
+}*/

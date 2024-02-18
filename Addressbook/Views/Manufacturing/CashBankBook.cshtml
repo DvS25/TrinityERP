@@ -1,0 +1,381 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Cash Bank Book";
+}
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+
+<form id="frm_Cashbank_Book" class="form-horizontal" style="display:none">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+
+            <div class="col-md-8" style="margin-bottom: 20px; border-right:1px solid #dddddd">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label addstar">Transacation Type</label>
+
+                        @*<div class="col-lg-4 pt-5">
+                            <input type="radio" id="cbtrn" name="cbbook" value="CASHBANK RECEIVE" onclick="CashBankBookView.calAdjustAmount()" style="width:15px" class="DiscType" checked />
+                            <label style="vertical-align:top" for="cbtrn" class="control-label">Receive</label>
+                            <input type="radio" id="tbtrn" name="cbbook" value="CASHBANK PAYMENT" onclick="CashBankBookView.calAdjustAmount()" style="width:15px" class="DiscType" />
+                            <label style="vertical-align:top" for="tbtrn" class="control-label">Payment</label>
+                        </div>*@
+                        <div class="col-md-5">
+                            <div id="dx_txtTransactiontype"></div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Voucher No</label>
+                        <div class="col-md-5">
+                            <div id="dx_VchrNo"></div>
+                        </div>
+                        <label class="col-md-2 control-label addstar">Payment type</label>
+                        <div class="col-md-3">
+                            <div id="dx_txtpaymenttype"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label addstar">Payment Date</label>
+                        <div class="col-md-5">
+                            <div id="dx_txtPaymentDate"></div>
+                        </div>
+                        <label class="col-md-2 control-label addstar">Amount</label>
+                        <div class="col-md-3">
+                            <div id="dx_txtamt"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="col-md-2 control-label addstar">Cash/Bank Acc</label>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <div id="dx_txtcashbankacc"></div>
+                                <span class="input-group-addon" id="btnAddSelectionList">0.00</span>
+                                <span class="input-group-addon" style="width: 49px;" id="spanCashBankCurr"></span>
+                            </div>
+                        </div>
+                        
+                        <label class="col-md-2 control-label">Ex Rate</label>
+                        <div class="col-md-3">
+                            <div id="dx_txtExchangeRate"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label addstar" id="place">Receive From Acct</label>
+
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <div id="dx_txtrecacc"></div>
+                                <span class="input-group-addon" id="btnAddSelectionRecieveList">0.00</span>
+                                <span class="input-group-addon" style="width: 49px;" id="spanCurrencyName"></span>
+                            </div>
+                        </div>
+
+                        <label class="col-md-2 control-label">Amount In Rs</label>
+                        <div class="col-md-3">
+                            <div id="txtTotalAmountInRs"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+
+                    <div class="form-group" style="margin-top: 35px;">
+                        <label class="col-md-3 control-label">Bank Name</label>
+                        <div class="col-md-8">
+                            <div id="dx_ddlbankName"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Cheque No.</label>
+                        <div class="col-md-8">
+                            <div id="dx_txtcheque"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Cheque Date</label>
+                        <div class="col-md-8">
+                            <div id="dx_txtchequeDate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top:2px">
+                        <label class="control-label col-lg-3 col-lg-offset-6"></label>
+                        <div class="col-lg-3">
+                            <div id="dx_btnRefreshGrid" style="margin-top:18px; float:right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <table class="table table-bordered" id="tbl_DesignDetails" style="margin-bottom:10px;">
+                        <thead style="background-color: #fafafa;">
+                            <tr>
+                                <th width="5%">No.</th>
+                                <th width="10%">Voucher Type</th>
+                                <th width="10%">Voucher No</th>
+                                <th width="10%">Voucher Date</th>
+                                <th width="10%" style="text-align:right;">Bill Amount</th>
+                                <th width="10%" style="text-align:right;">Paid Amount</th>
+                                <th width="10%" style="text-align:right;">Pending Amount</th>
+                                <th width="10%" style="text-align:right;">Amount</th>
+                                <th width="10%" style="text-align:right;">Kasar</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot style="background-color: #fafafa;">
+                            <tr>
+                                <th colspan="4"></th>
+                                <th id="dx_FooterTotalBillAmt" style="text-align:right"></th>
+                                <th id="dx_FooterTotalPaidAmt" style="text-align:right"></th>
+                                <th id="dx_FooterTotalPandingAmt" style="text-align:right"></th>
+                                <th id="dx_FooterTotalAmount" style="text-align:right"></th>
+                                <th id="dx_FooterTotalKasar" style="text-align:right"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="col-lg-6">
+                    <div class="form-group" style="">
+                        <label class="col-lg-2 control-label">Remarks</label>
+                        <div class="col-lg-10">
+                            <div id="dx_txtRemarks"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="margin-top:15px">
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-6">Total Bill Amount</label>
+                        <div class="col-lg-3">
+                            <div id="txtTotalBillAmount"></div>
+                        </div>
+                    </div>
+                    <div id="div_Taxable">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-6">Panding Amount</label>
+                        <div class="col-lg-3">
+                            <div id="txtPandingAmount"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-6">Paid Amount</label>
+                        <div class="col-lg-3">
+                            <div id="txtPaidAmount"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-6">Paying Amount</label>
+                        <div class="col-lg-3">
+                            <div id="txtPayingAmount"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label col-lg-4 col-lg-offset-5">Total Remaining Bill Amount</label>
+                        <div class="col-lg-3">
+                            <div id="txtRemainingAmount"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-12" id="NumberShow"></label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+
+@*---------------------------Share Model-------------------------------------------------*@
+<div class="modal fade" id="ModalSharing" tabindex="-1" role="dialog" aria-labelledby="ModalSharing" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share Design</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Party Name</label>
+                        <div class="col-lg-9">
+                            <div id="dx_txtSharetoPartyList"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Type</label>
+                        <div class="col-md-10">
+                            <div id="dx_RadioSocial" style="margin-top: 5px;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Mobile No</label>
+                        <div class="col-md-4">
+                            <div id="dx_txtMobileNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Message</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtShareMessage"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Id</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailId"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Subject</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingSubject"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Body</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailBody"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="dx_btnSubmitShare"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@*--------------------------------/share model-------------------------------*@
+
+
+
+<div class="modal fade" id="Modal_UpdateItems" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="form-horizontal" id="frm_UpdateItems" method="get">
+                    <fieldset style="margin-bottom: 10px;">
+                        <legend>Metal</legend>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Code</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlMRmCode"></div>
+                            </div>
+
+                            <label class="col-md-1 control-label">Color</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlMColor"></div>
+                            </div>
+
+                            <label class="col-md-1 control-label">Rate</label>
+                            <div class="col-md-3">
+                                <div id="dx_txtMRate"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hdnSBOOKID" value="@ViewBag.SBOOKID" />
+
+<!-- Modal -->
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+<input id="hdn_addresstypeid" type="hidden" />
+<input id="hdn_StateName" type="hidden" />
+<input id="hdn_txtQm_id" hidden value="@ViewBag.QM_ID" />
+<input type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.EMPLOYEE_NAME" id="hdn_UserName" />
+<input id="hdn_BranchWise_stateid" type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.BRANCHWISESTATEID" />
+<input id="hdn_BranchWise_stateName" type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.BRANCHWISESTATENAME" />
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Script/Manufacturing/CashBankBook.js?V=@DateTime.UtcNow"></script>
+    <script type="text/x-jsrender" id="SizeList">
+        <option id="{{:desgcateid}}" value="{{:size}}">{{:size}}</option>
+    </script>
+
+    <script id="BindAddress_Render" type="text/x-jsrender">
+        <tr>
+            <td>
+                <input type="checkbox" id="chkAddress{{:accountmaster_shipinginfoid}}" onclick="CashBankBookView.ChkSelect({{:accountmaster_shipinginfoid}})" name="chkAddress{{:accountmaster_shipinginfoid}}" style="margin-left:8px;width:18px" class="chkAddress" />
+            </td>
+            <td class="accountmaster_shipinginfoid" style="display:none">{{:accountmaster_shipinginfoid}}</td>
+            <td class="shipname" style="margin-left:10px;text-align:center">{{:shipname}}</td>
+            <td class="shipmobileno" style="margin-left:10px;text-align:center">{{:shipmobileno}}</td>
+            <td class="countryname" style="margin-left:10px;text-align:center">{{:countryname}}</td>
+            <td class="statename" style="margin-left:10px;text-align:center">{{:statename}}</td>
+            <td class="cityname" style="margin-left:10px;text-align:center">{{:cityname}}</td>
+            <td class="gstno" style="margin-left:10px;text-align:center">{{:gstno}}</td>
+        </tr>
+    </script>
+
+    <script id="VoucherReturn_Render" type="text/x-jsrender">
+        <tr>
+            <td>
+                <input type="checkbox" id="chkReturn{{:mtd_id}}" name="chkReturn{{:mtd_id}}" style="height:15px;width:15px" class="chkReturn" />
+            </td>
+
+            <td class="mtd_id" style="text-align:center;display:none">{{:mtd_id}}</td>
+            <td class="rmcode" style="text-align:center">{{:rmcode}}</td>
+            <td class="shape" style="text-align:center">{{:shape}}</td>
+            <td class="purity" style="text-align:center">{{:purity}}</td>
+            <td class="colour" style="text-align:center">{{:colour}}</td>
+            <td class="lenghtmmsize" style="text-align:center">{{:lenghtmmsize}}</td>
+            <td class="widthmmsize" style="text-align:center">{{:widthmmsize}}</td>
+            <td class="charni" style="text-align:center">{{:charni}}</td>
+            <td class="pieces" style="text-align:center">{{:pieces}}</td>
+            <td class="weight" style="text-align:center">{{:weight}}</td>
+            <td class="hsncode" style="text-align:center">{{:hsncode}}</td>
+            <td class="rate" style="text-align:center">{{:rate}}</td>
+            <td class="taxableamt" style="text-align:center">{{:taxableamt}}</td>
+        </tr>
+    </script>
+}

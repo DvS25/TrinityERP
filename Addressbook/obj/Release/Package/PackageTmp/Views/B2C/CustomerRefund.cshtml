@@ -1,0 +1,287 @@
+﻿
+@{
+    ViewBag.Title = "Customer Refund";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-12">
+        <div class="panel" id="panelmaingoldview">
+            <div class="panel-body">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item active" role="presentation" id="navtabcancelrefund"><a class="nav-link" data-toggle="tab" href="#tabcancelrefund">Cancel Refund</a></li>
+                        <li class="nav-item" role="presentation" id="navtabreturnrefund"><a class="nav-link" data-toggle="tab" role="tab" aria-expanded="true" href="#tabreturnrefund">Return Refund</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div id="tabcancelrefund" class="tab-pane active" role="tabpanel" style="margin-top:10px;">
+                        <form>
+                            <div style="display:block;background-color:#fff">
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_cancelrefund">
+                                        <table id="table_list_cancelrefund"></table>
+                                        <div id="pager_list_cancelrefund"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tabreturnrefund" class="tab-pane" role="tabpanel">
+                        <form>
+                            <div style="display:block;background-color:#fff">
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_returnrefund">
+                                        <table id="table_list_returnrefund"></table>
+                                        <div id="pager_list_returnrefund"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalrefundandview" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="width: 1150px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="top: 9px;">&times;</button>
+                <h4 class="modal-title">Cancel Details</h4>
+            </div>
+            <div class="modal-body">
+                <form id="FrmPublishEmail" class="form-horizontal">
+                    <div class="col-sm-12 blockorderheader">
+                        <span class="f-w-600"><i class="fa fa-list"></i>Order Details</span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Order Id: </label>
+                            <label id="lblorderid" class="col-sm-8 control-label" style="text-align: left;"></label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Order Date: </label>
+                            <label id="lblorderdate" class="col-sm-8 control-label" style="text-align: left;"></label>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group row">
+                       <div class="col-sm-6">
+                           <label class="col-sm-4 control-label">Transaction Amount: </label>
+                           <label id="lbltransactionamount" class="col-sm-8 control-label" style="text-align: left;"></label>
+                       </div>
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Cancel Date: </label>
+                            <label id="lblcanceldate" class="col-sm-8 control-label" style="text-align: left;"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                       <div class="col-sm-6">
+                           <label class="col-sm-4 control-label">Refund Amount: </label>
+                           <label id="lblrefundamount" class="col-sm-8 control-label" style="text-align: left;"></label>
+                       </div>
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Refund Notes: </label>
+                            <div class="col-sm-8" id="textareacanceldiv">
+                                <textarea id="txtrefundnotes" rows="4" class="form-control" style="text-align: left;"></textarea>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </form>
+                <div class="row m-t-15" style="background-color:#fff">
+                    <div class="col-sm-12 blockorderheader">
+                        <span class="f-w-600"><i class="fa fa-list"></i>Design Details</span>
+                    </div>
+                    <div class="col-sm-12  p-t-10 p-b-10">
+                        <table class="table-content orderdetailtable">
+                            <thead class="theaderorder">
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th style="width:10%">Picture</th>
+                                    <th>Design No</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Refund</th>
+                                </tr>
+                            </thead>
+                            <tbody class="orderbody" id="designdetail"></tbody>
+                            <tfoot class="tfooterrefund">
+                                <tr>
+                                    <td colspan="4" class="text-right">
+                                        <label>Total :</label>
+                                    </td>
+                                    <td class="text-right">
+                                        <span id="custorderfinalamount"></span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span id="custorderfinalrefundamount"></span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnsubmintrefund" type="button" class="btn btn-default">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalreturnrefundandview" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="width: 1150px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="top: 9px;">&times;</button>
+                <h4 class="modal-title">Return Details</h4>
+            </div>
+            <div class="modal-body">
+                <form id="FrmPublishEmail" class="form-horizontal">
+                    <div class="col-sm-12 blockorderheader">
+                        <span class="f-w-600"><i class="fa fa-list"></i>Order Details</span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Order Id: </label>
+                            <label id="lblreturnorderid" class="col-sm-8 control-label" style="text-align: left;"></label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Order Date: </label>
+                            <label id="lblreturnorderdate" class="col-sm-8 control-label" style="text-align: left;"></label>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Transaction Amount: </label>
+                            <label id="lbltransactionreturnamount" class="col-sm-8 control-label" style="text-align: left;"></label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Return Date: </label>
+                            <label id="lblreturndate" class="col-sm-8 control-label" style="text-align: left;"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Refund Amount: </label>
+                            <label id="lblreturnamount" class="col-sm-8 control-label" style="text-align: left;"></label>
+                            <label class="col-sm-4 control-label">Return Charges: </label>
+                            <label id="lblreturnchargeamount" class="col-sm-8 control-label" style="text-align: left;"></label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label">Refund Notes: </label>
+                            <div class="col-sm-8" id="textareareruendiv">
+                                <textarea id="txtreturnrefundnotes" rows="4" class="form-control" style="text-align: left;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row m-t-15" style="background-color:#fff">
+                    <div class="col-sm-12 blockorderheader">
+                        <span class="f-w-600"><i class="fa fa-list"></i>Design Details</span>
+                    </div>
+                    <div class="col-sm-12  p-t-10 p-b-10">
+                        <table class="table-content orderdetailtable">
+                            <thead class="theaderorder">
+                                <tr>
+                                    <th>Tag Label</th>
+                                    <th>Sr No.</th>
+                                    <th style="width:10%">Picture</th>
+                                    <th>Design No</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Return Charge</th>
+                                    <th>Refund</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody class="orderbody" id="returndesigndetail"></tbody>
+                            <tfoot class="tfooterrefund">
+                                <tr>
+                                    <td colspan="5" class="text-right">
+                                        <label>Total :</label>
+                                    </td>
+                                    <td class="text-right">
+                                        <span id="custorderreturnfinalamount"></span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span id="custorderreturnchargeamount"></span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span id="custorderreturnfinalrefundamount"></span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnsubmintreturnrefund" type="button" class="btn btn-default">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Script/B2C/CustomerRefund.js"></script>
+    <script id="Ddldesigndetail" type="text/x-jsrender">
+        <tr>
+            <td class="text-center">{{>rownum}}</td>
+            <td style="width:10%"><img src="{{>imagepath}}" style="width:90%" /></td>
+            <td><p>{{>designno}}</p></td>
+            <td>
+                <span class="f-w-600">Metal : </span><span>{{>metal_purity}}&nbsp;&nbsp; {{>metal_color}} </span><br />
+                <span class="f-w-600">Diamond : </span><span>{{>diamond_purity}}&nbsp;&nbsp;{{>diamond_color}} </span><br />
+                <span class="f-w-600">Colorstone : </span><span>{{>cs_purity}}&nbsp;&nbsp;{{>cs_color}}</span><br />
+                <span class="f-w-600">Qty : </span><span>{{>total_qty}}</span>&nbsp;&nbsp;&nbsp;<span class="f-w-600">Size : </span><span>{{>size}}</span><br />
+                <span class="f-w-600">Personalize Msg : </span><span>{{>personalizemsg}}</span>
+            </td>
+            <td class="text-right">
+                <span class="indianprice" id="indianprice{{>custorderitemid}}"></span>
+                <input id="ipr{{>custorderitemid}}" type="hidden" value="{{>total_amt}}" />
+            </td>
+            <td class="text-right">
+                <span class="indianrefundprice" id="indianrefundprice{{>custorderitemid}}"></span>
+                <input id="iprrefund{{>custorderitemid}}" type="hidden" value="{{>refundamt}}" />
+            </td>
+        </tr>
+    </script>
+    <script id="Ddlreturndesigndetail" type="text/x-jsrender">
+        <tr>
+            <td class="text-center">
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input id="check{{>custorderitemid}}" type="checkbox" name="checkdata" onchange="B2C_Order_Refund_DetailView.checktagclick('{{>custorderitemid}}')" {{if istagremoved==1}} checked {{/if}}>
+                    <label for="check{{>custorderitemid}}"></label>
+                </div>
+            </td>
+            <td class="text-center">{{>rownum}}</td>
+            <td style="width:10%"><img src="{{>imagepath}}" style="width:90%" /></td>
+            <td><p>{{>designno}}</p></td>
+            <td>
+                <span class="f-w-600">Metal : </span><span>{{>metal_purity}}&nbsp;&nbsp; {{>metal_color}} </span><br />
+                <span class="f-w-600">Diamond : </span><span>{{>diamond_purity}}&nbsp;&nbsp;{{>diamond_color}} </span><br />
+                <span class="f-w-600">Colorstone : </span><span>{{>cs_purity}}&nbsp;&nbsp;{{>cs_color}}</span><br />
+                <span class="f-w-600">Qty : </span><span>{{>total_qty}}</span>&nbsp;&nbsp;&nbsp;<span class="f-w-600">Size : </span><span>{{>size}}</span><br />
+                <span class="f-w-600">Personalize Msg : </span><span>{{>personalizemsg}}</span>
+            </td>
+            <td class="text-right">
+                <span class="indianreturnprice" id="indianreturnprice{{>custorderitemid}}"></span>
+                <input id="iprreturn{{>custorderitemid}}" type="hidden" value="{{>total_amt}}" />
+            </td>
+            <td class="text-right">
+                <span class="indianreturnchargerefundprice" id="indianreturnchargerefundprice{{>custorderitemid}}"></span>
+                <input id="iprreturnrefundcharge{{>custorderitemid}}" type="hidden" value="{{>returnchargeamt}}" />
+            </td>
+            <td class="text-right">
+                <span class="indianreturnrefundprice" id="indianreturnrefundprice{{>custorderitemid}}"></span>
+                <input id="iprreturnrefund{{>custorderitemid}}" type="hidden" value="{{>refundamt}}" />
+            </td>
+        </tr>
+    </script>
+}

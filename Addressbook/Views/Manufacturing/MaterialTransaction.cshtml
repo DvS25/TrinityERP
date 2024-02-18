@@ -1,0 +1,562 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Material Purchase";
+}
+<style>
+.one .col-md-2{
+    padding-left: 5px;
+	padding-right: 6px;
+}
+.two .col-md-3{
+    width:23%;
+}
+</style>
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                <div id="dx_btnRefreshGrid"></div>
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_MaterialTransaction" class="form-horizontal" style="display:none">
+    <div class="panel panel-flat">
+        <div class="panel-body" >
+            <div class="col-md-6 one" >
+                <div class="form-group">
+                    <label class="col-md-2 control-label addstar">Book Type</label>
+                    <div class="col-md-4">
+                        <div id="dx_ddlSubBookMaster"></div>
+                    </div>
+                    <label class="col-md-2 control-label">Voucher No</label>
+                    <div class="col-md-4">
+                        <div id="dx_txtVoucherNo"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Voucher Return</label>
+                    <div class="col-md-4">
+                        <div id="dx_txtVoucherReturn"></div>
+                    </div>
+                    <label class="col-md-2 control-label addstar">Due Days</label>
+                    <div class="col-md-4">
+                        <div id="dx_txtDueDays"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Voucher Type</label>
+                    <div class="col-md-4">
+                        <div id="dx_ddlVoucherType"></div>
+                    </div>
+                    @*<label class="col-md-2 control-label addstar">Due Date</label>
+                        <div class="col-md-4">
+                            <div id="dx_txtDueDate"></div>
+                        </div>*@
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label addstar">Voucher Date</label>
+                    <div class="col-md-4">
+                        <div id="dx_txtVoucherDate"></div>
+                    </div>
+                    <label class="col-md-2 control-label addstar">Entry By</label>
+                    <div class="col-md-4">
+                        <div id="dx_ddlOrderby"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label addstar">Tax Profile</label>
+                    <div class="col-md-4">
+                        <div id="dx_TaxProfile"></div>
+                    </div>
+                    <label class="col-md-2 control-label addstar">Locker</label>
+                    <div class="col-md-4">
+                        <div id="dx_ddllocker"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 two" style="border-left: 1px solid #dddddd;">
+                <div class="form-group">
+                    <label class="col-md-3 control-label addstar">Party Name</label>
+                    <div class="col-md-6">
+                        <div id="dx_txtPartyName"></div>
+                    </div>
+                    <div class="col-md-3" style="display:flex;">
+                        <div style="margin-left:-10px;" id="dx_txtPartyCode"></div>
+                        <div style="margin-left:10px;" id="dx_btnPartyAdd"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Party Bill No</label>
+                    <div class="col-md-5">
+                        <div id="dx_txtPartyBillNo"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label addstar">Currency</label>
+                    <div class="col-md-3">
+                        <div id="dx_ddlCurrencyName"></div>
+                    </div>
+
+                    <label class="col-md-3 control-label addstar">Exchange Rate</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtExchangeRate"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label addstar">Bill Address</label>
+                    <div class="col-md-5">
+                        <div id="dx_ddlBillingAddress"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label addstar">Ship Address</label>
+                    <div class="col-md-5">
+                        <div id="dx_ddlShippingAddress"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 addstar">Broker</label>
+                    <div class="col-md-5">
+                        <div id="dx_ddlBroker"></div>
+                    </div>
+                    <label class="control-label col-md-2">Brokerage</label>
+                    <div class="col-md-2">
+                        <div id="dx_txtBrokerage"></div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-md-12" style="margin-top:20px;">
+                <div class="form-group">
+                    <div class="col-lg-12" style="text-align:right;">
+                        <div id="dx_btnAddDetailItem"></div>
+                        <div id="dx_btnRemoveItem"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" id="panel_DesignList">
+                <div id="dx_dataGridItems"></div>
+            </div>
+
+            <div class="col-md-6">
+                
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Notes</label>
+                    <div class="col-md-10">
+                        <div id="dx_txtRemarks"></div>
+                    </div>
+                </div>
+                <div class="form-group" id="AttachmentsList" style="margin-top: 10px; padding-top: 10px;border-top: 1px solid #dddddd; display:none;">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary pull-right" type="button" data-preview="tbody_AttachmentsList" data-toggle="modal"
+                                data-ext="jpg,jpeg,png,pdf,doc,docx,xls,xlsx" id="btnAddNewAttachment" data-backdrop="static" data-target="#modalUpload">
+                            <i class="fa fa-plus"></i>&nbsp;Add Attachment
+                        </button>
+                    </div>
+                    <div class="col-md-12" style="max-height: 350px;overflow: auto;margin-top: 5px;">
+                        <table class="table table-bordered">
+                            <thead style="background-color: #eee;">
+                                <tr>
+                                    <th width="30%" class="text-center">File</th>
+                                    <th width="50%" class="text-center">Description</th>
+                                    <th width="20%" class=""></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_AttachmentsList"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-lg-offset-2">Freight Charges</label>
+                    <div class="col-md-2">
+                        <div id="txtFreightCharges"></div>
+                    </div>
+                    <label class="control-label col-lg-3">Taxable Amount</label>
+                    <div class="col-lg-2">
+                        <div id="txtTaxableAmount"></div>
+                    </div>
+                </div>
+                <div class="form-group" id="div_AmountWithTax">
+                    <label class="control-label col-lg-3 col-lg-offset-7"> Amount with Tax</label>
+                    <div class="col-lg-2">
+                        <div id="txtAmount"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3 col-lg-offset-2"> Round Off.</label>
+                    <div class="col-lg-3" style="padding-top: 7px;">
+                        <input type="radio" id="rd_Less" name="rd_RoundOff" style="width:15px" class="DiscType" value="Less" checked />
+                        <label style="vertical-align:top" class="control-label">Less</label>
+                        <input type="radio" id="rd_Add" name="rd_RoundOff" style="width:15px" class="DiscType" value="Add" />
+                        <label style="vertical-align:top" class="">Add</label>
+                    </div>
+                    <label class="control-label col-lg-2"> Add / Less</label>
+                    <div class="col-lg-2">
+                        <div id="txtRoundOff"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3 col-lg-offset-7">Total Amount</label>
+                    <div class="col-lg-2">
+                        <div id="txtTotalAmount"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3 col-lg-offset-7">Total Amount In Rs.</label>
+                    <div class="col-lg-2">
+                        <div id="txtTotalAmountInRs"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer" style="padding-top:10px;padding-bottom:10px;">
+            <div class="col-md-12 text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+<div id="dx_popupItemRemove"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="Modal_PartyMaster" tabindex="-1" role="dialog" aria-labelledby="ModalSelectionList" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="form-horizontal" id="formModal_partyWise">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Account Name</label>
+                        <div class="col-md-9">
+                            <div id="dx_txtAcc_Name"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Head Name</label>
+                        <div class="col-md-5">
+                            <div id="dx_txtHeadName"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Sub Head</label>
+                        <div class="col-md-5">
+                            <div id="dx_ddlSubHead"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Mobile No</label>
+                        <div class="col-md-5">
+                            <div id="dx_txtMobileNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Country</label>
+                        <div class="col-md-3">
+                            <div id="dx_ddlCountry"></div>
+                        </div>
+
+                        <label class="col-md-3 control-label addstar">State</label>
+                        <div class="col-md-3">
+                            <div id="dx_ddlState"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">City</label>
+                        <div class="col-md-3">
+                            <div id="dx_ddlCity"></div>
+                        </div>
+
+                        <label class="col-md-3 control-label addstar">Currency</label>
+                        <div class="col-md-3">
+                            <div id="dx_ddlCurrency"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="dx_Party_btnSubmit"></div>
+                <div id="dx_Party_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_AddItems" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" style="width: 1230px;">
+        <div class="modal-content">
+            <div class="modal-body" style="">
+                <form class="form-horizontal" id="frm_AddItems" method="get">
+                    <div class="form-group">
+                        <table class="table table-bordered" id="tbl_AddItems" style="margin-bottom:10px;">
+                            <thead style="background-color: #fafafa;">
+                                <tr>
+                                    <th width="8%">Item Name</th>
+                                    <th width="8%">Shape</th>
+                                    <th width="8%">Quality</th>
+                                    <th width="8%">Color</th>
+                                    <th width="5%">Purity Per</th>
+                                    <th width="7%">Length</th>
+                                    <th width="7%">Width</th>
+                                    <th width="10%">Charni</th>
+                                    <th width="4%">Export</th>
+                                    <th width="4%">PktId</th>
+                                    <th width="4%">Pcs</th>
+                                    <th width="8%">Weight</th>
+                                    <th width="8%">Rate</th>
+                                    <th width="10%">Amt</th>
+                                    <th width="5%">Less(%)</th>
+                                    <th width="4%"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot style="background-color: #fafafa;">
+                                <tr>
+                                    <td colspan="16">
+                                        <div class="col-md-2">
+                                            <a href="javascript:void(0);" style="text-decoration:underline;" id="lnk_AddNewRow"><i class="fa fa-plus"></i>&nbsp;Add New Row</a>
+                                        </div>
+
+                                        <label class="col-md-1 control-label">Dia Pcs</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtDiaPcs"></div>
+                                        </div>
+                                        <label class="col-md-1 control-label">Dia Crt</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtDiaCrt"></div>
+                                        </div>
+                                        <label class="col-md-1 control-label">Net Wgt</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtNetWgt"></div>
+                                        </div>
+                                        <label class="col-md-1 control-label">Gross Wgt</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtGrossWgt"></div>
+                                        </div>
+                                        <label class="col-md-1 control-label">Fine Wgt</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtFineWgt"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12" style="text-align:right;">
+                    <div id="dx_btnSaveAddItems"></div>
+                    <div id="dx_btnCancelAddItems"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modal_StockItems" tabindex="-1" role="dialog" aria-labelledby="ModalStockItems" aria-hidden="true" style="display:none">
+    <div class="modal-dialog modal-lg" role="document" style="width: 1280px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select Material</h5>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div id="dx_dataGridStockItems"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-12" style="text-align:right;">
+                    <div id="dx_btnSaveStockItems"></div>
+                    <div id="dx_btnCancelStockItems"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_ReturnItems" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select Material</h5>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div id="dx_dataGridReturnItems"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-12" style="text-align:right;">
+                    <div id="dx_btnSaveReturnItems"></div>
+                    <div id="dx_btnCancelReturnItems"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal_ShipInfo" tabindex="-1" role="dialog" aria-labelledby="ModalShipmentInfo" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="form-horizontal" id="form_ShipInfo">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label addstar">Courier</label>
+                        <div class="col-md-8">
+                            <div id="dx_ddlcourier"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label addstar">Port Code</label>
+                        <div class="col-md-8">
+                            <div id="dx_txtPortCode"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label addstar">Shipping Bill No</label>
+                        <div class="col-md-8">
+                            <div id="dx_txtShipBillNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label addstar">Shipping Date</label>
+                        <div class="col-md-8">
+                            <div id="dx_dtShipDate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label addstar">Tracking No</label>
+                        <div class="col-md-8">
+                            <div id="dx_txtTrackingNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label addstar">Tracking Link</label>
+                        <div class="col-md-8">
+                            <div id="dx_txtTrackingLink"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="dx_Ship_btnSubmit"></div>
+                <div id="dx_Ship_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="modalUploadlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modalUploadlbl">Add Files</h4>
+            </div>
+            <div class="modal-body">
+                <img width="100" height="100" src="" id="imgBanner" style="display:none" />
+                <input type="hidden" id="hdnPreviewUploader" />
+                <input type="hidden" id="hdnExtUploader" />
+                <div class="text-red">Allow extensions: (<span id="spExtension"></span>)</div>
+                <div id="imgUploader">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnAddFile" type="button" class="btn btn-success">Ok</button>
+                <button type="button" class="btn btn-quaternary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*---------------------------Share Model-------------------------------------------------*@
+<div class="modal fade" id="ModalSharing" tabindex="-1" role="dialog" aria-labelledby="ModalSharing" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share Design</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Party Name</label>
+                        <div class="col-lg-9">
+                            <div id="dx_txtSharetoPartyList"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Type</label>
+                        <div class="col-md-10">
+                            <div id="dx_RadioSocial" style="margin-top: 5px;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Mobile No</label>
+                        <div class="col-md-4">
+                            <div id="dx_txtVoucherMobileNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Message</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtShareMessage"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Id</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailId"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Subject</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingSubject"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Body</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailBody"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="dx_btnSubmitShare"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@*--------------------------------/share model-------------------------------*@
+
+<!-- Modal -->
+
+<input type="hidden" id="hdnSBOOKID" value="@ViewBag.SBOOKID" />
+
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+<input type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.EMPLOYEE_NAME" id="hdn_UserName" />
+
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Script/Manufacturing/MaterialTransaction.js?v=@DateTime.UtcNow"></script>
+}

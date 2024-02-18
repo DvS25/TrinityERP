@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Design Master";
+}
+
+<style>
+    #fileuploader-container {
+        border: 1px solid #d3d3d3;
+    }
+
+    #tbl_DesignDetails tbody {
+        counter-reset: rowNumber;
+    }
+
+        #tbl_DesignDetails tbody tr {
+            counter-increment: rowNumber;
+        }
+
+            #tbl_DesignDetails tbody tr td.TableRowNo::before {
+                content: counter(rowNumber);
+                min-width: 1em;
+                margin-right: 0.5em;
+            }
+</style>
+
+<div class="panel panel-flat" id="panel_DesignMasterList">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+
+
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Script/Manufacturing/SharedHistory.js"></script>
+}

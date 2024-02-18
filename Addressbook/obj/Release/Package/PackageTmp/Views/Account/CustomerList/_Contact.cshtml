@@ -1,0 +1,374 @@
+﻿
+<div style="padding-top: 15px;background-color:#fff">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active trinity-tab" data-toggle="tab" href="#Basictab" role="tab" id="tab1">Basic Details</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link trinity-tab" data-toggle="tab" href="#HomeTab" role="tab" id="tab2">Home Details</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link trinity-tab" data-toggle="tab" href="#OfficeTab" role="tab" id="tab3">Office Details</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link trinity-tab" data-toggle="tab" href="#ReferenceBy" role="tab" id="tab4">Reference By</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active m-t-15" id="Basictab" role="tabpanel">
+            <form>
+                <input type="hidden" id="hdnContact" value="" />
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">Salutation</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="text_b_salutation">
+                            <option value="Mr." selected="selected">Mr.</option>
+                            <option value="Miss.">Miss.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="M/S.">M/S.</option>
+                            <option value="Dr.">Dr.</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-2 form-control-label">Full Name</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="text_B_fullname">
+                        <label id="lbltext_B_fullname" class="error" style="display:none">This field is required.</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">Nick Name</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="text_B_nickname">
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">Group Name</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="text_B_Groupname"></select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">Birthdate</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="date" id="txt_b_bridthdate">
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">Anry Date</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="date" id="txt_b_Anrydate">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">1_Mobile No</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_b_mobile1">
+                        <label id="lbltxt_b_mobile1" class="error" style="display:none">Please enter a valid number.</label>
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">2_Mobile No</label>
+                    <div class="col-sm-4">
+                        <input class="form-control number" type="number" id="txt_b_mobile2">
+                        <label id="lbltxt_b_mobile2" class="error" style="display:none">Please enter a valid number.</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">1_Email</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="email" id="txt_b_Email1">
+                        <label id="lbltxt_b_Email1" class="error" style="display:none">Please enter a valid email address.</label>
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">2_Email</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="email" id="txt_b_Email2">
+                        <label id="lbltxt_b_Email2" class="error" style="display:none">Please enter a valid email address.</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">Comments</label>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" rows="3" id="txt_B_Comments"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button id="btn_b_Csave" type="button" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+
+                        @*<button type="button" class="btn btn-default waves-effect" id="btn_b_CClear">Clear</button>*@
+                        @if (ViewBag.Isview == "0")
+                        {
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane m-t-15" id="HomeTab" role="tabpanel">
+            <form>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">Address</label>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" rows="3" id="txt_h_address"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">1_Telephone</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_b_telep1">
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">2_Telephone</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_b_telep2">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">1_Mobile No</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_H_mobile1">
+                        <label id="lbltxt_H_mobile1" class="error" style="display:none">Please enter a valid number.</label>
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">2_Mobile No</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_H_mobile2">
+                        <label id="lbltxt_H_mobile2" class="error" style="display:none">Please enter a valid number.</label>
+                    </div>
+                </div>
+                @*<div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Country</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_H_Country" onchange="Master_ContactView.Citystate(this);"></select>
+                        </div>
+
+                        <label class="col-sm-2 form-control-label">State</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_H_state"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">District</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="text_H_District">
+
+                            </select>
+                        </div>
+
+                        <label class="col-sm-2 form-control-label">City</label>
+                        <div class="col-sm-4">
+                            <select class="form-control " id="txt_H_city" ></select>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 form-control-label">Zip Code</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" max="5" type="number" id="txt_H_Zipcode">
+                        </div>
+                    </div>*@
+
+                <div class="form-group row">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button id="btn_H_Csave" type="button" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+
+                        @*<button id="btn_H_CClear" type="button" class="btn btn-default waves-effect">Clear</button>*@
+                        @if (ViewBag.Isview == "0")
+                        {
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane m-t-15" id="OfficeTab" role="tabpanel">
+            <form>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">Company Name</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="txt_O_Comapnyname">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">Address</label>
+                    <div class="col-sm-4">
+                        <textarea class="form-control" rows="3" id="txt_O_address"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2  form-control-label">1_Telephone</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_O_tele1">
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">2_Telephone</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_O_tele2">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2  form-control-label">Fax</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="txt_O_fax">
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">Mobile No</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_O_Mobile">
+                        <label id="lbltxt_O_Mobile" class="error" style="display:none">Please enter a valid number.</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2  form-control-label">Post</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="txt_O_post">
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">Email</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="txt_O_Email">
+                        <label id="lbltxt_O_Email" class="error" style="display:none">Please enter a valid Email Id.</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2  form-control-label">Contact Person</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="txt_O_contactperson">
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">Department</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="txt_O_Department">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2  form-control-label">C_prsn 1_Mobile</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_O_cmobile1">
+                        <label id="lbltxt_O_cmobile1" class="error" style="display:none">Please enter a valid number.</label>
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">C_prsn 2_Mobile</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="number" id="txt_O_cmobile2">
+                        <label id="lbltxt_O_cmobile2" class="error" style="display:none">Please enter a valid number.</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">City</label>
+                    <div class="col-sm-4">
+                        <select id="txt_O_city" name="city" style="width: 100%" class="form-control"></select>
+                        @*<select class="form-control" id="txt_o_city" onchange="Master_ContactView.CityChange(this);"></select>*@
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">Zip Code</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="txt_O_zipcode">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">District</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="text_O_District"></select>
+                    </div>
+
+                    <label class="col-sm-2 form-control-label">State</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="txt_O_state"></select>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">Country</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="txt_O_Country"></select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10 col-sm-offset-2" style="padding-bottom:10px">
+                        <button id="btn_O_Csave" type="button" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+
+                        @*<button id="btn_O_CClear" type="button" class="btn btn-default waves-effect">Clear</button>*@
+                        @if (ViewBag.Isview == "0")
+                        {
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane m-t-15" id="ReferenceBy" role="tabpanel">
+            <form>
+                <div class="form-group row">
+                    <div class="col-sm-3 col-sm-offset-2">
+                        
+                        <div id="reviewid">
+                         <p style="display:inline">
+                            <input type="radio" id="Good" value="Good" name="radio-group" checked>
+                            <label for="Good">Good</label>
+                        </p>
+                        <p style="display:inline;margin-left: 10px;">
+                            <input type="radio" id="Best" value="Best" name="radio-group">
+                            <label for="Best">Best</label>
+                        </p>
+                        <p style="display:inline;margin-left: 10px;">
+                            <input type="radio" id="Great"  value="Great" name="radio-group">
+                            <label for="Great">Great</label>
+                        </p>
+                            </div>
+                     
+                      
+                    </div>
+                   
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">1. Reference By</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="Referecebyone" placeholder="Person Name">
+                    </div>
+                    <label class="col-sm-2 form-control-label">Notes</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="Companynameone" placeholder="Notes">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">2. Reference By</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="Referecebytwo" placeholder="Person Name">
+                    </div>
+                    <label class="col-sm-2 form-control-label">Notes</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="Companynametwo" placeholder="Notes">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">3. Reference By</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="Referecebythree" placeholder="Person Name">
+                    </div>
+                    <label class="col-sm-2 form-control-label">Notes</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="Companynamethree" placeholder="Notes">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label">Add Favourite List</label>
+                    <div class="col-sm-2">
+                        <div class="checkbox" style="margin-top:0px!important">
+                            <input id="Favactiveonoff" data-on="Yes" data-off="No" class="toggleSwitch" checked type="checkbox">
+                           
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button id="btn_R_Csave" type="button" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<link href="~/Content/plugin/Select2/css/select2.min.css" rel="stylesheet" />
+

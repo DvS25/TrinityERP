@@ -1,0 +1,424 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "PartyList";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel" id="panelView">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12" style="overflow-x: auto; overflow-y: hidden;">
+                        @if (Model.ISADD == 1)
+                        {
+                            <div class="Pull_Text_Left">
+                                <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" type="button" id="btnAdd" style="font-weight:600!important"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Party</button>
+                            </div>
+                        }
+                        <div class="jqGrid_wrapper" id="jqgrid_party" style="overflow-x: auto;overflow-y:auto;">
+                            <table id="table_list_PartyDetails"></table>
+                            <div id="pager_list_PartyDetails"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="panelEdit" style="display:none">
+            <div class="panel-body">
+                <div id="userWizard">
+                    <div style="height:32px;margin-bottom: 10px;">
+                        <button id="btnCancelUserGroup" class="btn btn-sm pull-right purple" type="button" name="CancelUserGroup"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                    </div>
+                    <form id="frmpartyDetails" class="form-horizontal">
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">Party Code</label>
+                                <div class="col-sm-8">
+                                    <input id="txtpartycode" class="form-control required" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">Company Name<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input id="txtCompanyName" class="form-control required" name="Companyname" type="text" placeholder="Company Name" tabindex="1" />
+                                </div>
+                                <label class="col-sm-4 form-control-label" style="margin-top:5px">Person Name<span style="color:red"> *</span></label>
+                                <div class="col-sm-8" style="margin-top:5px">
+                                    <input id="txtPersonname" class="form-control required" name="PersonName" type="text" placeholder="Person Name" tabindex="3" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">Address</label>
+                                <div class="col-sm-8">
+                                    <textarea rows="3" class="form-control" id="textaddress" name="address" placeholder="Address" tabindex="11"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 form-control-label">User Name<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="text" name="username" id="text_username" placeholder="Username" tabindex="4">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">City<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <select id="txtcityname" name="cityvalue" style="width: 100%;" class="form-control txtcityvalue" tabindex="12"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 form-control-label">User Password<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="password" name="userpassword" id="text_Userpassword" placeholder="User Password" tabindex="5">
+                                </div>
+                            </div>
+                            @*<div class="col-sm-6">
+                                    <label class="col-sm-4 control-label ">District<span style="color:red"> *</span></label>
+                                    <div class="col-sm-8">
+                                        <select id="txtdistrictname" name="districtvalue" style="width: 100%;" class="form-control txtdistrictname" tabindex="12"></select>
+                                    </div>
+                                </div>*@
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">State<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <select id="txtstatename" name="state" style="width: 100%;height: 3.5rem!important;" class="form-control required" tabindex="13"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <div class="col-sm-8 col-sm-offset-4">
+                                    <input type="checkbox" id="showpasscheck">
+                                    <label class="form-control-label" style="padding-left:5px"> Show Password</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">Country<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <select id="txtcontryname" name="contry" style="width: 100%;height: 3.5rem!important;" class="form-control required" tabindex="14"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">Email Id<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input id="txtemailid" class="form-control required" name="EmailId" type="text" placeholder="Email Id" tabindex="6" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">Stock Month From<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input id="txtmonthfrom" class="form-control required numbersonly" name="monthform" type="number" placeholder="Enter only month ex.1" tabindex="15" />
+                                        <span class="input-group-addon">month</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">Contact No<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input id="txtcontactno" class="form-control mobilevalidation required" name="Contactno" type="text" placeholder="Contact No" tabindex="6" maxlength="15" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">Stock Month To<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input id="txtmonthto" class="form-control numbersonly" name="monthto" type="number" placeholder="Enter only month ex.1" tabindex="16" />
+                                        <span class="input-group-addon">month</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">Mobile No</label>
+                                <div class="col-sm-8">
+                                    <input id="txtmobileno" class="form-control mobilevalidation" name="MobileNo" type="text" placeholder="Mobile no" tabindex="7" maxlength="10" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">Default Dia. Color<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <select id="ddldiamoncolor" style="width: 100%;height: 3.5rem!important;" name="diamondcolor" class="form-control required" tabindex="17"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">GST No</label>
+                                <div class="col-sm-8">
+                                    <input id="txtgstno" type="text" name="gstno" placeholder="XXXXXXXXXXXXXXX" pattern="\d{2}\w{5}\d{4}\w\d\w\d" class="masked form-control" data-charset="XX_____XXXX_P_P" tabindex="8">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">Default Diamond Purity<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <select id="ddldiamondpurity" style="width: 100%;height: 3.5rem!important;" name="diamondpurity" class="form-control required" tabindex="18"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">PAN No</label>
+                                <div class="col-sm-8">
+                                    <input id="txtpanno" type="text" name="panno" placeholder="XXXXXXXXXX" pattern="\w{5}\d{4}\w" class="masked form-control" data-charset="_____XXXX_" tabindex="9">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">Consider In Gross Wtg.</label>
+                                <div class="col-sm-8">
+                                    <select class="js-example-basic-multiple assigngrprm" name="rmcode[]" multiple="multiple" id="droprmcode" tabindex="18"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">ERPParty Code<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input id="txterpcode" class="form-control required" name="erpcpde" type="text" placeholder="ERP code" tabindex="10" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">App Active Till Date<span style="color:red"> *</span></label>
+                                <div class="col-sm-4" style="padding-right: 8px;">
+                                    <div class="input-group">
+                                        <input id="txtAppActiveTillDate" class="form-control" name="AppActiveTillDate" placeholder="dd MMM yyyy" type="text" data-provide="datepicker" tabindex="19" />
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                    <label id="errortxtAppActiveTillDate" class="error" style="display:none!important;">This field is required.</label>
+                                </div>
+                                <div class="col-sm-4" style="padding-left: 8px;">
+                                    <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                        <input type="text" class="form-control" placeholder="HH:MM" id="txtAppActiveTillTime" name="AppActiveTillTime" tabindex="20">
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-clock-o"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 form-control-label">Party Type </label>
+                                <div class="col-sm-8" style="margin-top:6px" id="typeofparty">
+                                    <input type="radio" id="typeparty" class="ab" name="radioparty" value="Party" checked>
+                                    <label for="typeparty">Party</label>
+                                    <input type="radio" id="typeoutlet" class="ab" name="radioparty" value="Outlet">
+                                    <label for="typeoutlet" style="margin-right: 6px;">Outlet</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label ">Web Active Till Date<span style="color:red"> *</span></label>
+                                <div class="col-sm-4" style="padding-right: 8px;">
+                                    <div class="input-group">
+                                        <input id="txtWebActiveTillDate" class="form-control" name="WebActiveTillDate" placeholder="dd MMM yyyy" type="text" data-provide="datepicker" tabindex="21" />
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                    <label id="errortxtWebActiveTillDate" class="error" style="display:none!important;">This field is required.</label>
+                                </div>
+                                <div class="col-sm-4" style="padding-left: 8px;">
+                                    <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                        <input id="txtWebActiveTillTime" type="text" class="form-control" placeholder="HH:MM" name="WebActiveTillTime" tabindex="22">
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-clock-o"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">Is Active </label>
+                                <div class="col-sm-8">
+                                    <div class="checkbox" style="margin-top:0px!important">
+                                        <label class="form-control-label activelable"><input type="checkbox" data-on="Enabled" data-off="Disabled" data-toggle="toggle" id="activeonoff" data-size="medium" /></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">Design Concept</label>
+                                <div class="col-sm-8">
+                                    <select name="PartyConceptOf" id="ddlPartyConceptOf" multiple="multiple" style="width:100%;"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">Upload Documents</label>
+                                <div class="col-sm-8">
+                                    <button class="btn btn-primary" type="button" data-preview="imgPreviewTechnicalData" data-toggle="modal"
+                                            data-ext="jpg,jpeg,gif,png,pdf,doc,docx,xls,xlsx" id="partynewaddfilebtn" data-backdrop="static" data-target="#modalUpload" tabindex="15">
+                                        <i class="fa fa-plus"></i>&nbsp;Add New File
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">Policy</label>
+                                <div class="col-sm-8">
+                                    <select name="DisplayPolicy" id="ddlDisplayPolicy" multiple="multiple" style="width:100%;">
+                                        <option value="JobWork">JobWork</option>
+                                        <option value="Business">Business</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <table class="table col-sm-offset-4">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-3">File</th>
+                                            <th class="col-sm-3">Title</th>
+                                            <th class="col-sm-1"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="imgPreviewTechnicalData"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <div class="col-sm-8 col-sm-offset-4">
+                                    <button type="button" class="btn btn-success" id="btnsavendnext" style="padding-left: 20px;padding-right: 20px;">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row form-group" id="macaddressdiv">
+                            <div class="row">
+                                <label class="col-sm-2 control-label">Mac Address</label>
+                                <div class="col-sm-8">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-sm-4">Mac Address</th>
+                                                <th class="col-sm-4">IP Address</th>
+                                                <th class="col-sm-3">Device Name</th>
+                                                <th class="col-sm-1">Allow</th>
+                                                <th class="col-sm-1">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="allowmacipdata"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="modalUploadlbl" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="modalUploadlbl">Add Files</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <img width="100" height="100" src="" id="imgBanner" style="display:none" />
+                                    <input type="hidden" id="hdnPreviewUploader" />
+                                    <input type="hidden" id="hdnExtUploader" />
+                                    <div class="text-red">Allow extensions: (<span id="spExtension"></span>)</div>
+                                    <div id="imgUploader">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="btnAddFile" type="button" class="btn btn-success">Ok</button>
+                                    <button type="button" class="btn btn-quaternary" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdnPreviewUploader" />
+                    <input type="hidden" id="hdnpartyimage" />
+                    <input type="hidden" id="hdnDeletedBanner" />
+                    <input type="hidden" id="hdnpartydetaisid" value="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="~/Content/plugin/newbootstrap/bootstrap.min.css" rel="stylesheet" />
+    <script id="DataDiamondcolor" type="text/x-jsrender">
+        <option value="{{>color}}">{{>color}}</option>
+    </script>
+    <script id="DataDiamondPurity" type="text/x-jsrender">
+        <option value="{{>quality}}">{{>quality}}</option>
+    </script>
+    <script id="FileList" type="text/x-jsrender">
+        <tr id="{{>fileid}}">
+            <td class="col-sm-3">
+                <label class="btn btn-quaternary uploadlink tooltip1" data-original-title="change file" for="btn{{>fileid}}">
+                    <input type="file" accept="{{*:window.extension}}" name="file" id="btn{{>fileid}}" class="hide">
+                    <i class="fa fa-upload"></i>
+                </label>&nbsp;<a class="label-click" href="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/UploadFiles/PartyFile/{{:virtualfilename}}" target="blank">
+                    {{:actualfilename}}
+                </a>
+                <input type="hidden" class="fileid" value="{{:fileid}}" />
+            </td>
+            <td class="col-sm-3">
+                <input type="text" class="form-control title" value="{{:actualfilename}}" placeholder="Title" />
+            </td>
+            <td class="col-sm-1 permissiondltbtn">
+                <a href="javascript:void(0);" onclick="deleteFile('{{>fileid}}', '{{>fileid}}', '{{>virtualfilename}}');"
+                   data-original-title="delete record" class="btn btn-danger tooltip1"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    </script>
+    <script id="allowipList" type="text/x-jsrender">
+        <tr id="{{>macid}}">
+            <td class="col-sm-5 macfont">
+                <p>{{>macaddress}}</p>
+            </td>
+            <td class="col-sm-3 macfont">
+                <p>{{>ipaddress}}</p>
+            </td>
+
+            <td class="col-sm-2 macfont">
+                <p>{{>devicename}}</p>
+            </td>
+            <td class="col-sm-1 permissincheckbtn">
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input id="check{{>macid}}" type="checkbox" name="checkdata" onchange="checkclick({{>macid}})" {{if isactive==1}} checked {{/if}}>
+                    <label for="check{{>macid}}"></label>
+                </div>
+            </td>
+            <td class="col-sm-1 permissiondltmacbtn">
+                <a href="javascript:void(0);" onclick="deletemacaddress({{>macid}});"
+                   data-original-title="delete record" class="btn btn-danger tooltip1"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    </script>
+    <script id="DdlcityList" type="text/x-jsrender">
+        <option value="{{>cityid}}">{{>cityname}}</option>
+    </script>
+    <script id="RMcodeDropdownList" type="text/x-jsrender">
+        <option value="{{>rm_code}}">{{>rm_code}}</option>
+    </script>
+    @*<script id="DdlDistrictList" type="text/x-jsrender">
+            <option value="{{>districtid}}">{{>districtname}}</option>
+        </script>*@
+    <script id="DdlStateList" type="text/x-jsrender">
+        <option value="{{>stateid}}">{{>statename}}</option>
+    </script>
+    <script id="DdlCountryList" type="text/x-jsrender">
+        <option value="{{>countryid}}">{{>countryname}}</option>
+    </script>
+    <script src="~/Content/plugin/maskeditor/maskeditor.js"></script>
+    <script src="~/Script/Sales/PartyList.js"></script>
+    <script id="DdlConceptOfList" type="text/x-jsrender">
+        <option value="{{>conceptofname}}">{{>conceptofname}}</option>
+    </script>
+}

@@ -1,0 +1,758 @@
+﻿@model Addressbook.Models.PagePermission
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<title>@{ var title = ""; if (Model != null) { title = Model.NAME; } }@title</title>*@
+    <title>Trinity Jewells | @ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/png" href="~/Content/images/favicon.png" />
+
+    @Styles.Render("~/Content/New/css")
+
+    @*<script src="~/Content/plugin/jquery-ui/jquery-3.2.1.js"></script>*@
+    <script src="~/Content/js/core/libraries/jquery.min.js"></script>
+    @Scripts.Render("~/Content/New/js")
+    <style>
+        .dropdown-content-heading {
+            padding: 15px !important;
+        }
+
+        .p_m_0px {
+            margin: 0px !important;
+        }
+
+        #modules_container .btn {
+            width: 125px;
+            height: 125px;
+            margin: 5px;
+        }
+
+        .sidebar-content {
+            margin-bottom: 0;
+            /*overflow-y: auto;*/
+        }
+
+        #txt_MenuSearch {
+            width: 200px;
+            height: 35px;
+            padding-left: 3px;
+            border-radius: 6px;
+            border: none;
+            color: #000000;
+            font-weight: 500;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .dx-list-item.dx-state-hover {  
+           background-color: #337ab7;  
+        }  
+        .form-control {
+            height: 36px !important;
+        }
+
+        .navbar-brand {
+            height: 46px;
+        }
+
+        #btnChangePassword {
+            background-color: #222;
+            border: #222;
+            color: #fff;
+        }
+
+        #btnChangePassword:hover {
+            color: #fff;
+        }
+
+        .error{
+            color: #ff0200;
+            font-size: 12px;
+        }
+
+        ul#HeaderSubbook li{
+            height: 30px;
+            padding-top:4px;    
+            padding-left: 6px;
+            border-radius: 2px;
+            margin-bottom:5px;
+            border: none;
+            color: #000000;
+            font-weight: 500;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            cursor:pointer;
+        }
+
+        .modal.fade:not(.in).right .modal-dialog {
+        -webkit-transform: translate3d(25%, 0, 0);
+        transform: translate3d(25%, 0, 0);
+        }
+
+
+    </style>
+
+</head>
+
+<body class="custom-scrollbars navbar-top pace-done sidebar-xs">
+   
+    <!-- Main navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div style="height:10px;"></div>
+        <div class="" style="background: #fff;color: #000;margin: 0;">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#0">
+                    <img src="~/Content/images/NAME_PLATElogin.png" style="height: 100%;display: unset;" />
+                </a>
+            </div>
+            <div class="" id="navbar-mobile">
+                <ul class="nav navbar-nav" style="margin-left: 44px;">
+                    @if (Addressbook.CommonClasses.SessionFacade.SelectedModuleName != "" && Addressbook.CommonClasses.SessionFacade.SelectedModuleName != null)
+                    {
+                        <li>
+                            <a class="sidebar-control sidebar-main-toggle hidden-xs" data-popup="tooltip" title="Collapse main" data-placement="bottom" data-container="body">
+                                <i class="icon-paragraph-justify3"></i>
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a data-popup="tooltip" title="Dashboard" data-placement="bottom" data-container="body" id="btn_dashboard">
+                            <i class="icon-home4"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" id="modulemenu" data-toggle="modal" data-target="#modal_modules" data-popup="tooltip" title="Modules" data-placement="bottom" data-container="body">
+                            <i class="icon-menu"></i>
+                        </a>
+                    </li>
+
+                </ul>
+                <div style="width: calc(100% - 690px);float: left;">
+                    <marquee id="marq_TopHeader" direction="left">
+                        This is a sample scrolling text that has scrolls texts to left.This is a sample scrolling text that has scrolls texts to left.This is a sample scrolling text that has scrolls texts to left.
+                    </marquee>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    @*<li>
+                            <marquee id="marq_TopHeader" direction="left">
+                                This is a sample scrolling text that has scrolls texts to left.This is a sample scrolling text that has scrolls texts to left.This is a sample scrolling text that has scrolls texts to left.
+                            </marquee>
+                        </li>*@
+                    <li>
+                        <div class="form-group" style="margin-top:7px; margin:5px">
+                            <select id="ddlheaderAccountYear" class="form-control header-ddl" onchange="LayoutView.SubmitEmpAccountYear()"></select>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="form-group" style="margin-top:7px; margin:5px">
+                            <select id="ddlCompany" class="form-control act-dropdown" onchange="LayoutView.SubmitEmpAccountYear()" style="max-width: 92px;">
+                                @MvcHtmlString.Create(Addressbook.CommonClasses.SessionFacade.BranchListstr)
+                            </select>
+                        </div>
+                    </li>
+
+                    @*<li class="notification-menu hidden-xs" id="clickNotification">
+                            <a href="#!" aria-expanded="false">
+                                <i class="fa fa-bell" id="notification_icon"></i>
+                                <span class="notificationcss badge-danger header-badge" id="AdminNotification">0</span>
+                            </a>
+                            <ul class="notificationcssdropmenu dp_none" id="AdminddlNotification"></ul>
+                        </li>*@
+
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-bell" id="notification_icon"></i>
+                            <span class="visible-xs-inline-block position-right">Notification</span>
+                            <span class="notificationcss badge-danger header-badge" id="AdminNotification"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-content width-350">
+                            <div class="dropdown-content-heading" style="border-bottom:1px solid #ddd">
+                                Notification
+                                <ul class="icons-list"></ul>
+                            </div>
+
+                            <ul class="media-list dropdown-content-body dp_none" id="AdminddlNotification"></ul>
+
+                        </div>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-birthday-cake"></i>
+                            <span class="visible-xs-inline-block position-right">Birthday</span>
+                            <span class="badge bg-warning-400" id="spanNumOfNotifi">2</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-content width-350">
+                            <div class="dropdown-content-heading" style="border-bottom:1px solid #ddd">
+                                Birthday
+                                <ul class="icons-list">
+                                    @*<li><a href="#"><i class="icon-compose"></i></a></li>*@
+                                </ul>
+                            </div>
+                            <ul class="media-list dropdown-content-body" id="ddlNotification"></ul>
+
+                        </div>
+
+                    </li>
+                    @*<li class="dropdown notification-menu hidden-xs">
+                            <a href="#!" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
+                                <i class="fa fa-birthday-cake"></i>
+                                <span class="notificationcss badge-danger header-badge" id="spanNumOfNotifi">2</span>
+                            </a>
+                            <ul class="dropdown-menu" id="ddlNotification"></ul>
+                        </li>*@
+
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown" id="menu_search" style="display: flex; height: 44px;">
+                            <i class="fa fa-search" data-popup="tooltip" title="Search Menu" data-placement="bottom" data-container="body" style="top: 10px;"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" style="padding: 0;margin-top: 6px;">
+                            <div id="txt_MenuSearch" style="width: 226px;"></div>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="modal" data-target="#modal_subbook" data-popup="`" title="Subbook" data-placement="bottom" data-container="body" id="sidenav">
+                            <i class="icon-indent-decrease2"></i>
+                        </a>
+                    </li>
+
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown" style="display: flex;">
+                            <span id="lblloginid" userid="@Addressbook.CommonClasses.SessionFacade.UserSession.USERID">@Addressbook.CommonClasses.SessionFacade.UserSession.EMPLOYEE_NAME</span>
+                            <i class="caret" style="top: 10px; position: relative;"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="@Url.Action("LogOut", "Login")"><i class="icon-switch2"></i> Logout</a></li>
+                            <li><a id="ChangePasswordModel"><i class="icon-user-lock"></i> Change Password</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    @*<div class="navbar navbar-default second-fix-navbar navbar-fixed-top-menu" id="navbar-second">
+            <ul class="nav navbar-nav no-border visible-xs-block">
+                <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
+            </ul>
+            <div class="navbar-collapse collapse" id="navbar-second-toggle">
+                @MvcHtmlString.Create(Addressbook.CommonClasses.SessionFacade.MenuListstr)
+            </div>
+        </div>
+        <div style="margin-top:45px;"></div>*@
+    <!-- /second navbar -->
+    <!-- Page container -->
+    <div class="page-container" >
+        <!-- Page content -->
+        <div class="page-content" >
+
+            <!-- Main sidebar -->
+            @{
+                if (Addressbook.CommonClasses.SessionFacade.SelectedModuleName != "" && Addressbook.CommonClasses.SessionFacade.SelectedModuleName != null)
+                {
+            <div class="sidebar sidebar-main sidebar-default" >
+                <div class="sidebar-content">
+                    <!-- Main navigation -->
+                    <div class="sidebar-category sidebar-category-visible" id="menusidebar">
+                        <div class="category-title h6">
+                            <span>
+                                @*<i class="@Addressbook.CommonClasses.SessionFacade.PagePermission.Where(x => x.MODULE == Addressbook.CommonClasses.SessionFacade.SelectedModuleName).Select(x => x.MODULEICON).First()" style="margin-right: 15px;"></i>*@
+                                @Addressbook.CommonClasses.SessionFacade.SelectedModuleName
+                            </span>
+                            <ul class="icons-list">
+                                <li><a><i class="@Addressbook.CommonClasses.SessionFacade.PagePermission.Where(x => x.MODULE == Addressbook.CommonClasses.SessionFacade.SelectedModuleName).Select(x => x.MODULEICON).First()"></i></a></li>
+                                @*<li><a href="#" data-action="collapse"></a></li>*@
+                            </ul>
+                        </div>
+                        <div class="category-content no-padding">
+                            <ul class="navigation navigation-main navigation-accordion">
+                                @{
+                                            var SubModuleList = Addressbook.CommonClasses.SessionFacade.PagePermission.Where(
+                                                    x => x.MODULE == Addressbook.CommonClasses.SessionFacade.SelectedModuleName
+                                                ).Select(x => new { x.SUBMODULE, x.SUBMODULEICON }).Distinct().ToArray();
+
+                                            for (int i = 0; i < SubModuleList.Count(); i++)
+                                            {
+                                        <li>
+                                            <a href="#"><i class="@SubModuleList[i].SUBMODULEICON"></i> <span>@SubModuleList[i].SUBMODULE</span></a>
+                                            <ul>
+                                                @{
+                                                            var MenuList = Addressbook.CommonClasses.SessionFacade.PagePermission.Where(
+                                                                        x => x.SUBMODULE == SubModuleList[i].SUBMODULE && x.MODULE == Addressbook.CommonClasses.SessionFacade.SelectedModuleName
+                                                                    ).ToArray();
+
+                                                            for (int j = 0; j < MenuList.Count(); j++)
+                                                            {
+                                                @*<li><a href='@Url.Action(MenuList[j].ACTION, MenuList[j].CONTROLLER)'><i class="@MenuList[j].ICON"></i> @MenuList[j].NAME</a></li>*@
+                                                <li><a onclick="LayoutView.MenuTabAddButtonHandler('@MenuList[j].NAME', '@MenuList[j].ICON', '@MenuList[j].CONTROLLER', '@MenuList[j].ACTION')" data-menu="@MenuList[j]"><i class="@MenuList[j].ICON"></i> @MenuList[j].NAME</a></li>
+                                                            }
+                                                }
+                                            </ul>
+                                        </li>
+                                                            }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /main navigation -->
+                </div>
+            </div>
+                                                    }
+            }
+            <!-- /main sidebar -->
+            <!-- Main content -->
+            <div class="content-wrapper">
+
+                <div id="tabupdaterate">
+                    @*<div class="row">*@ 
+                        <!------ Payment info -------->
+                        @*<div id="tabpaymentinfo" class="col-md-6">
+                            <div id="pnl_PaymnetInfo" >
+                                <div class="" style="border:1px solid white;box-shadow:-4px 7px 10px 3px #a5a5a5;margin-top: 17px;">
+                                    <table class="table" id="tbl_PaymnetInfo">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center;">Name</th>
+                                                <th style="text-align:center;">Payment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+                        </div>*@
+
+                        <!------ Gold Rate Update -------->
+                        <div id="tabGoldRate">
+                            <div id="pnl_ExchangeRate" >
+                                <div class="col-md-2 col-md-offset-2" style="border:1px solid white;box-shadow:-4px 7px 10px 3px #a5a5a5;margin-top: 17px;width: 15%;margin-left: 80.666667%;">
+                                    <table class="table" id="tbl_GoldRate">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center;">Code</th>
+                                                <th style="text-align:center;">Gold Rate (&#8377)<button style="padding: 0px 4px !important;margin-left: 9px;" class="btn btn-success number" type="button" onclick="LayoutView.SaveGoldRate()"><i class="fa fa-refresh"></i></button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    @*</div>*@
+                   
+
+                    @*---- Exchange Rate Update ------*@
+                    <div id="tabExchangeRate">
+                        <div id="pnl_ExchangeRate" style="background-color:#fff">
+                            <div class="col-md-2 col-md-offset-2" style="margin-left: 80.666667%;border:1px solid white;box-shadow:-4px 7px 10px 3px #a5a5a5;margin-top: 17px;width: 15%;">
+                                <table class="table" id="tbl_ExchangeRate">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center;">Code</th>
+                                            <th style="text-align:center;">Ex. Rate (&#8377)<button class="btn btn-success number" type="button" style="padding: 0px 4px !important;margin-left: 9px;" onclick="LayoutView.SaveExchnageRate()"><i class="fa fa-refresh"></i></button></th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                                
+                        </div>
+                    </div>
+
+                   
+
+                </div>
+                <div id="dx_tabPanel"></div>
+                @RenderBody()
+            </div>
+            <!-- /main content -->
+
+        </div>
+        <!-- /page content -->
+
+    </div>
+    <!-- /page container -->
+    <!-- modules modal -->
+    <div id="modal_modules" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-grey-800">
+                    @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                    <h6 class="modal-title">Modules</h6>
+                </div>
+                <div class="modal-body">
+                    <div id="modules_container">
+                        @{
+                            var modulelist = Addressbook.CommonClasses.SessionFacade.PagePermission.Select(x => new { x.MODULE, x.MODULEICON }).Distinct().ToArray();
+                            for (int i = 0; i < modulelist.Count(); i++)
+                            {
+                                if (modulelist[i].MODULE != Addressbook.CommonClasses.SessionFacade.SelectedModuleName)
+                                {
+                        <button type="button" data-dismiss="modal" class="btn btn-float btn-float-lg btn-default"><i class="@modulelist[i].MODULEICON"></i> <span>@modulelist[i].MODULE</span></button>
+                                }
+                                else
+                                {
+                        <button type="button" data-dismiss="modal" class="btn btn-float btn-float-lg bg-teal-400"><i class="@modulelist[i].MODULEICON"></i> <span>@modulelist[i].MODULE</span></button>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /modules modal -->
+
+    <!-- modules modal 2-->
+    <div id="modal_subbook" class="modal fade right">
+        <div class="modal-dialog" style="margin-top: 61px;width: 215px;right: 0px;position: absolute;">
+            <div class="modal-content" style="height: 100%;overflow: hidden;">
+                <div class="modal-header bg-grey-800">
+                    @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                    <h5 class="modal-title">Books</h5>
+                </div>
+                <div class="modal-body" style="overflow-y: scroll;padding: 5px;height: calc(100% - 57px);">
+                    <ul id="HeaderSubbook" style="list-style: none;font-size: 14px;padding-left: 0px;">
+                        @*<div id="txt_subbook"></div>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /modules modal 2-->
+
+    <div id="modal_ChangePasswoprd" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content" style=" height: 440px; margin-top: 100px; padding-top: 30px;">
+                <div class="modal-body">
+                        <!-- Page content -->
+                        <div class="page-content">
+                            <!-- Main content -->
+                                <!-- Simple login form -->
+                                <div class="panel panel-body login-form" style=" width:300px;margin-left:125px;">
+                                    <div class="text-center">
+                                        <span style="background-color:#222;padding: 5px;border-radius: 50px;"><i class="icon-user-lock bg-burgundy" aria-hidden="true" style="color: white;"></i></span>
+                                        <span style="margin-left: 5px;font-size: 20px;">Change Password</span>
+                                    </div>
+                                    <div class="content-divider" style="background-color: #222; height: 2px;margin: 10px 0; margin-bottom: 40px;"></div>
+                                    <form id="ChangePasswordForm">
+                                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 20px;">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-key text-muted"></i>
+                                            </div>
+                                            <input class="form-control" id="currentpass" type="password" name="currentpass" placeholder="Current Password" required />
+                                        </div>
+
+                                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 20px;">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-lock2 text-muted"></i>
+                                            </div>
+                                            <input class="form-control" id="newpass" type="password" name="newpass" placeholder="New Password" required />
+                                        </div>
+                                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 20px;">
+                                            <div class="form-control-feedback">
+                                                <i class="icon-lock2 text-muted"></i>
+                                            </div>
+                                            <input class="form-control" id="confirmpass" type="password" name="confirmpass" placeholder="Confirm Password" required />
+                                        </div>
+                                        <div class="form-group text-center" style="margin-bottom: 20px;">
+                                            <button class="btn btn-block" type="button" id="btnChangePassword">Submit<i class="icon-circle-right2 position-right"></i></button>
+                                        </div>
+                                    </form>
+                                    <!-- /simple login form -->
+                                </div>
+                                <!-- /main content -->
+                            <!-- /page content -->
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dx_loaderTrinity"></div>
+
+    @RenderSection("scripts", required: false)
+
+    @*<script id="NotificationList" type="text/x-jsrender">
+            <li class="bell-notification">
+                <a href="javascript:;" class="media">
+                    <span class="media-left media-icon">
+                        {{if occasion == "Birthday"}}
+                        <img class="" src="/Content/images/birthday.png" />
+                        {{else}}
+                        <img class="" src="/Content/images/anry.png" />
+                        {{/if}}
+                    </span>
+                    <div class="media-body">
+                        <span class="block">{{>name}}</span>
+                        <span class="text-muted block-time">{{>time}}</span>
+                    </div>
+                </a>
+            </li>
+        </script>*@
+    <script id="NotificationList" type="text/x-jsrender">
+        <li class="media">
+            <div class="media-left">
+                @*<img src="assets/images/demo/users/face10.jpg" class="img-circle img-sm" alt="">*@
+                {{if occasion == "Birthday"}}
+                <img class="" src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/Content/images/birthday.png" />
+                {{else}}
+                <img class="" src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/Content/images/anry.png" />
+                {{/if}}
+
+            </div>
+
+            <div class="media-body">
+                <a href="#" class="media-heading">
+                    <span class="text-semibold p_m_0px">{{>name}}</span>
+                    <span class="media-annotation pull-right p_m_0px">{{>time}}</span>
+                </a>
+
+                @*<span class="text-muted">who knows, maybe that would be the best thing for me...</span>*@
+            </div>
+        </li>
+    </script>
+
+    @*<script id="NotificationList1" type="text/x-jsrender">
+            {{if isview == 1}}
+            <li class="bell-notification" id="{{>id}}" style="padding-left: 10px;background-color:#eee; border-bottom: 1px solid #ccc;">
+                <a href="javascript:;" class="media">
+                    <div class="media-body">
+                        <p class="block" style="white-space: pre-wrap;">{{>description}}</p>
+                        <p class="text-muted block-time">{{>date}}</p>
+                        <p style="display:none">{{>isview}}</p>
+                    </div>
+                </a>
+            </li>
+            {{else}}
+            <li class="bell-notification" id="{{>id}}" style="padding-left: 10px; border-bottom 1px solid #ccc;">
+                <a href="javascript:;" class="media">
+                    <div class="media-body">
+                        <p class="block" style="white-space: pre-wrap;">{{>description}}</p>
+                        <p class="text-muted block-time">{{>date}}</p>
+                        <p style="display:none">{{>isview}}</p>
+                    </div>
+                </a>
+            </li>
+            {{/if}}
+        </script>*@
+    <script id="NotificationList1" type="text/x-jsrender">
+        {{if isview == 1}}
+        <li class="media" id="{{>id}}" style="padding-left: 10px; border-bottom: 1px solid #ccc;">
+            <div class="media-body">
+                <a href="javascript:;" class="media-heading">
+                    <div class="media-body">
+                        <p class="block p_m_0px" style="white-space: pre-wrap;">{{>description}}</p>
+                        <p class="text-muted block-time p_m_0px">{{>date}}</p>
+                        <p style="display:none">{{>isview}}</p>
+                    </div>
+                </a>
+            </div>
+        </li>
+        {{else}}
+        <li class="media" id="{{>id}}" style="padding-left: 10px; border-bottom :1px solid #ccc;">
+            <div class="media-body">
+                <a href="javascript:;" class="media-heading">
+                    <div class="media-body">
+                        <p class="block" style="white-space: pre-wrap;">{{>description}}</p>
+                        <p class="text-muted block-time">{{>date}}</p>
+                        <p style="display:none">{{>isview}}</p>
+                    </div>
+                </a>
+            </div>
+        </li>
+        {{/if}}
+    </script>
+
+    <script type="text/javascript">
+        function getDomain() {
+            var domainPath = '@System.Configuration.ConfigurationManager.AppSettings["domainPath"]';
+            return domainPath;
+        }
+        function getERPDomain() {
+            var ERPdomainPath = '@System.Configuration.ConfigurationManager.AppSettings["ERPdomainPath"]';
+            return ERPdomainPath;
+        }
+        function getB2BDomain() {
+            var B2BdomainPath = '@System.Configuration.ConfigurationManager.AppSettings["B2BdomainPath"]';
+            return B2BdomainPath;
+        }
+        function getDesignImgVirtualPath() {
+            var DesignImgPath = '@System.Configuration.ConfigurationManager.AppSettings["DesignImgPath"]';
+            return DesignImgPath;
+        }
+        function getDesignImgPhysicalPath() {
+            var DesignImgPhysicalPath = '@System.Configuration.ConfigurationManager.AppSettings["DesignImgPhysicalPath"]';
+            return DesignImgPhysicalPath;
+        }
+        function getCurrencyCode() {
+            var CurrCode = '@Addressbook.CommonClasses.SessionFacade.UserSession.CURRENCYCODE';
+            return CurrCode;
+        }
+        function getDisLanguage() {
+            var CurrCode = '@Addressbook.CommonClasses.SessionFacade.UserSession.LANGUAGE';
+            return CurrCode;
+        }
+        function isA() {
+            if ('@Model' != null && '@Model.ISADD' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isU() {
+            if ('@Model' != null && '@Model.ISUPDATE' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isD() {
+            if ('@Model' != null && '@Model.ISDELETE' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isDW() {
+            if ('@Model' != null && '@Model.ISDOWNLOAD' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isAU() {
+            if ('@Model' != null && '@Model.AUTHORIZE' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function getBranchId() {
+            return '@Addressbook.CommonClasses.SessionFacade.UserSession.EMPBRANCHID';
+        }
+        function getAccountYearId() {
+            return '@Addressbook.CommonClasses.SessionFacade.UserSession.ACCOUNTYEARID';
+        }
+
+        var dx_LoaderTrinity = "",txt_MenuSearch = "";
+
+        $(document).ready(function () {
+            dx_LoaderTrinity = $("#dx_loaderTrinity").dxLoadPanel({
+                shadingColor: "rgba(0,0,0,0.4)",
+                position: { of: "body" },
+                visible: false,
+                showIndicator: true,
+                showPane: false,
+                shading: true,
+                closeOnOutsideClick: false,
+                indicatorSrc: "../Content/images/trinityloaderwhite.gif",
+                Height: 70,
+                Width: 70,
+            }).dxLoadPanel("instance");
+
+            txt_MenuSearch = $("#txt_MenuSearch").dxAutocomplete({
+                placeholder: "Select Search Menu...",
+                mode: "search",
+                dataSource: new DevExpress.data.CustomStore({
+
+                    load: function (loadOptions) {
+                        var deferred = $.Deferred();
+
+                        var myfilter = { rules: [] };
+                        myfilter.rules.push({ field: "MENUNAME", op: "eq", data: loadOptions.searchValue });
+
+                        $.ajax({
+                            url: getDomain() + "/Common/BindMastersDetails?ServiceName=COMMON_MENUMAS_GET&myfilters=" + JSON.stringify(myfilter),
+                            async: false,
+                            cache: false,
+                            type: 'POST',
+                            success: function (data) {
+                                if ($(data).find('RESPONSECODE').text() == "0") {
+                                    result = xml2json.parser(data.replace("&amp;", "&"));
+                                }
+                                else {
+                                    DevExVariables.InvalidResponseCode(data);
+                                }
+                            },
+                            error: OnError
+                        });
+                        if (result != "Error" && result) {
+                            if (result.serviceresponse.detailslist)
+                                deferred.resolve(result.serviceresponse.detailslist.details);
+                            else
+                                deferred.reject("No Records Found");
+                        }
+                        else {
+                            deferred.reject("Data Loading Error");
+                        }
+
+                        return deferred.promise();
+                    },
+                    key: "menuid",
+
+                }),
+                displayExpr: "menuname",
+                valueExpr: "menuname",
+                onItemClick: function (e) {
+                    LayoutView.MenuTabAddButtonHandler(e.component.option().selectedItem.menuname,
+                                                       e.component.option().selectedItem.icon,
+                                                       e.component.option().selectedItem.controller,
+                                                       e.component.option().selectedItem.action);
+                    txt_MenuSearch.option("value", "");
+
+                    $("#menu_search").closest("li.dropdown").removeClass("open");
+                },
+                itemTemplate: function (data) {
+                    return $("<div class='product-name'>" + data.menuname + "<div class='custom-item' style='font-size:10px; color:#757575;'>" + "<div class=''>" +
+                        data.modulename + " > " + data.submodulename + " > " +
+                        data.menuname + "</div></div>");
+                },
+                visible: true,
+                searchEnabled: true,
+            }).dxAutocomplete("instance");
+
+            $("#menu_search").click(function () {
+                setTimeout(function () {
+                    txt_MenuSearch.focus();
+                }, 100);
+            });
+
+        });
+
+    </script>
+
+    <script src="~/Script/Common/Layout.js?v=@DateTime.UtcNow"></script>
+    <script src="~/Script/Home/ChangePassword.js?V=@DateTime.UtcNow"></script>
+
+    <script type="text/x-jsrender" id="HearderAccountYearList">
+        <option value="{{:accountyearid}}">{{:accountyearname}}</option>
+    </script>
+
+    <script type="text/x-jsrender" id="HeaderSubbookList">
+        <li onclick="LayoutView.MenuTabAddButtonHandler('{{:menuname}}','{{:icon}}','{{:controller}}','{{:action}}','{{:sbookid}}')">{{:subbook}}</li>
+    </script>
+
+    <script id="render_CurrencyList" type="text/x-jsrender">
+        <tr id="Currency{{:currencyid}}" currencyid="{{:currencyid}}">
+            <td style="text-align:center;">{{:currencycode}}</td>
+            <td style="text-align:center;">{{:exchangerate.toFixed(2)}}</td>
+        </tr>
+    </script>
+
+    <script id="render_GoldList" type="text/x-jsrender">
+        <tr id="Gold{{:goldid}}" goldid="{{:goldid}}">
+            <td style="text-align:center;">{{:goldcode}}</td>
+            <td style="text-align:center;">{{:gold_rate.toFixed(2)}}</td>
+        </tr>
+    </script>
+
+</body>
+</html>

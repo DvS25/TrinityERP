@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "RM Code Master";
+}
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_RmCodeMaster" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">RM Code</label>
+                <div class="col-md-2">
+                    <div id="dx_txtRMCode"></div>
+                </div>
+
+                <label class="col-md-1 control-label addstar">RM Name</label>
+                <div class="col-md-2">
+                    <div id="dx_txtRMName"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Sub Category</label>
+                <div class="col-md-2">
+                    <div id="dx_ddlRMSubCat"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Shape</label>
+                <div class="col-md-2">
+                    <div id="dx_ddlRMShape"></div>
+                </div>
+
+                <label class="col-md-1 control-label">Purity</label>
+                <div class="col-md-2">
+                    <div id="dx_ddlRMPurity"></div>
+                </div>
+
+                <label class="col-md-1 control-label">Color</label>
+                <div class="col-md-2">
+                    <div id="dx_ddlRMColor"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Purity Per</label>
+                <div class="col-md-2">
+                    <div id="dx_numPurityPer"></div>
+                </div>
+
+                <label class="col-md-1 control-label">Mel Per</label>
+                <div class="col-md-2">
+                    <div id="dx_numMelPer"></div>
+                </div>
+
+                <label class="col-md-1 control-label">Prod Mel Per</label>
+                <div class="col-md-2">
+                    <div id="dx_numProdMelPer"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Use Sale/Purchase</label>
+                <div class="col-md-2">
+                    <div id="dx_switchUseSalePurchase"></div>
+                </div>
+
+                <label class="col-md-1 control-label">Use Bag Finish</label>
+                <div class="col-md-2">
+                    <div id="dx_switchUseBagFinish"></div>
+                </div>
+
+                <label class="col-md-1 control-label">Is Active</label>
+                <div class="col-md-2">
+                    <div id="dx_switchIsActive"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Discription</label>
+                <div class="col-md-5">
+                    <div id="dx_txtDescription"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+@section Scripts{
+    <script src="~/Script/Master/RmCodeMaster.js?v=@DateTime.UtcNow"></script>
+}
+
+

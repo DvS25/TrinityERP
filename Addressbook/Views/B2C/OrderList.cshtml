@@ -1,0 +1,325 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Order List";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div id="Desinglist" style="display:none">
+            @*<div style="height:32px;margin-bottom: 10px;">
+
+                </div>*@
+            <div class="row" id="quotationdesigndiv">
+                <h2>Order Design</h2>
+                <button id="btnquotdesingback" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+            </div>
+            <div class="row" id="quotationdesign">
+
+            </div>
+        </div>
+        <div class="panel m-b-10" id="GridViewQuotationlist">
+            <div class="panel-body">
+                <div class="row quotationlable">
+                    <label class="col-sm-1 qutlbl">Search</label>
+                    <div class="col-sm-2" id="">
+                        <input id="searchdata" autocomplete="off" class="form-control" value="" style="padding-top:0px!important;padding-bottom: 0px!important;" onkeyup="MainOrderList.ChangeDate()" onkeydown="MainOrderList.ChangeDate()"/>
+                    </div>
+                    <label class="col-sm-1 qutlbl">Status</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="txtgeneralstatus" onchange="MainOrderList.SelectStatus(this.id)"></select>
+                    </div>
+                    <label class="col-sm-1 qutlbl p-0">From Date<span style="color:red"> *</span></label>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <input class="form-control"  autocomplete="off" id="txt_fromdate" name="date" placeholder="dd MMM yyyy" type="text" data-provide="datepicker" onchange="MainOrderList.ChangeDate()" />
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="col-sm-1 qutlbl">To Date<span style="color:red"> *</span></label>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <input class="form-control"  autocomplete="off" id="txt_todate" name="date" placeholder="dd MMM yyyy" type="text" data-provide="datepicker" onchange="MainOrderList.ChangeDate()" />
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body p-t-0" id="actionnavbar" style="display:none">
+                <div class="col-sm-12 m-t-10">
+                    <div role="tabpanel">
+                        <ul class="nav nav-tabs navborder mh-44" role="tablist" id="txtactionstatus"></ul>
+                    </div>
+                    <div class="tab-content" id="ordertabgrid">
+                        <div class="table-responsive" style="padding:12px 10px 0px 10px;">
+                            <div class="jqGrid_wrapper" id="jqgrid_status">
+                                <table id="table_list_status"></table>
+                                <div id="pager_list_status"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+        <div id="showstatusdetail" class="col-sm-12" style="display:none;">
+            <div class="col-sm-7">
+                <div class="row" style="background-color:#fff">
+                    <form>
+                        <div class="col-sm-12 blockorderheader">
+                            <span class="f-w-600"><i class="fa fa-user"></i>Order</span>
+                        </div>
+                        <div class="col-sm-12 p-t-10 p-b-10" id="customerdetail"></div>
+                      
+                    </form>
+                </div>
+                <div class="row m-t-15" style="background-color:#fff;display:none" id="divcancelorderdetail">
+                    <form>
+                        <div class="col-sm-12 blockorderheader">
+                            <span class="f-w-600"><i class="fa fa-user"></i>Cancel Order</span>
+                        </div>
+                        <div class="col-sm-12 p-t-10 p-b-10" id="canceldetail">
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Cancel Date : </label>
+                                <p class="col-sm-9" id="txtcanceldate"></p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Cancel Reason : </label>
+                                <p class="col-sm-9" id="txtcancelreason"></p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Cancel Remark : </label>
+                                <p class="col-sm-9" id="txtcancelremark"></p>
+                            </div>
+                           
+                        </div>
+                    </form>
+                </div>
+                <div class="row m-t-15" style="background-color:#fff;display:none" id="divreturnorderdetail">
+                    <form>
+                        <div class="col-sm-12 blockorderheader">
+                            <span class="f-w-600"><i class="fa fa-user"></i>Return Order</span>
+                        </div>
+                        <div class="col-sm-12 p-t-10 p-b-10">
+                            <div class="col-sm-12" id="divreauthenticationcode">
+                                <label class="col-sm-3 f-w-600 form-control-label">Auth. Code : </label>
+                                <p class="col-sm-9" id="txtreturnauthcodep"></p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Return Date : </label>
+                                <p class="col-sm-9" id="txtreturndate"></p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Return Reason : </label>
+                                <p class="col-sm-9" id="txtreturnreason"></p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Return Remark : </label>
+                                <p class="col-sm-9" id="txtreturnremark"></p>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="row m-t-15" style="background-color:#fff;display:none" id="divshippingdetail">
+                    <form>
+                        <div class="col-sm-12 blockorderheader">
+                            <span class="f-w-600"><i class="fa fa-user"></i>Shipping Address</span>
+                        </div>
+                        <div class="col-sm-12 p-t-10 p-b-10" id="shippingdetail"></div>
+                    </form>
+                </div>
+                <div class="row m-t-15" style="background-color:#fff">
+                    <div class="col-sm-12 blockorderheader">
+                        <span class="f-w-600"><i class="fa fa-list"></i>Order Details</span>
+                    </div>
+                    <div class="col-sm-12  p-t-10 p-b-10">
+                        <table class="table-content orderdetailtable">
+                            <thead class="theaderorder">
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th style="width:20%">Picture</th>
+                                    <th>Design No</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th class="cancelcheckdiv">Cancel</th>
+                                </tr>
+                            </thead>
+                            <tbody class="orderbody" id="designdetail"></tbody>
+                            <tfoot class="tfooterorder">
+                                <tr>
+                                    <td colspan="4">
+                                        <label style="float:right">Total :</label>
+                                    </td>
+                                    <td>
+                                        <span id="custorderfinalamount"></span>
+                                    </td>
+                                    <td class="cancelcheckdiv"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class="row m-t-15" style="background-color:#fff;display:none" id="divpaymentdetail">
+                    <form>
+                        <div class="col-sm-12 blockorderheader">
+                            <span class="f-w-600"><i class="fa fa-credit-card"></i>Payment Detail</span>
+                        </div>
+                        <div class="col-sm-12 p-t-10 p-b-10" id="paymentdetail">
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Total Amount : </label>
+                                <p class="col-sm-2 text-right" id="txtpayamount"></p>
+
+                                <label class="col-sm-3 f-w-600 form-control-label">Payment Type : </label>
+                                <p class="col-sm-2" id="txtCurrencyType"></p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Delivery Charge : </label>
+                                <p class="col-sm-2 text-right" id="txtdeliverycharge"></p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Gift Charge : </label>
+                                <p class="col-sm-2 text-right" id="txtgiftwrapperamt"></p>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="col-sm-3 f-w-600 form-control-label">Final Amount : </label>
+                                <p class="col-sm-2 text-right" id="txtpayfinalamount"></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-5 p-r-0" style="height:300px;">
+                <div class="col-sm-12 p-b-10" style="background-color:#fff">
+                    <div class="row blockorderheader">
+                        <span class="f-w-600"><i class="fa fa-list"></i>Order Tracking & Status</span>
+                    </div>
+                    <form class="col-sm-12 m-t-10">
+                        <div class="row">
+                            <label class="col-sm-2">Status</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="orderstaticdetail"></select>
+                            </div>
+                        </div>
+                        <div class="timelinestatus" id="ordertracking"> </div>
+                        <div class="row">
+                            <div style="float:right">
+                                <button class="btn btn-primary" type="button" id="Savechangestatus" onclick="MainOrderList.ChangeStatus()">Save</button>
+                                <button class="btn btn-default" type="button" onclick="MainOrderList.BtnCancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+    <input type="hidden" id="hiddencustomerid"/>
+</div>
+<div class="modal fade" id="modalreturnauthentication" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Return Authentication Code</h4>
+            </div>
+            <div class="modal-body">
+                <label>Your Return Order Is Confirmed.Your Return Authentication Code is : <b><span id="labelretuenauthentication" style="color:#000"></span></b></label>
+            </div>
+            <div class="modal-footer">
+                <button id="btnsubmintreturnconform" type="button" class="btn btn-default" onclick="MainOrderList.savealldata();">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Script/B2C/OrderList.js"></script>
+    <script id="DDLordertracking" type="text/x-jsrender">
+        <div class="container1">
+            <div class="content">
+                <h5>{{>status}} </h5>
+                <h6>{{>entrydate}}</h6>
+               
+            </div>
+        </div>
+    </script>
+    <script id="DdlGeneralStatus" type="text/x-jsrender">
+        <option value="{{>type}}">{{>type}}</option>
+    </script>
+    <script id="ddlorderstaticdetail" type="text/x-jsrender">
+        <option value="{{>actionid}}" sttype ="{{>staticstatusname}}">{{>actionname}}</option>
+    </script>
+    <script id="DdlactionStatus" type="text/x-jsrender">
+        <li class="rowtab nav-item" role="presentation" id="{{>actionname}}" value="" aria-expanded="false" onclick="BindAction('{{>actionid}}',this)">
+            <a class="nav-link" data-toggle="tab" href="{{>actionid}}" id="" aria-expanded="true">{{>actionname}} ({{>actioncount}})</a>
+            <input id="inputhidden{{>actionid}}" value="{{>actionname}}" class="hidden"/>
+            <span id="statusid{{>actionid}}" hidden>{{>actionid}}</span>
+            <p hidden>{{>statusorder}}</p>
+            <label hidden>{{>staticstatusname}}</label>
+        </li>
+    </script>
+    <script id="Ddlcustomerdetail" type="text/x-jsrender">
+        <div class="col-sm-12">
+            <label class="col-sm-3 f-w-600 form-control-label">Order Id : </label>
+            <p class="col-sm-9" id="custorderid"></p>
+        </div>
+        <div class="col-sm-12">
+            <label class="col-sm-3 f-w-600 form-control-label">Order Date : </label>
+            <p class="col-sm-9" id="custorderdate"></p>
+        </div>
+        <div class="col-sm-12">
+            <label class="col-sm-3 f-w-600 form-control-label">Customer Name : </label>
+            <p class="col-sm-9">{{>customername}}</p>
+        </div>
+        <div class="col-sm-12">
+            <label class="col-sm-3 f-w-600 form-control-label">Email Id : </label>
+            <p class="col-sm-9">{{>emailid}}</p>
+        </div>
+        <div class="col-sm-12">
+            <label class="col-sm-3 f-w-600 form-control-label">Mobile No : </label>
+            <p class="col-sm-9">{{>mobileno}}</p>
+        </div>
+    </script>
+    <script id="Ddldesigndetail" type="text/x-jsrender">
+        <tr>
+            <td>{{>rownum}}</td>
+            <td style="width:20%"><img src="{{>imagepath}}" style="width:70%"/></td>
+            <td><p>{{>designno}}</p></td>
+            <td>
+                <span class="f-w-600">Metal : </span><span>{{>metal_purity}}&nbsp;&nbsp; {{>metal_color}} </span><br />
+                <span class="f-w-600">Diamond : </span><span>{{>diamond_purity}}&nbsp;&nbsp;{{>diamond_color}} </span><br />
+                <span class="f-w-600">Colorstone : </span><span>{{>cs_purity}}&nbsp;&nbsp;{{>cs_color}}</span><br />
+                <span class="f-w-600">Qty : </span><span>{{>total_qty}}</span>&nbsp;&nbsp;&nbsp;<span class="f-w-600">Size : </span><span>{{>size}}</span><br />
+                {{if (personalizemsg && personalizemsg != "[object Object]")}}
+                <span class="f-w-600">Personalize Msg : </span><span>{{>personalizemsg}}</span>
+                {{/if}}
+            </td>
+            <td>
+                <span class="indianprice" id="indianprice{{>custorderitemid}}"></span>
+                <input id="ipr{{>custorderitemid}}" type="hidden" value="{{>total_amt}}" />
+            </td>
+            <td class="cancelcheckdiv text-center"><div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input id="check{{>custorderitemid}}" type="checkbox" name="checkdata" onchange="MainOrderList.checkcancelclick('{{>custorderitemid}}')">
+                    <label for="check{{>custorderitemid}}"></label>
+                </div>
+            </td>
+        </tr>
+    </script>
+    <script id="Ddlshippingdetail" type="text/x-jsrender">
+        <div class="col-sm-12">
+            <label class="col-sm-3 f-w-600 form-control-label">Customer Name : </label>
+            <p class="col-sm-9">{{>contactpersonname}}</p>
+        </div>
+        <div class="col-sm-12">
+            <label class="col-sm-3 f-w-600 form-control-label">Address : </label>
+            <p class="col-sm-9">{{>fulladdress}}</p>
+        </div>
+        <div class="col-sm-12">
+            <label class="col-sm-3 f-w-600 form-control-label">Mobile No : </label>
+            <p class="col-sm-9">{{>mobileno}}</p>
+        </div>
+    </script>
+    
+}

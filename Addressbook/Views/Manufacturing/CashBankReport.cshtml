@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Cash Bank Report";
+}
+@*<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />*@
+<link href="~/Content/plugin/daterangepicker-master/daterangepicker-master/daterangepicker.css" rel="stylesheet" />
+<style>
+    .daterangepicker .ranges ul {
+        width: 290px;
+    }
+</style>
+
+<form id="frm_Cashbank_Book" class="form-horizontal">
+    <div class="panel-group panel-group-control content-group-lg">
+        @*-----------------------------------------------------------------------------------------*@
+        <div class="panel panel-white">
+            <div class="panel panel-flat" id="pnlView">
+                <div class="panel-body">
+                    <div class="form-group col-sm-3">
+                        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 10px 15px; border: 1px solid #ccc; width: 100%; border-radius: 4px;">
+                            <i class="fa fa-calendar"></i>&nbsp;&nbsp;
+                            <span></span> &nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            @*-----------------------------------------------------------------------------------------*@
+            <div class="panel-heading">
+                <h5 class="panel-title" style="color:#858585;">
+                    Total Balance in Accounts :
+                    <span style="text-align:right;font-weight: bold;font-size: 20px; color:#3c3b3b;" id="TotalHeadAmt"></span>
+                </h5>
+            </div>
+            <div class="panel-heading" style="border-top: 1px solid #ddd;">
+                <h6 class="panel-title" style="color:#3c3b3b;">
+                    <a class="collapsed col-sm-11" data-toggle="collapse" href="#collapsible-control-group1" aria-expanded="false" style="font-size: 17px; font-weight: bold;">Cash Accounts</a>
+                    <span style="text-align:right;font-weight: bold;font-size: 17px;" id="CashHeadAmt"></span>
+                </h6>
+            </div>
+            <div id="collapsible-control-group1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div id="dx_dataGridCashAccount"></div>
+                </div>
+            </div>
+            <div class="panel-heading" style="border-top: 1px solid #ddd;">
+                <h6 class=" panel-title" style="color:#3c3b3b;">
+                    <a class="collapsed col-sm-11" data-toggle="collapse" href="#collapsible-control-group2" aria-expanded="false" style="font-size: 17px; font-weight: bold;">Bank Accounts</a>
+                    <span style="text-align:right;font-weight: bold;font-size: 17px;" id="BankHeadAmt"></span>
+                </h6>
+            </div>
+            <div id="collapsible-control-group2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                <div class="panel-body">
+                    <div id="dx_dataGridBankAccount"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/Content/plugin/daterangepicker-master/daterangepicker-master/moment.min.js"></script>
+<script src="~/Content/plugin/daterangepicker-master/daterangepicker-master/daterangepicker.js"></script>
+@section Scripts{
+    <script src="~/Script/Manufacturing/CashBankReport.js?V=@DateTime.UtcNow"></script>
+    @*<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>*@
+    <script src="~/Content/plugin/daterangepicker-master/daterangepicker-master/moment.min.js"></script>
+    <script src="~/Content/plugin/daterangepicker-master/daterangepicker-master/daterangepicker.js"></script>
+}

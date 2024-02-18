@@ -1,0 +1,271 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Employee Details";
+}
+
+<div style="padding-top: 15px;">
+    <form id="formemployee">
+        @if (@Addressbook.CommonClasses.SessionFacade.UserSession != null)
+        {
+            <input type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.USERID" id="userloginid" />
+        }
+        
+        <input type="hidden" id="hdnemployeedetails" value="" />
+        <div id="editemployeedetails" style="display:none;background-color:#fff">
+            <div style="height:32px;margin-bottom: 10px;margin-right: 19px;padding-top: 19px;">
+                <button id="btn_b_cancle" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="col-sm-4 form-control-label">Employee Name<span style="color:red"> *</span></label>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-3" style="padding-right:5px">
+                                <select class="form-control" id="text_b_salutation">
+                                    <option value="Mr." selected="selected">Mr.</option>
+                                    <option value="Miss.">Miss.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Dr.">Dr.</option>
+                                    <option value="Prof.">Prof.</option>
+                                    <option value="Shri">Shri</option>
+                                    <option value="Smt">Smt</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-9" style="padding-left:0px !important">
+                                <input class="form-control" type="text" name="empfullname" id="text_fullname" placeholder="Full Name">
+                            </div>
+                        </div>
+                    </div>
+                    <label class="col-sm-4 form-control-label m-t-5">User Name<span style="color:red"> *</span></label>
+                    <div class="col-sm-8 m-t-5">
+                        <input class="form-control" type="text" name="username" id="text_username" placeholder="Username">
+                    </div>
+                    <label class="col-sm-4 form-control-label m-t-5">User Password<span style="color:red"> *</span></label>
+                    <div class="col-sm-8 m-t-5">
+                        <input class="form-control" type="password" name="userpassword" id="text_Userpassword" placeholder="User Password">
+                    </div>
+                    <div class="col-sm-8 col-sm-offset-4 m-t-5">
+                        <input type="checkbox" id="showpasscheck"><label class="form-control-label" style="padding-left:5px"> Show Password</label>
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="col-sm-3">
+                        <img width="125" height="125" src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]" id="imgempprofileimg" />
+                        <label id="ItemimgError" class="error" style="margin-left:2px; display:none">This field is required.</label>
+                        <input type="hidden" id="hdnDeletedImg" />
+                    </div>
+                  
+                        <div class="col-sm-6" id="permissionbtndiv">
+                            <label title="Upload image file" class="btn btn-primary" for="btnEmployeeUpload">
+                                <input type="file" accept="jpg,jpeg,png,gif" name="file" id="btnEmployeeUpload" class="hide" tabindex="1" required>
+                                Upload File
+                                <input type="hidden" id="hdnEmployeeId" value="00000000-0000-0000-0000-000000000000" />
+                            </label>
+                        </div>
+                   
+                </div>
+            </div>
+
+            <div class="form-group row">
+
+                <label class="col-sm-2 form-control-label">Birth Date</label>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input class="form-control" id="txt_bridthdate" name="birthdate" placeholder="dd MMM yyyy" type="text" data-provide="datepicker" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label">Join Date</label>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <input class="form-control" id="txt_joindate" name="joindate" placeholder="dd MMM yyyy" type="text" data-provide="datepicker" />
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label">Gender </label>
+                <div class="col-sm-4" style="margin-top:6px" id="gender">
+                    <input type="radio" id="gendermale" class="ab" name="radiogender" value="Male" checked>
+                    <label for="gendermale">Male</label>
+
+                    <input type="radio" id="genderfemale" class="ab" name="radiogender" value="Female">
+                    <label for="genderfemale">Female</label>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label">Email<span style="color:red"> *</span></label>
+                <div class="col-sm-4">
+                    <input class="form-control required" type="text" name="email" id="txt_Email" placeholder="Enter Email">
+                    <label id="lbltxt_b_mobile1" class="error" style="display:none">Please enter a valid number.</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label">Mobile No1<span style="color:red"> *</span></label>
+                <div class="col-sm-4">
+                    <input class="form-control mobilevalidation required" name="mobile" type="text" id="txt_mobile1" placeholder="Mobile No1" maxlength="10">
+                    <label id="lbltxt_b_mobile1" class="error" style="display:none">Please enter a valid number.</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label">Mobile No2</label>
+                <div class="col-sm-4">
+                    <input class="form-control mobilevalidation" type="text" id="txt_mobile2" placeholder="Mobile No2" maxlength="10">
+                    <label id="lbltxt_b_mobile1" class="error" style="display:none">Please enter a valid number.</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label">Assign User Group<span style="color:red"> *</span></label>
+                <div class="col-sm-4">
+                    <select class="js-example-basic-multiple assigngrp" name="states[]" multiple="multiple" id="usergroupdrop"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label ">Diamond Color</label>
+                <div class="col-sm-4">
+                    <select id="ddldiamoncolor" style="width: 100%;height: 3.5rem!important;" name="diamondcolor" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label ">Diamond Purity</label>
+                <div class="col-sm-4">
+                    <select id="ddldiamondpurity" style="width: 100%;height: 3.5rem!important;" name="diamondpurity" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 form-control-label">Is Active </label>
+                <div class="col-sm-2">
+                    <div class="checkbox" style="margin-top:0px!important">
+                        <label class="form-control-label"><input type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" id="activeonoff" /></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10 col-sm-offset-2" style="padding-bottom: 13px;">
+                    <button id="btn_b_Csave" type="button" class="btn btn-success waves-effect waves-light">Submit</button>
+                </div>
+            </div>
+            <hr />
+            <div class="row form-group" id="macaddressdiv">
+                    <label class="col-sm-2 form-control-label">Mac Address</label>
+                    <div class="col-sm-8">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-4">Mac Address</th>
+                                    <th class="col-sm-4">IP Address</th>
+                                    <th class="col-sm-3">Device Name</th>
+                                    <th class="col-sm-1">Allow</th>
+                                    <th class="col-sm-1">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allowmacipdata"></tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+
+        <div id="viewemployeedetails" style="display:block;background-color:#fff">
+            @if (Model.ISADD == 1)
+            {
+                <div class="Pull_Text_Left">
+                    <button class="formstylebutton btn btn-success waves-effect waves-light m-t-10" id="btnAddNewEmployee" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Employee Details</button>
+                </div>
+            }
+            <div class="table-responsive" style="padding:12px 0px;">
+                <div class="jqGrid_wrapper" id="jqGrid_Employeedetails">
+                    <table id="table_list_Employeedetails"></table>
+                    <div id="pager_list_Employeedetails"></div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    @*<div class="modal" id="deleteemployeemodal" role="dialog" data-add="add" data-backdrop="static">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="text-danger-color">Are you sure to delete this record ?</h4>
+                        <div class="row">
+                            <label class="col-sm-3 f-bold form-control-label">Employee Name:</label>
+                            <label id="delEmployeename" class="col-sm-9"></label>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 f-bold form-control-label">User Name:</label>
+                            <label id="delUserName" class="col-sm-9"></label>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 f-bold form-control-label">Email Id:</label>
+                            <label id="delEmailId" class="col-sm-3" />
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 f-bold form-control-label">Mobile No:</label>
+                            <label id="delMobileno" class="col-sm-3" />
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10 col-sm-offset-3">
+                                <button type="button" class="btn btn-default waves-effect" id="dltcancelEmployee">Cancel</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light" id="btnDeleteemployee">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+</div>
+
+
+@*<link href="~/Content/plugin/Select2/css/select2.min.css" rel="stylesheet" />*@
+
+@section Scripts{
+
+    <script id="UserGroupDropdownList" type="text/x-jsrender">
+        <option value="{{>usergroupid}}">{{>usergroupname}}</option>
+    </script>
+    <script id="DataDiamondcolor" type="text/x-jsrender">
+        <option value="{{>color}}">{{>color}}</option>
+    </script>
+    <script id="DataDiamondPurity" type="text/x-jsrender">
+        <option value="{{>quality}}">{{>quality}}</option>
+    </script>
+    <script id="allowipList" type="text/x-jsrender">
+        <tr id="{{>macid}}">
+            <td class="col-sm-3 macfont">
+                <p>{{>macaddress}}</p>
+            </td>
+            <td class="col-sm-3 macfont">
+                <p>{{>ipaddress}}</p>
+            </td>
+
+            <td class="col-sm-3 macfont">
+                <p>{{>devicename}}</p>
+            </td>
+            <td class="col-sm-1 permissincheckbtn">
+                @*<input type="checkbox" id="check{{>macid}}" onchange="checkclick({{>macid}})" {{if isactive==1}} checked {{/if}} />*@
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input id="check{{>macid}}" type="checkbox" name="checkdata" onchange="checkclick({{>macid}})" {{if isactive==1}} checked {{/if}}/>
+                    <label for="check{{>macid}}"></label>
+                </div>
+            </td>
+            <td class="col-sm-1 permissiondltmacbtn">
+                <a href="javascript:void(0);" onclick="deletemacaddress({{>macid}});"
+                   data-original-title="delete record" class="btn btn-danger tooltip1"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    </script>
+    @*<script src="~/Content/plugin/Select2/js/select2.min.js"></script>*@
+    <script src="~/Script/Account/EmployeeDetails.js"></script>
+}

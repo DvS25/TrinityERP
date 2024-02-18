@@ -1,0 +1,218 @@
+﻿@model Addressbook.Models.LoginViewModel
+@{
+    ViewBag.Title = "login";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Trinity Jewells | @ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Phoenixcoded">
+    <meta name="keywords"
+          content=", Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="Phoenixcoded">
+
+    <link rel="shortcut icon" type="image/png" href="~/Content/images/favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="~/Content/New/icons/icomoon/styles.css" rel="stylesheet" />
+    <link href="~/Content/New/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/New/core.css" rel="stylesheet" />
+    <link href="~/Content/New/components.css" rel="stylesheet" />
+    <link href="~/Content/New/colors.css" rel="stylesheet" />
+
+
+    <script src="~/Content/plugin/jquery-ui/jquery-3.2.1.js"></script>
+    <script src="~/Content/js/tether.min.js"></script>
+    <script src="~/Content/plugin/bootstrap/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-color: #fff;
+        }
+
+        .navbar-inverse {
+            background: #222;
+            padding: 0;
+        }
+
+        .navbar-header {
+            background: #222;
+            margin-left: 0;
+            text-align: center;
+            width: 300px;
+        }
+
+        .navbar-brand {
+            padding: 5px;
+            display: inline-block;
+            float: none;
+            top: -10px;
+            position: relative;
+            height: 50px;
+        }
+
+        #navbar-mobile {
+            background: #fff url(../Content/images/TrinityMenuCurve.png) no-repeat;
+            background-position: 0 0;
+            width: 100%;
+            background-size: contain;
+        }
+
+        .form-control {
+            height: 36px !important;
+        }
+
+        .login-form {
+            border-color: #fff;
+        }
+        
+        input{
+            border: none !important;
+            border-bottom: 1px solid #ccc !important;
+        }
+
+        .btn{
+            background-color: #222;
+            border: #222;
+            color:#fff;
+        }
+
+        .btn:hover{
+            color:#fff;
+        }
+
+        .color-burgundy{
+            color:#222;
+        }
+
+        .color-burgundy:hover{
+            color:#222;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="" style="background: #fff;color: #000;margin-top: 15px;display:flex;margin-bottom: -1px;">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#0">
+                    <img src="~/Content/images/NAME_PLATElogin.png" style="height: 100%;display: unset;" />
+                </a>
+            </div>
+            <div id="navbar-mobile">
+
+            </div>
+        </div>
+    </div>
+    <div class="page-container login-container">
+        <!-- Page content -->
+        <div class="page-content">
+
+            <!-- Main content -->
+            <div class="content-wrapper">
+                <!-- Simple login form -->
+                <div class="panel panel-body login-form" id="loginPanel" style="max-width: 287px;">
+                    <div class="text-center">
+                        <span style="background-color:#222;padding: 5px;border-radius: 50px;"><i class="icon-lock2 bg-burgundy" aria-hidden="true" style="color: white;"></i></span>
+                        <span style="margin-left: 5px;font-size: 18px;">HIGH SECURED LOGIN</span>
+                    </div>
+                    <div class="content-divider" style="background-color: #222; height: 2px;margin: 10px 0; margin-bottom: 20px;"></div>
+
+                    <label id="errormsg" style="color:red;text-align:center">@ViewBag.Message</label>
+
+                    @using (Html.BeginForm("DoLogin", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-t", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 20px;">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Username", @required = "" })
+                            <div class="form-control-feedback">
+                                <i class="icon-user text-muted"></i>
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 20px;">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @type = "password", @placeholder = "Password", @required = "" })
+                            <div class="form-control-feedback">
+                                <i class="icon-lock2 text-muted"></i>
+                            </div>
+                        </div>
+                            <div class="form-group text-center" style="margin-bottom: 20px;">
+                                <button class="btn btn-block" type="submit" id="LoginSubmit">Sign in<i class="icon-circle-right2 position-right"></i></button>
+                            </div>
+                            <div class="form-group text-center">
+                                <span>
+                                    <a class="color-burgundy" id="OTPLink">Forgot Password ?</a>
+                                </span>
+                            </div>
+                    }
+                </div>
+
+                <!-- /simple login form -->
+                <!-- Forgot password form -->
+                <div class="panel panel-body login-form" id="otpPanel" style="max-width: 300px;display:none;">
+                    <div class="text-center">
+                        <span style="background-color:#222;padding: 5px;border-radius: 50px;"><i class="icon-envelop5 bg-burgundy" aria-hidden="true" style="color: white;"></i></span>
+                        <span style="margin-left: 5px;font-size: 20px;">Enter OTP</span>
+                    </div>
+                    <div class="content-divider" style="background-color: #222; height: 2px;margin: 10px 0; margin-bottom: 40px;"></div>
+                    <label id="errormsgotp" style="color:red;text-align:center">@ViewBag.Message</label>
+                    
+                    <form id="OTPform">
+                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 20px;">
+                            <div class="form-control-feedback">
+                                <i class="icon-key text-muted"></i>
+                            </div>
+                            <input class="form-control" id="otp" type="text" name="otp" placeholder="Enter Your OTP" required />
+                        </div>
+                        <div class="form-group text-center" style="margin-bottom: 20px;">
+                            <button class="btn btn-block" type="button" id="btnOTP">Submit<i class="icon-circle-right2 position-right"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel panel-body login-form" id="forgotPasswordPanel" style="max-width: 300px;display:none;">
+                    <div class="text-center">
+                        <span style="background-color:#222;padding: 5px;border-radius: 50px;"><i class="icon-user-lock bg-burgundy" aria-hidden="true" style="color: white;"></i></span>
+                        <span style="margin-left: 5px;font-size: 20px;">Reset Password</span>
+                    </div>
+                    <div class="content-divider" style="background-color: #222; height: 2px;margin: 10px 0; margin-bottom: 40px;"></div>
+                    <label id="errormsgpassword" style="color:red;text-align:center">@ViewBag.Message</label>
+                    <form id="ForgotPasswordForm">
+                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 20px;">
+                            <div class="form-control-feedback">
+                                <i class="icon-lock2 text-muted"></i>
+                            </div>
+                            <input class="form-control" id="newpass" type="password" name="newpass" placeholder="New Password" required />
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left" style="margin-bottom: 20px;">
+                            <div class="form-control-feedback">
+                                <i class="icon-lock2 text-muted"></i>
+                            </div>
+                            <input class="form-control" id="confirmpass" type="password" name="confirmpass" placeholder="Confirm Password" required />
+                        </div>
+                        <div class="form-group text-center" style="margin-bottom: 20px;">
+                            <button class="btn btn-block" type="button" id="btnForgotPassword">Submit<i class="icon-circle-right2 position-right"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /Forgot password form -->
+        </div>
+        <!-- /main content -->
+    </div>
+  <!-- /page content -->
+
+    <script>
+        function getDomain() {
+            var domainPath = '@System.Configuration.ConfigurationManager.AppSettings["domainPath"]';
+            return domainPath;
+        }
+    </script>
+    <script src="~/Script/Login/ForgotPassword.js?v=@DateTime.UtcNow"></script>
+
+</body>
+
+</html>

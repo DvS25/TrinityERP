@@ -1,0 +1,489 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Order Master";
+}
+
+<style>
+    .custom-item {
+        position: relative;
+        min-height: 30px;
+    }
+
+        .custom-item .product-name {
+            display: inline-block;
+            padding-left: 50px;
+            text-indent: 0;
+            line-height: 30px;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .custom-item > img {
+            left: 1px;
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            height: 30px;
+        }
+
+    #frm_UpdateItems fieldset {
+        border: 1px solid #dee1e3;
+        background-color: #fafafa;
+        padding-bottom: 10px;
+    }
+
+        #frm_UpdateItems fieldset legend {
+            border: 0;
+            margin-left: 1em;
+            padding: 0.2em 0.8em;
+            width: auto;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+
+    #tbl_DesignDetails tbody {
+        counter-reset: rowNumber;
+    }
+
+        #tbl_DesignDetails tbody tr {
+            counter-increment: rowNumber;
+        }
+
+            #tbl_DesignDetails tbody tr td.TableRowNo::before {
+                content: counter(rowNumber);
+                min-width: 1em;
+                margin-right: 0.5em;
+            }
+</style>
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                <div id="dx_btnRefreshGrid"></div>
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_Order_Master" class="form-horizontal" style="display:none">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+
+            <div class="col-md-7" style="border-right: 1px solid #dddddd;">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-md-5 control-label addstar">Order Date</label>
+                            <div class="col-md-7">
+                                <div id="dx_txtOrdDate"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label addstar">Order Type</label>
+                            <div class="col-md-7">
+                                <div id="dx_ddlOrdType"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label addstar">Due Days</label>
+                            <div class="col-md-7">
+                                <div id="dx_txtDueDays"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Order No</label>
+                            <div class="col-md-7">
+                                <div id="dx_txtOrdNo"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label">Quotation No</label>
+                            <div class="col-md-7">
+                                <div id="dx_ddlQuoNo"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-5 control-label addstar">Priority</label>
+                            <div class="col-md-7">
+                                <div id="dx_ddlPriority"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label addstar">Party Name</label>
+                            <div class="col-md-5">
+                                <div id="dx_txtPartyName"></div>
+                            </div>
+                            <div class="col-md-4" style="display:flex;">
+                                <div style="margin-left:-10px;" id="dx_txtPartyCode"></div>
+                                <div style="margin-left:10px;" id="dx_btnPartyAdd"></div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label addstar">Order By</label>
+                            <div class="col-md-5">
+                                <div id="dx_ddlOrderby"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" style="margin-top:20px;">
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <div class="col-md-4">
+                            <div id="dx_txtSearch"></div>
+                        </div>
+                        <div class="col-md-8" style="text-align:right;">
+                            <div style="display: inline-block;font-size: 16px;">Selected : <span id="SelectedItemCount">0</span></div>
+                            <div id="dx_btnUpdateItem"></div>
+                            <div id="dx_btnRemoveItem"></div>
+                            <div id="dx_btnPrintItem"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" id="panel_DesignList">
+                <div id="dx_dataGridItems"></div>
+            </div>
+            <div class="col-md-12" style="padding-top:15px">
+                <div class="col-md-2 col-lg-offset-2">
+                    <label class="control-label"> Total Gross Wgt : </label>&nbsp;&nbsp;<label id="lbltotalGrossWgt">0.00</label>
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label"> Total Net Wgt : </label>&nbsp;&nbsp;<label id="lbltotalNetWgt">0.00</label>
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label"> Total Dia Pcs : </label>&nbsp;&nbsp;<label id="lbltotalDiapcs">0.00</label>
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label"> Total Dia Cts : </label>&nbsp;&nbsp;<label id="lbltotalDiaCts">0.00</label>
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label"> Total Amount : </label>&nbsp;&nbsp;<label id="lbltotalAmount">0.00</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+<div id="dx_popupItemRemove"></div>
+<div id="dx_popupItemCopy"></div>
+
+<div class="modal fade" id="Modal_PartyMaster" tabindex="-1" role="dialog" aria-labelledby="ModalSelectionList" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="form-horizontal" id="formModal_partyWise">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Account Name</label>
+                        <div class="col-md-9">
+                            <div id="dx_txtAcc_Name"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Head Name</label>
+                        <div class="col-md-5">
+                            <div id="dx_txtHeadName"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Sub Head</label>
+                        <div class="col-md-5">
+                            <div id="dx_ddlSubHead"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Mobile No</label>
+                        <div class="col-md-5">
+                            <div id="dx_txtMobileNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">Country</label>
+                        <div class="col-md-3">
+                            <div id="dx_ddlCountry"></div>
+                        </div>
+
+                        <label class="col-md-3 control-label addstar">State</label>
+                        <div class="col-md-3">
+                            <div id="dx_ddlState"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar">City</label>
+                        <div class="col-md-3">
+                            <div id="dx_ddlCity"></div>
+                        </div>
+
+                        <label class="col-md-3 control-label addstar">Currency</label>
+                        <div class="col-md-3">
+                            <div id="dx_ddlCurrency"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="dx_Party_btnSubmit"></div>
+                <div id="dx_Party_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for update parameters-->
+<div class="modal fade" id="Modal_UpdateItems" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="form-horizontal" id="frm_UpdateItems" method="get">
+                    <fieldset style="margin-bottom: 10px;">
+                        <legend>Metal</legend>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Code</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlMRmCode"></div>
+                            </div>
+
+                            <label class="col-md-1 control-label">Color</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlMColor"></div>
+                            </div>
+
+                            <label class="col-md-1 control-label">Rate</label>
+                            <div class="col-md-3">
+                                <div id="dx_txtMRate"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset style="margin-bottom: 10px;">
+                        <legend>Diamond</legend>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Code</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlDRmCode"></div>
+                            </div>
+
+                            <label class="col-md-1 control-label">Purity</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlDPurity"></div>
+                            </div>
+
+                            <label class="col-md-1 control-label">Color</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlDColor"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset style="margin-bottom: 10px;">
+                        <legend>Stone</legend>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Code</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlSRmCode"></div>
+                            </div>
+
+                            <label class="col-md-1 control-label">Purity</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlSPurity"></div>
+                            </div>
+
+                            <label class="col-md-1 control-label">Color</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlSColor"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset style="margin-bottom: 10px;">
+                        <legend>Labour</legend>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Labour On</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlLabourOn"></div>
+                            </div>
+                            <label class="col-md-2 control-label">Labour Rate</label>
+                            <div class="col-md-3">
+                                <div id="dx_txtLabourRate"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset style="margin-bottom: 10px;">
+                        <legend>Lab Certificate</legend>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Lab Name</label>
+                            <div class="col-md-3">
+                                <div id="dx_ddlLab"></div>
+                            </div>
+                            <label class="col-md-2 control-label">Certi Charge</label>
+                            <div class="col-md-3">
+                                <div id="dx_txtCertiCharge"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset style="margin-bottom: 10px;">
+                        <legend>Design</legend>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Handling Rate</label>
+                            <div class="col-md-3">
+                                <div id="dx_txtHandlingRate"></div>
+                            </div>
+                            <label class="col-md-1 control-label">Qty</label>
+                            <div class="col-md-3">
+                                <div id="dx_txtQty"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Promise Date</label>
+                            <div class="col-md-3">
+                                <div id="dx_dtPromiseDate"></div>
+                            </div>
+                            <label class="col-md-1 control-label">Remark</label>
+                            <div class="col-md-6">
+                                <div id="dx_txtRemark"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12" style="text-align:right;">
+                    <div id="dx_btnUpdatePara"></div>
+                    <div id="dx_btnCancelPara"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /Modal for update parameters -->
+<!-- Modal for update material rate-->
+<div class="modal fade" id="Modal_UpdateMaterialRate" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="dx_dataGrid_MaterialRate"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12" style="text-align:right;">
+                    <div id="dx_btnUpdateMatRate"></div>
+                    <div id="dx_btnCancelMatRate"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /Modal for update material rate -->
+<!-- Modal for update Item Details-->
+<div class="modal fade" id="Modal_ItemDetails" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" style="width: 1100px;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="form-horizontal" id="frm_UpdateItemDetails" method="get">
+                    <div class="form-group">
+                        <table class="table table-bordered" id="tbl_DesignDetails" style="margin-bottom:10px;">
+                            <thead style="background-color: #fafafa;">
+                                <tr>
+                                    <th width="2%">No.</th>
+                                    <th width="10%">Item Name</th>
+                                    <th width="10%">Shape</th>
+                                    <th width="8%">Quality</th>
+                                    <th width="8%">Color</th>
+                                    <th width="7%">Length</th>
+                                    <th width="7%">Width</th>
+                                    <th width="10%">Charni</th>
+                                    <th width="5%">Pcs</th>
+                                    <th width="8%">Weight</th>
+                                    <th width="10%">Rate</th>
+                                    <th width="10%">Amt</th>
+                                    <th width="5%"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot style="background-color: #fafafa;">
+                                <tr>
+                                    <td colspan="13">
+                                        <div class="col-md-2">
+                                            <a href="javascript:void(0);" style="text-decoration:underline;" id="lnk_AddNewRow"><i class="fa fa-plus"></i>&nbsp;Add New Row</a>
+                                        </div>
+
+                                        <label class="col-md-1 control-label">Dia Pcs</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtDiaPcs"></div>
+                                        </div>
+                                        <label class="col-md-1 control-label">Dia Crt</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtDiaCrt"></div>
+                                        </div>
+                                        <label class="col-md-1 control-label">Net Wgt</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtNetWgt"></div>
+                                        </div>
+                                        <label class="col-md-1 control-label">Gross Wgt</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtGrossWgt"></div>
+                                        </div>
+                                        <label class="col-md-1 control-label">Fine Wgt</label>
+                                        <div class="col-md-1">
+                                            <div id="dx_txtFineWgt"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12" style="text-align:right;">
+                    <div id="dx_btnUpdateItemDetails"></div>
+                    <div id="dx_btnCancelItemDetails"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /Modal for update parameters -->
+
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Script/Manufacturing/OrderMaster.js?v=@DateTime.UtcNow"></script>
+}

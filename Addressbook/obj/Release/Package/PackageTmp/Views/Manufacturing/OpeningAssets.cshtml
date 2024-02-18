@@ -1,0 +1,496 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+}
+<style>
+    /*----------------------------style by krutarth ------------------------------------*/
+    .form-horizontal .control-label[class*=col-lg-] {
+        padding-top: 0px;
+    }
+
+    input {
+        min-height: 25px;
+    }
+
+        input[type=radio] {
+            margin: 0px 0 0;
+        }
+
+    .custom-item {
+        position: relative;
+        min-height: 30px;
+    }
+
+        .custom-item .product-name {
+            display: inline-block;
+            padding-left: 50px;
+            text-indent: 0;
+            line-height: 30px;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .custom-item > img {
+            left: 1px;
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            height: 30px;
+        }
+
+
+    .dx-texteditor-input {
+        padding: 0px 0px 0px 5px;
+    }
+
+    /*----------------------------style by krutarth ------------------------------------*/
+    #fileuploader-container {
+        border: 1px solid #d3d3d3;
+    }
+
+    #tbl_DesignDetails tbody {
+        counter-reset: rowNumber;
+    }
+
+        #tbl_DesignDetails tbody tr {
+            counter-increment: rowNumber;
+        }
+
+            #tbl_DesignDetails tbody tr td.TableRowNo::before {
+                content: counter(rowNumber);
+                min-width: 1em;
+                margin-right: 0.5em;
+            }
+
+    #ModalEdit .modal-header .close {
+        position: absolute;
+        right: 20px;
+        top: 15%;
+        margin-top: 0;
+        font-size: 35px !important;
+    }
+</style>
+
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+
+
+<form id="frm_Purchase_Expence" class="form-horizontal" style="display:none">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+
+            @*<div class="col-md-12" style="border-bottom:1px solid #ddd;margin-bottom:15px">
+                    <h5>General Expense</h5>
+                </div>*@
+            <div class="col-md-7" style="border-right: 1px solid #dddddd;margin-bottom:20px;">
+                <div class="form-group">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label addstar">Book Type</label>
+                            <div class="col-md-4">
+                                <div id="dx_bookType"></div>
+                            </div>
+                            <label class="col-md-2 control-label">Voucher No</label>
+                            <div class="col-md-4">
+                                <div id="dx_VchrNo"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label addstar">Voucher Date</label>
+                            <div class="col-md-4">
+                                <div id="dx_txtVoucherDate"></div>
+                            </div>
+                            <label class="col-md-2 control-label addstar">Voucher Type</label>
+                            <div class="col-md-4">
+                                <div id="dx_ddlVoucherType"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label addstar">Due Days</label>
+                            <div class="col-md-4">
+                                <div id="dx_txtDueDays"></div>
+                            </div>
+                            <label class="col-md-2 control-label addstar">Ex Rate</label>
+                            <div class="col-md-4">
+                                <div id="dx_txtExchangeRate"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label addstar">Purchase Date</label>
+                            <div class="col-md-4">
+                                <div id="dx_txtPurchaseDate"></div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5" style="padding-bottom:20px;">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label addstar">Assets Acc</label>
+                            <div class="col-md-7">
+                                <div class="input-group">
+                                    <div id="dx_ExpenseAcc"></div>
+                                    <span class="input-group-addon" id="btnAddSelectionList">0.00</span>
+                                    <span class="input-group-addon" style="width: 49px;" id="spanExpenseCurr"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label addstar">Party Acc</label>
+                            <div class="col-md-7">
+                                <div class="input-group">
+                                    <div id="dx_PartyAcc"></div>
+                                    <span class="input-group-addon" id="btnAddSelectionRecieveList">0.00</span>
+                                    <span class="input-group-addon" style="width: 49px;" id="spanReceiveCurr"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label addstar">Tax Profile</label>
+                            <div class="col-md-7" style="margin: 0px 0px 0px 10px; width: 270px; " id="dx_taxProfile"></div>
+                        </div>
+                        <div class="form-group">
+
+                            <label class="col-md-4 control-label">Bill No</label>
+                            <div class="col-md-7">
+                                <div id="dx_txtBillNo"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <table class="table table-bordered" id="tbl_DesignDetails" style="margin-bottom:10px;">
+                        <thead style="background-color: #fafafa;">
+                            <tr>
+                                <th width="3%">No.</th>
+                                <th width="10%">Item Name</th>
+                                <th width="6%">Item Type</th>
+                                <th width="6%">HSN/SAC</th>
+                                <th width="6%">Warranty Date</th>
+                                <th width="6%">Quantity</th>
+                                <th width="6%">Weight</th>
+                                <th width="6%">Rate</th>
+                                <th width="6%">Unit</th>
+                                <th width="6%">Discount</th>
+                                <th width="6%">Total Amount</th>
+                                @*<th width="6%">Total Tax</th>
+                                <th width="6%">Amt With Tax</th>*@
+                                <th width="6%"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="GeneralExpenseTBody"></tbody>
+                        <tfoot style="background-color: #fafafa;">
+                            <tr>
+                                <th colspan="10">
+                                    <div class="col-md-2">
+                                        <a href="javascript:void(0);" style="text-decoration:underline;" id="lnk_AddNewRow"><i class="fa fa-plus"></i>&nbsp;Add New Row</a>
+                                    </div>
+                                </th>
+                                <th id="dx_FooterTotalTaxable" style="text-align:right"></th>
+                                @*<th id="dx_FooterTotaltax" style="text-align:right"></th>
+                                <th id="dx_FooterTotalAmtWithtax" style="text-align:right"></th>*@
+                                <td colspan="1"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-5">
+                    <div class="form-group" style="">
+                        <label class="col-lg-2 control-label">Remark</label>
+                        <div class="col-lg-10">
+                            <div id="dx_txtRemarks"></div>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                            <label class="col-md-2 control-label">Attachment</label>
+                            <div class="col-md-10">
+                                <div class="" style="border: 1px solid #dee1e3;background-color: #fafafa;padding:5px;">
+                                    <span class="btn btn-primary btn-file btn-outline">
+                                        <input type="file" accept="application/zip/,application/x-zip-compressed" name="inputCADFile" id="inputCADFile" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload File
+                                    </span>
+                                    <a href="javascript:void(0)" id="lnkCADFilePreview"></a>
+                                    <input type="hidden" id="hdnOldCADFile" />
+                                </div>
+
+                            </div>
+                        </div>*@
+                    <div class="form-group" id="AttachmentsList" style="margin: 10px 0px; padding: 10px 0px;border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; display:block;">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary pull-right" type="button" data-preview="tbody_AttachmentsList" data-toggle="modal"
+                                    data-ext="jpg,jpeg,png,pdf,doc,docx,xls,xlsx" id="btnAddNewAttachment" data-backdrop="static" data-target="#modalUpload">
+                                <i class="fa fa-plus"></i>&nbsp;Add Attachment
+                            </button>
+                        </div>
+                        <div class="col-md-12" style="max-height: 350px;overflow: auto;margin-top: 5px;">
+                            <table class="table table-bordered">
+                                <thead style="background-color: #eee;">
+                                    <tr>
+                                        <th width="30%" class="text-center">File</th>
+                                        <th width="50%" class="text-center">Description</th>
+                                        <th width="20%" class=""></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_AttachmentsList"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-offset-1" style="margin-top:15px">
+                    @*<div class="form-group">
+                            <label class="control-label col-lg-2 col-lg-offset-6 addstar"> HSN CODE</label>
+                            <div class="col-lg-4">
+                                <div id="ddlHsnCode"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2 col-lg-offset-6"> Total</label>
+                            <div class="col-lg-4">
+                                <div id="txtTotal"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2 col-lg-offset-6"> Discount</label>
+                            <div class="col-lg-4">
+                                <div id="txtDiscount"></div>
+                            </div>
+                        </div>*@
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-2"></label>
+                        <div class="col-lg-2">
+                            <div id=""></div>
+                        </div>
+                        <label class="control-label col-lg-3">Total Amount</label>
+                        <div class="col-lg-2">
+                            <div id="txtTaxableAmount"></div>
+                        </div>
+                    </div>
+                    <div id="div_Taxable">
+
+                    </div>
+                    @*<div class="form-group">
+                            <label class="control-label col-lg-offset-7 col-lg-3">SGST</label>
+                            <div class="col-lg-2">
+                                <div id="dx_txtSgst"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-offset-7 col-lg-3">CGST</label>
+                            <div class="col-lg-2">
+                                <div id="dx_txtCgst"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-offset-7 col-lg-3">IGST</label>
+                            <div class="col-lg-2">
+                                <div id="dx_txtIgst"></div>
+                            </div>
+                        </div>*@
+                    <input type="text" style="display:none" id="div_AmountWithTax" />
+                    @*<div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-7"> Amount with Tax</label>
+                        <div class="col-lg-2">
+                            <div id="txtAmountWithTax"></div>
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-2"> Round Off.</label>
+                        <div class="col-lg-3">
+                            <input type="radio" id="rd_Less" name="rd_RoundOff" style="width:15px" class="DiscType" value="Less" checked />
+                            <label style="vertical-align:top" class="control-label">Less</label>
+                            <input type="radio" id="rd_Add" name="rd_RoundOff" style="width:15px" class="DiscType" value="Add" />
+                            <label style="vertical-align:top" class="">Add</label>
+                        </div>
+                        <label class="control-label col-lg-2"> Add / Less</label>
+                        <div class="col-lg-2">
+                            <div id="txtRoundOff"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-7">Final Amount</label>
+                        <div class="col-lg-2">
+                            <div id="txtTotalAmount"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-7">Final Amount InRs</label>
+                        <div class="col-lg-2">
+                            <div id="txtTotalAmountinRs"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-12" id="NumberShow"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="modalUploadlbl" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="modalUploadlbl">Add Files</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img width="100" height="100" src="" id="imgBanner" style="display:none" />
+                        <input type="hidden" id="hdnPreviewUploader" />
+                        <input type="hidden" id="hdnExtUploader" />
+                        <div class="text-red">Allow extensions: (<span id="spExtension"></span>)</div>
+                        <div id="imgUploader">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnAddFile" type="button" class="btn btn-success">Ok</button>
+                        <button type="button" class="btn btn-quaternary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+@*---------------------------Share Model-------------------------------------------------*@
+<div class="modal fade" id="ModalSharing" tabindex="-1" role="dialog" aria-labelledby="ModalSharing" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share Design</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Party Name</label>
+                        <div class="col-lg-9">
+                            <div id="dx_txtSharetoPartyList"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Type</label>
+                        <div class="col-md-10">
+                            <div id="dx_RadioSocial" style="margin-top: 5px;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Mobile No</label>
+                        <div class="col-md-4">
+                            <div id="dx_txtMobileNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Message</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtShareMessage"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Id</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailId"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Subject</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingSubject"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Body</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailBody"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="dx_btnSubmitShare"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hdnSBOOKID" value="@ViewBag.SBOOKID" />
+
+@*--------------------------------/share model-------------------------------*@
+
+<!-- Modal -->
+<!-- Modal -->
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+<input id="hdn_addresstypeid" type="hidden" />
+<input id="hdn_StateName" type="hidden" />
+<input id="hdn_txtQm_id" hidden value="@ViewBag.QM_ID" />
+<input type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.EMPLOYEE_NAME" id="hdn_UserName" />
+<input id="hdn_BranchWise_stateid" type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.BRANCHWISESTATEID" />
+<input id="hdn_BranchWise_stateName" type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.BRANCHWISESTATENAME" />
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+
+    <script src="~/Script/Manufacturing/OpeningAssets.js?V=@DateTime.UtcNow"></script>
+
+    <script type="text/x-jsrender" id="SizeList">
+        <option id="{{:desgcateid}}" value="{{:size}}">{{:size}}</option>
+    </script>
+
+
+    <script id="VoucherReturn_Render" type="text/x-jsrender">
+        <tr>
+            <td>
+                <input type="checkbox" id="chkReturn{{:mtd_id}}" name="chkReturn{{:mtd_id}}" style="height:15px;width:15px" class="chkReturn" />
+            </td>
+
+            <td class="mtd_id" style="text-align:center;display:none">{{:mtd_id}}</td>
+            <td class="rmcode" style="text-align:center">{{:rmcode}}</td>
+            <td class="shape" style="text-align:center">{{:shape}}</td>
+            <td class="purity" style="text-align:center">{{:purity}}</td>
+            <td class="colour" style="text-align:center">{{:colour}}</td>
+            <td class="lenghtmmsize" style="text-align:center">{{:lenghtmmsize}}</td>
+            <td class="widthmmsize" style="text-align:center">{{:widthmmsize}}</td>
+            <td class="charni" style="text-align:center">{{:charni}}</td>
+            <td class="pieces" style="text-align:center">{{:pieces}}</td>
+            <td class="weight" style="text-align:center">{{:weight}}</td>
+            <td class="hsncode" style="text-align:center">{{:hsncode}}</td>
+            <td class="rate" style="text-align:center">{{:rate}}</td>
+            <td class="taxableamt" style="text-align:center">{{:taxableamt}}</td>
+        </tr>
+    </script>
+}

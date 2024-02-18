@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "ChartFields";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row" style="margin-top:10px;background-color: white;" role="tabpanel">
+                    <ul id="tabs" class="nav nav-tabs" role="tablist" style="padding: 15px 0px 0px 0px;margin-left: 10px;">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" data-toggle="tab" href="#ChartQuerytab" id="tabChartQuery" role="tab">Chart Query</a>
+                        </li>
+                        <li class="nav-item disabled" role="presentation">
+                            <a class="nav-link" data-toggle="tab" href="#ChartFieldstab" id="tabChartFields" role="tab">Chart Fields</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active m-t-15" id="ChartQuerytab" role="tabpanel">
+                        <div id="PanelQueryList" style="display:block;background-color:#fff">
+                            @if (Model.ISADD == 1)
+                            {
+                                <div class="Pull_Text_Left">
+                                    <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNewQuery" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Query</button>
+                                </div>
+                            }
+                            <div class="table-responsive" style="padding:12px 0px;">
+                                <div class="jqGrid_wrapper" id="jqGrid_Query_list">
+                                    <table id="table_Query_list"></table>
+                                    <div id="pager_Query_list"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="PanelEditQuery" style="display:none;background-color:#fff">
+                            <form id="FrmChartQuery" class="form-horizontal">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Query Title <span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control required" name="QueryTitle" type="text" id="txtQueryTitle" placeholder="Enter Query Title">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Query User For <span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="radio" name="UseFor" id="rdB2B" class="icheckminimal" checked>
+                                        <label for="rdB2B" class="extra-paddingleft">B2B</label>
+                                        <input type="radio" name="UseFor" id="rdB2C" class="icheckminimal">
+                                        <label for="rdB2C" class="extra-paddingleft">B2C</label>
+                                        <input type="radio" name="UseFor" id="rdOutlet" class="icheckminimal">
+                                        <label for="rdOutlet" class="extra-paddingleft">Outlet</label>
+                                    </div>
+                                </div> 
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">DisplayOrder <span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control required" name="DisplayOrder" type="number" min="1" id="txtDisplayOrder" placeholder="Enter DisplayOrder">
+                                    </div>
+                                </div>                        
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">DBQuery <span style="color:red"> *</span></label>
+                                    <div class="col-sm-8">
+                                        <textarea rows="15" class="form-control required" name="DBQuery" type="text" id="txtDBQuery">
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <button type="button" class="btn btn-success waves-effect waves-light" id="btnSaveQuery">Save & Next</button>
+                                        <button type="button" class="btn btn-default waves-effect" id="btncancel">Cancel</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="hdnChartQueryId"/>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane m-t-15" id="ChartFieldstab" role="tabpanel">
+                        <div id="PanelFieldList" style="display:block;background-color:#fff">
+                            @if (Model.ISADD == 1)
+                            {
+                                <div class="Pull_Text_Left">
+                                    <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNewField" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Field</button>
+                                </div>
+                            }
+                            <div class="table-responsive" style="padding:12px 0px;">
+                                <div class="jqGrid_wrapper" id="jqGrid_Field_list">
+                                    <table id="table_Field_list"></table>
+                                    <div id="pager_Field_list"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="PanelEditField" style="display:none;background-color:#fff">
+                            <form id="FrmChartField" class="form-horizontal">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Field Name <span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control required" name="FieldName" type="text" id="txtFieldName" placeholder="Enter Field Name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">DB Column <span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control required" name="DBColumn" type="text" id="txtDBColumn" placeholder="Enter DB Column">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Data Type <span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control required valid" id="ddlDataType" onchange="ChartFieldsView.OndropDownChange();" aria-required="true" aria-invalid="false">
+                                            <option value="">Select Data Type</option>
+                                            <option value="String">String</option>
+                                            <option value="Int">Int</option>
+                                            <option value="Decimal">Decimal</option>
+                                            <option value="Date">Date</option>
+                                            <option value="DateTime">DateTime</option>
+                                            <option value="Combobox">Combobox</option>
+                                            <option value="AutoSuggest">Auto Suggest</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="DivCollectionQuery" style="display:none;">
+                                    <label class="col-sm-2 form-control-label">Query For Collection<span style="color:red"> *</span></label>
+                                    <div class="col-sm-8">
+                                        <textarea rows="15" class="form-control required" name="CollectionQuery" type="text" id="txtCollectionQuery"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <button type="button" class="btn btn-success waves-effect waves-light" id="btnSaveField">Save</button>
+                                        <button type="button" class="btn btn-default waves-effect" id="btnFieldcancel" >Cancel</button>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="hdnChartFieldId" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{    
+<script src="~/Script/Account/ChartFields.js"></script>
+}

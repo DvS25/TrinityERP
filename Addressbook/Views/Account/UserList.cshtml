@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "UserList";
+}
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+@section Scripts{
+<script src="~/Script/Account/UserList.js?@DateTime.UtcNow"></script>
+}
+

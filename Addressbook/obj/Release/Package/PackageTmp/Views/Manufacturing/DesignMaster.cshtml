@@ -1,0 +1,557 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Design Master";
+}
+
+<style>
+    #fileuploader-container {
+        border: 1px solid #d3d3d3;
+    }
+
+    #tbl_DesignDetails tbody {
+        counter-reset: rowNumber;
+    }
+
+        #tbl_DesignDetails tbody tr {
+            counter-increment: rowNumber;
+        }
+
+            #tbl_DesignDetails tbody tr td.TableRowNo::before {
+                content: counter(rowNumber);
+                min-width: 1em;
+                margin-right: 0.5em;
+            }
+</style>
+
+<div class="panel panel-flat" id="panel_DesignMasterList">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_DesignMaster" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="col-md-6" style="border-right: 1px solid #dddddd;">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label addstar">Category</label>
+                            <div class="col-md-8">
+                                @*<select class="form-control required" name="ddlCategory" id="ddlCategory">
+                                        <option value="RING">RING</option>
+                                    </select>*@
+                                <div id="dx_ddlCategory"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label addstar">Sub Category</label>
+                            <div class="col-md-8">
+                                @*<select class="form-control required" name="ddlSubCategory" id="ddlSubCategory">
+                                        <option value="MANS RING">MANS RING</option>
+                                    </select>*@
+                                <div id="dx_ddlSubCategory"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label addstar">Item Category</label>
+                            <div class="col-md-8">
+                                <div id="dx_txtItemCate"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label addstar">Collection Type</label>
+                            <div class="col-md-8">
+                                <div id="dx_txtCollName"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label ">Brand Name</label>
+                            <div class="col-md-8">
+                                <div id="dx_txtBrand"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label ">Occasion</label>
+                            <div class="col-md-8">
+                                <div id="dx_txtOccasion"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Design Code</label>
+                            <div class="col-md-3">
+                                @*<input type="text" class="form-control readonly" name="txtDesignCode" id="txtDesignCode" readonly />*@
+                                <div id="dx_txtDesignCode"></div>
+                            </div>
+
+                            <label class="col-md-2 control-label">RefCode</label>
+                            <div class="col-md-3">
+                                @*<input type="text" class="form-control" name="txtRefCode" id="txtRefCode" />*@
+                                <div id="dx_txtRefCode"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Size</label>
+                            <div class="col-md-3">
+                                @*<input type="text" class="form-control" name="txtSize" id="txtSize" />*@
+                                <div id="dx_ddlSize"></div>
+                            </div>
+                            <label class="col-md-4 control-label" id="lblCountry" style="text-align:left !important;padding:0;">
+                                <img style="width:32px;" src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/UploadFiles/Country/@Addressbook.CommonClasses.SessionFacade.UserSession.FLAGIMG" />&nbsp; @Addressbook.CommonClasses.SessionFacade.UserSession.COUNTRYNAME
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Dimensions (mm)</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    @*<input type="text" class="form-control" name="txtLength" id="txtLength" placeholder="Length" />
+                                        <span class="input-group-addon" style="padding: 7px 0.75rem;">X</span>
+                                        <input type="text" class="form-control" name="txtWidth" id="txtWidth" placeholder="Width" />
+                                        <span class="input-group-addon" style="padding: 7px 0.75rem;">X</span>
+                                        <input type="text" class="form-control" name="txtHeight" id="txtHeight" placeholder="Height" />*@
+
+                                    <div id="dx_txtLength"></div>
+                                    <span class="input-group-addon" style="padding: 7px 0.75rem;">X</span>
+                                    <div id="dx_txtWidth"></div>
+                                    <span class="input-group-addon" style="padding: 7px 0.75rem;">X</span>
+                                    <div id="dx_txtHeight"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Labour Type</label>
+                            <div class="col-md-8">
+                                @*<select class="form-control" name="ddlLbrType" id="ddlLbrType">
+                                        <option value="DESIGNER">DESIGNER</option>
+                                        <option value="HANDMADE">HANDMADE</option>
+                                        <option value="ITALIAN">ITALIAN</option>
+                                        <option value="MICROPAVE">MICROPAVE</option>
+                                        <option value="PLAINGOLD">PLAIN GOLD</option>
+                                        <option value="REGULAR">REGULAR</option>
+                                    </select>*@
+                                <div id="dx_ddlLbrType"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Setting Type</label>
+                            <div class="col-md-8">
+                                <div id="dx_ddlSettingType"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Designer Name</label>
+                            <div class="col-md-8">
+                                @*<input type="text" class="form-control" name="txtDesigner" id="txtDesigner" />*@
+                                <div id="dx_txtDesigner"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Designed Date</label>
+                            <div class="col-md-8">
+                                @*<input type="date" class="form-control" name="txtDesignedDate" id="txtDesignedDate" />*@
+                                <div id="dx_txtDesignedDate"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Upload CAD File</label>
+                            <div class="col-md-8">
+                                <div class="" style="border: 1px solid #dee1e3;background-color: #fafafa;padding:5px;">
+                                    <span class="btn btn-primary btn-file btn-outline">
+                                        <input type="file" accept="application/zip/,application/x-zip-compressed" name="inputCADFile" id="inputCADFile" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload File
+                                    </span>
+                                    <a href="javascript:void(0)" id="lnkCADFilePreview"></a>
+                                    <input type="hidden" id="hdnOldCADFile" />
+                                </div>
+                                @*<div id="fileuploader-container">
+                                        <div id="dx_uploadCADFile"></div>
+                                    </div>*@
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                <label class="col-md-4 control-label">Concept</label>
+                                <div class="col-md-8">
+                                    <div id="dx_ddlConceptOf"></div>
+                                </div>
+                            </div>*@
+
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            <div style="padding: 0 5px 5px 5px;">
+                                <img src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/Content/images/upimg.png" class="required" id="ItemimgPreview" style="max-width: 150px; max-height: 150px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" aria-required="true">
+                            </div>
+                            <div class="text-center" style="margin-top:5px;margin-bottom:25px;">
+                                <span class="btn btn-primary btn-file">
+                                    <input type="file" accept="image/*" name="inputItemImage" id="inputItemImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload Image
+                                </span>
+                            </div>
+                            <input type="hidden" id="hdnMainImg" />
+                        </div>
+                        <div class="form-group text-center">
+                            @*<label class="control-label col-lg-12" style="text-align:center">Design Raw</label>*@
+                            <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;">
+                                <legend style="border: 0; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Design Raw File</legend>
+                                <div class="col-md-12">
+                                    <div class="" style="">
+                                        <span class="btn btn-primary btn-file btn-outline">
+                                            <input type="file" accept="image/*" name="inputDesigneRaw" id="inputDesigneRaw" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload File
+                                        </span>
+                                        <a href="javascript:void(0)" id="lnkDesigenRaw"></a>
+                                        <input type="hidden" id="hdnDesigenRaw" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-md-12 text-right">
+                        @*<button type="button" class="btn btn-primary" name="btnAddNewImage" id="btnAddNewImage" data-preview="imgPreviewList"
+                                    data-toggle="modal" data-ext="jpg,jpeg,png,mp4" data-backdrop="static" data-target="#modalUpload">
+                                <i class="fa fa-plus"></i> Add Image
+                            </button>*@
+                        <span class="btn btn-primary btn-file">
+                            <input type="file" accept="image/*,mp4/*" name="btnAddNewImage" id="btnAddNewImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Add Image
+                        </span>
+                    </div>
+                    <div class="col-md-12" style="max-height: 350px;overflow: auto;margin-top: 5px;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="15%" class="text-center">Image</th>
+                                    <th width="35%" class="text-center">Title</th>
+                                    <th width="20%" class="text-center">View</th>
+                                    <th width="20%" class="text-center">Color</th>
+                                    <th width="10%" class=""></th>
+                                </tr>
+                            </thead>
+                            <tbody id="imgPreviewList">
+                                @*<tr>
+                                        <td class="text-center">
+                                            <a href="~/Content/images/upimg.png" data-fancybox="gallery">
+                                                <img width="50" height="50" alt="" class="DesignImg" src="~/Content/images/upimg.png" style="cursor:pointer;padding: 3px;" onerror="imgError(this);" title="Click here for zoom...">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control txtImgTitle" name="txtImgTitle" id="txtImgTitle" value="TRM0001_TOP.png" />
+                                        </td>
+                                        <td>
+                                            <select class="form-control ddlDesignView" name="ddlDesignView" id="ddlDesignView">
+                                                <option value="TOP">TOP</option>
+                                                <option value="FRONT">FRONT</option>
+                                                <option value="RIGHT">RIGHT</option>
+                                                <option value="LEFT">LEFT</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control ddlDesignColor" name="ddlDesignColor" id="ddlDesignColor">
+                                                <option value="ROSE">ROSE</option>
+                                                <option value="YELLOW">YELLOW</option>
+                                                <option value="WHITE">WHITE</option>
+                                            </select>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="btn btn-primary"><i class="fa fa-upload"></i></span>
+                                            <span class="btn btn-danger"><i class="fa fa-trash-o"></i></span>
+                                        </td>
+                                    </tr>*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" style="margin-top:25px;margin-bottom:10px;">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;margin-top: 11px;padding-top: 11px;">
+                            <label class="col-md-2 control-label" style="font-weight:600;">Samp.Line</label>
+                            <div class="col-md-2">
+                                <div id="dx_SwitchSampleLinePcs" style="margin-top:5px;"></div>
+                            </div>
+
+                            <label class="col-md-2 control-label" style="font-weight:600;">Master</label>
+                            <div class="col-md-2">
+                                <div id="dx_SwitchMaster" style="margin-top:5px;"></div>
+                            </div>
+
+                            <label class="col-md-2 control-label" style="font-weight:600;">Active</label>
+                            <div class="col-md-2">
+                                <div id="dx_SwitchIsActive" style="margin-top:5px;"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-md-3">
+                        <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;">
+                            <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Display On B2B</legend>
+
+                            <label class="col-md-3 control-label" style="font-weight:600;">Web</label>
+                            <div class="col-md-3">
+                                <div id="dx_SwitchDisWebB2B" style="margin-top:5px;"></div>
+                            </div>
+
+                            <label class="col-md-3 control-label" style="font-weight:600;">App</label>
+                            <div class="col-md-3">
+                                <div id="dx_SwitchDisAppB2B" style="margin-top:5px;"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-md-3">
+                        <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;">
+                            <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Display On B2C</legend>
+
+                            <label class="col-md-3 control-label" style="font-weight:600;">Web</label>
+                            <div class="col-md-3">
+                                <div id="dx_SwitchDisWebB2C" style="margin-top:5px;"></div>
+                            </div>
+
+                            <label class="col-md-3 control-label" style="font-weight:600;">App</label>
+                            <div class="col-md-3">
+                                <div id="dx_SwitchDisAppB2C" style="margin-top:5px;"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-md-2">
+                        <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;">
+                            <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Display On Outlet</legend>
+
+                            <label class="col-md-5 control-label" style="font-weight:600;">Web</label>
+                            <div class="col-md-6">
+                                <div id="dx_SwitchDisOutlet" style="margin-top:5px;"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <table class="table table-bordered" id="tbl_DesignDetails" style="margin-bottom:10px;">
+                        <thead style="background-color: #fafafa;">
+                            <tr>
+                                <th width="3%">No.</th>
+                                <th width="20%">Item Name</th>
+                                <th width="10%">Shape</th>
+                                <th width="10%">Quality</th>
+                                <th width="10%">Color</th>
+                                <th width="10%">Length</th>
+                                <th width="10%">Width</th>
+                                <th width="10%">Charni</th>
+                                <th width="7%">Pieces</th>
+                                <th width="10%">Weight</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot style="background-color: #fafafa;">
+                            <tr>
+                                <td colspan="11">
+                                    <div class="col-md-2">
+                                        <a href="javascript:void(0);" style="text-decoration:underline;" id="lnk_AddNewRow"><i class="fa fa-plus"></i>&nbsp;Add New Row</a>
+                                    </div>
+
+                                    <label class="col-md-1 control-label">Dia Pcs</label>
+                                    <div class="col-md-1">
+                                        @*<input type="text" class="form-control readonly" name="txtDiaPcs" id="txtDiaPcs" readonly />*@
+                                        <div id="dx_txtDiaPcs"></div>
+                                    </div>
+                                    <label class="col-md-1 control-label">Dia Crt</label>
+                                    <div class="col-md-1">
+                                        @*<input type="text" class="form-control readonly" name="txtDiaCrt" id="txtDiaCrt" readonly />*@
+                                        <div id="dx_txtDiaCrt"></div>
+                                    </div>
+                                    <label class="col-md-1 control-label">Net Wgt</label>
+                                    <div class="col-md-1">
+                                        @*<input type="text" class="form-control readonly" name="txtNetWgt" id="txtNetWgt" readonly />*@
+                                        <div id="dx_txtNetWgt"></div>
+                                    </div>
+                                    <label class="col-md-1 control-label">Gross Wgt</label>
+                                    <div class="col-md-1">
+                                        @*<input type="text" class="form-control readonly" name="txtGrossWgt" id="txtGrossWgt" readonly />*@
+                                        <div id="dx_txtGrossWgt"></div>
+                                    </div>
+                                    <label class="col-md-1 control-label">Fine Wgt</label>
+                                    <div class="col-md-1">
+                                        @*<input type="text" class="form-control readonly" name="txtFineWgt" id="txtFineWgt" readonly />*@
+                                        <div id="dx_txtFineWgt"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-md-3 control-label" style="text-transform:uppercase;font-weight:600;">Notes</label>
+                    <div class="col-md-9">
+                        @*<textarea rows="4" class="form-control" name="txtNotes" id="txtNotes" placeholder="Enter description about this design..."></textarea>*@
+                        <div id="dx_txtNotes"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Concept</label>
+                    <div class="col-md-9">
+                        <div id="dx_ddlConceptOf"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Keywords</label>
+                    <div class="col-md-9">
+                        <div id="dx_txtKeywords"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Related Designs</label>
+                    <div class="col-md-9">
+                        <div id="dx_txtRelatedProduct"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                @*<button type="button" class="btn btn-success" name="btn_Submit" id="btn_Submit"><i class="fa fa-floppy-o"></i> Submit</button>
+                    <button type="button" class="btn btn-danger" name="btn_Cancel" id="btn_Cancel"><i class="fa fa-times"></i> Cancel</button>*@
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="modalUploadlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modalUploadlbl">Add Files</h4>
+            </div>
+            <div class="modal-body">
+                <img width="100" height="100" src="" id="imgBanner" style="display:none" />
+                <input type="hidden" id="hdnPreviewUploader" />
+                <input type="hidden" id="hdnExtUploader" />
+                <div class="text-red">Allow extensions: (<span id="spExtension"></span>)</div>
+                <div id="imgUploader">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnAddFile" type="button" class="btn btn-success">Ok</button>
+                <button type="button" class="btn btn-quaternary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ModelImageCropper" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h5 class="modal-title">Upload Photo</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="frmUploadImage" method="get">
+                    <div class="row" style="margin:0px 5px;">
+                        <div class="col-md-6 col-md-6">
+                            <div class="image-cropper-container content-group" style="width:400px;background:gray !important;">
+                                <img src="" id="imgCropPreview" alt="" class="cropper">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-6 col-xs-12">
+                            <div class="col-md-12 col-md-12 col-xs-6 pl0 pr0">
+                                <div class="content-group">
+                                    <div class="eg-preview">
+                                        <div class="preview preview-lg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-md-12 col-xs-6 pl0 pr0 MarginDesktop">
+                                <div class="docs-buttons1">
+                                    <div class="btn-group btn-group-crop">
+                                        <button type="button" class="btn bg-blue btn-icon legitRipple" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 2506, &quot;height&quot;: 1200 }">
+                                            <span id="pictursetbtn" class="docs-tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;, { width: 1200, height: 300 })">
+                                                Set Photo
+                                            </span>
+                                        </button>
+                                        <button type="button" class="btn bg-blue btn-icon legitRipple" data-method="rotate" data-option="-45" title="Rotate Left">
+                                            <span class="icon-rotate-ccw3"></span>
+                                        </button>
+                                        <button type="button" class="btn bg-blue btn-icon legitRipple" data-method="rotate" data-option="45" title="Rotate Right">
+                                            <span class="icon-rotate-cw3"></span>
+                                        </button>
+                                    </div>
+                                    <input type="hidden" id="hdnCropperImgName" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0px 5px;">
+                        <div class="col-md-12 col-md-12 col-xs-12">
+                            <div id="divCropCanvas">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dx_popupRecordDelete"></div>
+
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Content/plugin/Cropper/cropper.min.js"></script>
+    <script src="~/Script/Manufacturing/DesignMaster.js?v=@DateTime.UtcNow"></script>
+
+    <script id="FileList" type="text/x-jsrender">
+        <tr id="{{>fileid}}">
+            <td class="col-sm-3">
+                <label class="btn btn-quaternary uploadlink tooltip1" data-original-title="change file" for="btn{{>fileid}}">
+                    <input type="file" accept="{{*:window.extension}}" name="file" id="btn{{>fileid}}" class="hide">
+                    <i class="fa fa-upload"></i>
+                </label>&nbsp;<a class="label-click" href="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/UploadFiles/DesignMaster/{{:virtualfilename}}" target="blank">
+                    {{:actualfilename}}
+                </a>
+                <input type="hidden" class="fileid" value="{{:fileid}}" />
+            </td>
+            <td class="col-sm-3">
+                <input type="text" class="form-control title" value="{{:actualfilename}}" placeholder="Title" />
+            </td>
+            <td class="col-sm-1 permissiondltbtn">
+                <a href="javascript:void(0);" onclick="DesignMasterView.deleteFile('{{>fileid}}', '{{>fileid}}', '{{>virtualfilename}}');"
+                   data-original-title="delete record" class="btn btn-danger tooltip1"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    </script>
+}

@@ -1,0 +1,342 @@
+﻿@model Addressbook.Models.PagePermission
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <meta Http-Equiv="Cache-Control" Content="no-cache">
+    <meta Http-Equiv="Pragma" Content="no-cache">
+    <meta Http-Equiv="Expires" Content="0">
+    <link rel="shortcut icon" type="image/png" href="~/Content/images/favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
+    <link href="~/Content/css/FloatingButtons.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+
+    <style>
+        .notificationcss {
+            color: #fff;
+            display: inline-block;
+            min-width: 10px;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            border-radius: 10px;
+        }
+
+        .notificationcssdropmenu {
+            height: 400px !important;
+            width: 400px !important;
+            overflow: auto !important;
+            margin-top: 0;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            right: 0;
+            left: auto;
+            border-radius: 0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+            border: 0;
+            padding: 0;
+            min-width: 230px;
+            position: absolute;
+            top: 100%;
+            z-index: 1000;
+            float: left;
+            margin: 2px 0 0;
+            font-size: 14px;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            background-clip: padding-box;
+        }
+
+        .dp_none {
+            display: none;
+        }
+
+        .navbar-right {
+            margin-right: 0px;
+        }
+
+        .navbar-default {
+            background-color: #ffffff;
+            border-color: #e7e7e7;
+        }
+
+        .navbar {
+            margin-bottom: 0px !important;
+        }
+        .navbar-inverse {
+            border-bottom-color: rgba(255, 255, 255, .1);
+            color: #fff;
+            background: url(../../Content/images/MenuBack.png),linear-gradient(to right,#000000e8,#11091bd1,#442b21);
+        }
+        .navbar-fixed-top1{
+            position:fixed !important;
+            top:45px;
+            width:100%;
+        }
+    </style>
+</head>
+<body class="sidebar-mini fixed sidebar-collapse header-fixed" style="font-family:'Asap', 'Droid Sans', Tahoma, Arial, sans-serif!important">
+    <div class="loader-bg">
+        <div class="loader-bar">
+        </div>
+    </div>
+    <div class="wrapper">
+        <header style="display:none">
+            <!--Start Navbar added by Nirupa-->
+            <nav class="navbar navbar-inverse trinity-menu">
+                <div class="container-fluid">
+                    <div class="col-md-2 col-sm-2 mob-nopad">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand trinity-logo brand-top" href="#">Trinity Admin</a>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-8">
+                        <div class="collapse navbar-collapse of-hidden " id="menu">
+                            <ul class="nav navbar-nav float-left">
+                                <li>
+                                    @MvcHtmlString.Create(Addressbook.CommonClasses.SessionFacade.MenuListstrOld)
+                                    @*..............Display In Only For Mobile View...............*@
+                                    <ul class="nav navbar-nav hidden-lg hidden-md hidden-sm">
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-briefcase"></i>Notification</a>
+                                            <ul class="dropdown-menu">
+                                                <li class="dropdown notification-menu">
+                                                    <a href="#!" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
+                                                        <i class="fa fa-birthday-cake"></i>
+                                                        <span class="badge badge-danger header-badge" id="mobilespanNumOfNotifi"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu" id="mobileddlNotification"></ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("LogOut","Login")"><i class="fa fa-sign-out"></i>Logout</a>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    @*.............Display in Only For Desktop and Ipad..............*@
+                    <div class="col-md-3 col-sm-2 ">
+                        <ul class="nav navbar-nav float-left">
+                            <!--Notification Menu-->
+                            <li class="notification-menu hidden-xs" id="clickNotification">
+                                <a href="#!" aria-expanded="false">
+                                    <i class="fa fa-bell" id="notification_icon"></i>
+                                    <span class="notificationcss badge-danger header-badge" id="AdminNotification"></span>
+                                </a>
+                                <ul class="notificationcssdropmenu dp_none" id="AdminddlNotification"></ul>
+                            </li>
+                            <li class="dropdown notification-menu hidden-xs">
+                                <a href="#!" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
+                                    <i class="fa fa-birthday-cake"></i>
+                                    <span class="notificationcss badge-danger header-badge" id="spanNumOfNotifi"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="ddlNotification"></ul>
+                            </li>
+                            <!-- window screen -->
+                            <li class="pc-rheader-submenu hidden-xs">
+                                <a href="#!" class="drop icon-circle" onclick="javascript:toggleFullScreen()">
+                                    <i class="fa fa-arrows-alt"></i>
+                                </a>
+                            </li>
+                            <li class="dropdown hidden-xs">
+                                <a href="#!" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle drop icon-circle drop-image">
+                                    <span>Admin <i class="fa fa-caret-down"></i></span>
+                                </a>
+                                <ul class="dropdown-menu settings-menu">
+                                    <li>
+                                        <a href="@Url.Action("LogOut","Login")"><i class="fa fa-sign-out text-danger-color"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- Navbar Right Menu ends-->
+                    </div>
+                </div>
+            </nav>
+            <!--End Navbar added by Nirupa-->
+        </header>
+
+        <div class="content-wrapper">
+            <!-- Container-fluid starts -->
+            <!-- Main content starts -->
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <!-- Main content ends -->
+            <!-- Container-fluid ends -->
+        </div>
+    </div>
+    <div class="cd-overlay hide-loder">
+        <img id="loder" class="hide-loder" src="~/Content/images/demo_wait.gif" />
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/amcharts/js")
+    <script id="NotificationList" type="text/x-jsrender">
+        <li class="bell-notification">
+            <a href="javascript:;" class="media">
+                <span class="media-left media-icon">
+                    {{if occasion == "Birthday"}}
+                    <img class="" src="/Content/images/birthday.png" />
+                    {{else}}
+                    <img class="" src="/Content/images/anry.png" />
+                    {{/if}}
+                </span>
+                <div class="media-body">
+                    <span class="block">{{>name}}</span>
+                    <span class="text-muted block-time">{{>time}}</span>
+                </div>
+            </a>
+        </li>
+
+    </script>
+    <script id="NotificationList1" type="text/x-jsrender">
+
+        {{if isview == 1}}
+        <li class="bell-notification" id="{{>id}}" style="padding-left: 10px;background-color:#eee; border-bottom: 1px solid #ccc;">
+            <a href="javascript:;" class="media">
+                <div class="media-body">
+                    <p class="block" style="white-space: pre-wrap;">{{>description}}</p>
+                    <p class="text-muted block-time">{{>date}}</p>
+                    <p style="display:none">{{>isview}}</p>
+                </div>
+            </a>
+        </li>
+        {{else}}
+        <li class="bell-notification" id="{{>id}}" style="padding-left: 10px; border-bottom 1px solid #ccc;">
+            <a href="javascript:;" class="media">
+                <div class="media-body">
+                    <p class="block" style="white-space: pre-wrap;">{{>description}}</p>
+                    <p class="text-muted block-time">{{>date}}</p>
+                    <p style="display:none">{{>isview}}</p>
+                </div>
+            </a>
+        </li>
+        {{/if}}
+    </script>
+
+    <style>
+        #viewmorerecordid {
+            padding-left: 23px;
+            color: #3562e0;
+        }
+    </style>
+
+    <script src="~/Script/Common/Layout.js"></script>
+    <script>
+        function getDomain() {
+            var domainPath = '@System.Configuration.ConfigurationManager.AppSettings["domainPath"]';
+            return domainPath;
+        }
+        function getERPDomain() {
+            var ERPdomainPath = '@System.Configuration.ConfigurationManager.AppSettings["ERPdomainPath"]';
+            return ERPdomainPath;
+        }
+        function getB2BDomain() {
+            var B2BdomainPath = '@System.Configuration.ConfigurationManager.AppSettings["B2BdomainPath"]';
+            return B2BdomainPath;
+        }
+        function getDesignImgVirtualPath() {
+            var DesignImgPath = '@System.Configuration.ConfigurationManager.AppSettings["DesignImgPath"]';
+            return DesignImgPath;
+        }
+        function getDesignImgPhysicalPath() {
+            var DesignImgPhysicalPath = '@System.Configuration.ConfigurationManager.AppSettings["DesignImgPhysicalPath"]';
+            return DesignImgPhysicalPath;
+        }
+        function getCurrencyCode() {
+            var CurrCode = '@Addressbook.CommonClasses.SessionFacade.UserSession.CURRENCYCODE';
+            return CurrCode;
+        }
+        function getDisLanguage() {
+            var CurrCode = '@Addressbook.CommonClasses.SessionFacade.UserSession.LANGUAGE';
+            return CurrCode;
+        }
+        function isV() {
+            if ('@Model' != null && '@Model.ISVIEW' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isA() {
+            if ('@Model' != null && '@Model.ISADD' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isU() {
+            if ('@Model' != null && '@Model.ISUPDATE' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isAU() {
+            if ('@Model' != null && '@Model.AUTHORIZE' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isD() {
+            if ('@Model' != null && '@Model.ISDELETE' == '1') {
+                return true;
+            }
+            return false;
+        }
+        function isDOWNLOAD() {
+            if ('@Model' != null && '@Model.ISDOWNLOAD' == '1') {
+                return true;
+            }
+            return false;
+        }
+
+        function getBranchId() {
+            return '@Addressbook.CommonClasses.SessionFacade.UserSession.EMPBRANCHID';
+        }
+        function getAccountYearId() {
+            return '@Addressbook.CommonClasses.SessionFacade.UserSession.ACCOUNTYEARID';
+        }
+
+    </script>
+    <script id="DDLcityList" type="text/x-jsrender">
+        <option value="{{>cityid}}">{{>cityname}}</option>
+    </script>
+    <script id="DdlStateList" type="text/x-jsrender">
+        <option value="{{>stateid}}">{{>statename}}</option>
+    </script>
+    <script id="DdlCountryList" type="text/x-jsrender">
+        <option value="{{>countryid}}">{{>countryname}}</option>
+    </script>
+    <script id="ddlGroupList" type="text/x-jsrender">
+        <option value="{{>groupid}}">{{>groupname}}</option>
+    </script>
+    <script type="text/x-jsrender" id="HearderAccountYearList">
+        <option value="{{:accountyearid}}">{{:accountyearname}}</option>
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.menu').click(function () {
+                $('ul').toggleClass('active');
+            });
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Feedback";
+}
+<div class="row" style="overflow-x: auto;">
+    <div class="col-sm-12">
+        <div class="jqGrid_wrapper" id="jqgrid_Feedback">
+            <table id="table_list_Feedback"></table>
+            <div id="pager_list_Feedback"></div>
+        </div>
+    </div>
+   <input type="hidden" value="" id="approvalhidden"/>
+</div>
+
+@section Scripts{
+        <script src="~/Script/Sales/Feedback.js"></script>
+}

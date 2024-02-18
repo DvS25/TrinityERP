@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Profit And Loss Report";
+
+}
+
+<form id="frm_ProfitAndLoss" class="form-horizontal">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="form-group row">
+                <div class="col-md-6 text-right">
+                    <label class="col-md-2 control-label" style="padding-top: 6px;">From Date</label>
+                    <div class="col-md-4">
+                        <div id="dx_datefrom"></div>
+                    </div>
+                    <label class="col-md-2 control-label" style="padding-top: 6px;">To Date</label>
+                    <div class="col-md-4">
+                        <div id="dx_dateto"></div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-2" id="dx_btnSubmit"></div>
+
+                    <div class="col-md-2" id="dx_btnprint" style="margin-left: 360px;"></div>
+                </div>
+            </div>
+            <br />
+            <div class="row" style="margin: 0 100px;font-size: 12px;border: 1px solid #efefef;" id="BalanceDetails">
+
+                <div class="col-md-6" style="border-right: 2px dashed #efefef;">
+                    <table class="table" id="tbl_income">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="font-size: 18px;text-align: center; background-color: #bbbbbb;" id="hdr_income">INCOMES</th>
+                            </tr>
+                            <tr>
+                                <th>Head Name</th>
+                                <th style="text-align:right;">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table" id="tbl_expense">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="font-size: 18px;text-align: center; background-color: #bbbbbb;" id="hdr_expense">EXPENSES</th>
+                            </tr>
+                            <tr>
+                                <th>Head Name</th>
+                                <th style="text-align:right;">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table" >
+                        <thead>
+                            <tr style="font-weight: 600;background-color: #efefef;display:none;" id="displayloss">
+                                <th>Net Loss</th>
+                                <th style="text-align:right;" id="netloss"></th>
+                            </tr>
+                        </thead>
+                        </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table" >
+                        <thead>
+                            <tr style="font-weight: 600;background-color: #efefef;display:none;" id="displayprofit">
+                                <th>Net Profit</th>
+                                <th style="text-align:right;" id="netprofit"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                    <div class="col-md-6">
+                        <table class="table" id="tbl_totalExpense">
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    <th style="text-align:right" id="total_income"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table" id="tbl_totalIncome">
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    <th style="text-align:right" id="total_expense"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts{
+    <script src="~/Script/Manufacturing/ProfitAndLossReport.js?@DateTime.UtcNow"></script>
+
+    <script id="liabilities" type="text/x-jsrender">
+        {{if headlist}}
+        <tr style="font-weight: 600;background-color: #efefef;"><th colspan="2">{{:headname}}</th></tr>
+        {{for headlist.headdetails}}
+        <tr>
+            <td>&nbsp;&nbsp; {{:accountname}}</td>
+            <td style="text-align:right;" class="income">{{:balanceamount}}</td>
+        </tr>
+        {{/for}}
+        <tr style="text-align:right;"><th colspan="2" style="text-align:right;">{{:totalofheadgroup}}</th></tr>
+        {{/if}}
+    </script>
+
+    <script id="assets" type="text/x-jsrender">
+        {{if headlist}}
+        <tr style="font-weight: 600;background-color: #efefef;"><th colspan="2">{{:headname}}</th></tr>
+        {{for headlist.headdetails}}
+        <tr>
+            <td>&nbsp;&nbsp; {{:accountname}}</td>
+            <td style="text-align:right;" class="expense">{{:balanceamount}}</td>
+        </tr>
+        {{/for}}
+        <tr style="text-align:right;"><th colspan="2" style="text-align:right;">{{:totalofheadgroup}}</th></tr>
+        {{/if}}
+    </script>
+
+}

@@ -1,0 +1,1121 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Design Tree";
+}
+<style>
+
+    hr {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .heart_position {
+        padding: 3px;
+        position: absolute;
+        top: 15px;
+        /*left: 15px;*/
+        background-color: #000;
+        opacity: 0.6;
+        color: white;
+        width: auto;
+        font-size: 10px;
+    }
+
+        .heart_position .fa {
+            font-size: 10px;
+        }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+    .model_Filter .modal.left .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 600px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .model_Filter .modal.left .modal-content {
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    .model_Filter .modal.left .modal-body {
+        padding: 70px 15px 80px;
+    }
+
+    .model_Filter .modal.left.fade .modal-dialog {
+        left: -320px;
+        -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+        transition: opacity 0.3s linear, left 0.3s ease-out;
+    }
+
+    .model_Filter .modal.left.fade.in .modal-dialog {
+        left: 0;
+    }
+
+    .model_Filter .modal-header {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 98%;
+        border-bottom-color: #dcbfbf;
+        background-color: #eeeeee;
+        padding: 10px 15px;
+    }
+
+    .model_Filter .modal-title {
+        font-weight: 600;
+        color: #000;
+    }
+
+    .modal-header .close {
+        position: absolute;
+        right: 15px;
+        top: 8%;
+        margin-top: 0;
+        font-size: 40px !important;
+    }
+
+    .page-header-content {
+        background-color: #fff;
+    }
+
+    .model_Filter .modal {
+        top: 45px;
+    }
+
+    .modal-backdrop {
+        top: 45px;
+    }
+
+    /*-------------------------style by dvs----------------------*/
+    .custom-item {
+        position: relative;
+        min-height: 30px;
+    }
+
+        .custom-item .product-name {
+            display: inline-block;
+            padding-left: 50px;
+            text-indent: 0;
+            line-height: 30px;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .custom-item > img {
+            left: 1px;
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            height: 30px;
+        }
+
+    .btnGridAction i {
+        font-size: 20px;
+        color: #555;
+        cursor: pointer;
+    }
+
+    .btnGridAction .icon-heart-broken2, .btnGridAction .icon-heart5, .buttonwishcart .icon-heart-broken2, .buttonwishcart .icon-heart5 {
+        color: red;
+    }
+
+    .btnGridAction .icon-cart, .buttonwishcart .icon-cart {
+        color: green;
+    }
+
+    .product-layout {
+        margin-bottom: 20px;
+    }
+
+    #listRelatedDesigns {
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 500px;
+        overflow-y: auto;
+    }
+
+        #listRelatedDesigns li {
+            list-style: none;
+            padding: 5px;
+            background: white;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            position: relative;
+            display: flex;
+        }
+
+            #listRelatedDesigns li:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+            #listRelatedDesigns li p {
+                margin: 0;
+            }
+
+            #listRelatedDesigns li button {
+                background-color: transparent;
+                border: none;
+                outline: none;
+                top: 0;
+                position: absolute;
+                right: 0;
+            }
+
+    .NoRelatedItems {
+        opacity: 1;
+        background-color: #ccc;
+        color: black;
+    }
+
+    .product-image {
+        min-height: 200px;
+        min-width: 200px;
+    }
+
+    #btnViewMore {
+        position: absolute;
+        margin-left: -42px;
+    }
+    /*-------------------------style by dvs----------------------*/
+</style>
+<div id="desgin_panel">
+    <!-- Page header -->
+    <div class="page-header">
+        <div class="page-header-content">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <button type="button" id="btnmodalfilter" class="btn btn-default btn-md btn-icon" data-toggle="modal" data-target="#FilterProductlistModal">
+                                    <i class="icon-filter4" id="iconFilter"></i>
+                                    <i class="icon-filter3" id="iconSelFilter" style="color: #4caf50;display:none;"></i>
+                                </button>
+                            </div>
+                            <div class="col-md-3">
+                                <div id="dx_ddlCategory"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div id="dx_ddlSubCategory"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="dx_txtSearch"></div>
+                                <div id="dx_txtbagNo"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-5">
+                            </div>                                                                                                                                                                                                                                                                                   <div class="col-md-6">
+
+                                <div id="dx_tlbTools"></div>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" id="btncart" onclick="DesignTreeView.Bind_CartData()" class="btn btn-default btn-md btn-icon">
+                                    <i class="icon-cart-add"></i>
+                                    <span class="notificationcss badge-danger" id="CartCounting" style="position:absolute;top:0px">0</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- Page container -->
+    <div class="fixed_height">
+        <div class="container-fluid">
+            <div class="addscaleclass">
+
+                <div class="row">
+                    <div id="content" class="col-sm-12 mob-nopad" style="background: #fff;">
+                        <br>
+                        <div class="row new-class-add" style="margin-top: 0px; text-align: center;" id="div_DesignList">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <button type="button" name="viewMore" id="btnViewMore" class="btn btn-default" style="display:none;">View More</button>
+                                <h5 style="font-weight:600;position: relative;right: 20px;float: right;">
+                                    <span id="currentRecords"></span> of
+                                    <span id="totalRecords"></span> Designs
+                                </h5>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="panel panel-flat" id="panel_DesignList" style="display:none;">
+                        <div class="panel-body">
+                            <div id="dx_dataGrid" style="height: 500px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="model_Filter">
+            <div class="modal left fade" id="FilterProductlistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" style="z-index: 11; display: none;">
+                <div class="modal-dialog side-pwdth" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close addscaleclass" data-dismiss="modal" aria-label="Close" id="closefiltermodal" style="font-size: 32px"><span aria-hidden="true">×</span></button>
+                            <div>
+                                <h3 class="modal-title col-sm-5 col-xs-7" id="myModalLabel">Filter</h3>
+                                <div class="container" style="width:100%;">
+                                    <div class="col-sm-5 col-xs-6" style="float:right;margin-right:30px;">
+                                        <div id="dx_btnApply"></div>
+                                        <div id="dx_btnReset"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" id="frm_FilterDesign">
+                                <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom: 5px;">
+                                    <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Entry Date</legend>
+
+                                    <div class="col-md-5">
+                                        <div id="dx_txtFromDate"></div>
+                                    </div>
+                                    <label class="col-md-2" style="font-weight:600;text-align:center;padding:5px;">To</label>
+                                    <div class="col-md-5">
+                                        <div id="dx_txtToDate"></div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;margin-top: 11px;padding-top: 11px;padding-bottom:5px;">
+                                            <label class="col-md-3 control-label" style="font-weight:600;padding-top: 8px;">Active</label>
+                                            <div class="col-md-9">
+                                                <div id="dx_ddlIsActive"></div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom:5px;">
+                                            <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Display On B2B</legend>
+
+                                            <label class="col-md-2 control-label" style="font-weight:600;padding-top: 8px;">Web</label>
+                                            <div class="col-md-4">
+                                                <div id="dx_ddlDisWebB2B"></div>
+                                            </div>
+
+                                            <label class="col-md-2 control-label" style="font-weight:600;padding-top: 8px;">App</label>
+                                            <div class="col-md-4">
+                                                <div id="dx_ddlDisAppB2B"></div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom:5px;">
+                                            <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Display On Outlet</legend>
+
+                                            <label class="col-md-3 control-label" style="font-weight:600;padding-top: 8px;">Web</label>
+                                            <div class="col-md-9">
+                                                <div id="dx_ddlDisOutlet"></div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom:5px;">
+                                            <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Display On B2C</legend>
+
+                                            <label class="col-md-2 control-label" style="font-weight:600;padding-top: 8px;">Web</label>
+                                            <div class="col-md-4">
+                                                <div id="dx_ddlDisWebB2C"></div>
+                                            </div>
+
+                                            <label class="col-md-2 control-label" style="font-weight:600;padding-top: 8px;">App</label>
+                                            <div class="col-md-4">
+                                                <div id="dx_ddlDisAppB2C"></div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom: 5px;">
+                                    <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Diamond Weight (cts)</legend>
+
+                                    <div class="col-md-2">
+                                        <div id="dx_txtDiaWtFrom"></div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="" style="font-weight:600;text-align:center;padding:5px;">To</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div id="dx_txtDiaWtTo"></div>
+                                    </div>
+                                    <div class="col-md-7" style="margin-top:5px">
+                                        <div id="dx_rngDiaWgt"></div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom: 5px;">
+                                    <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Gold Weight (gm)</legend>
+
+                                    <div class="col-md-2">
+                                        <div id="dx_txtGoldWtFrom"></div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="" style="font-weight:600;text-align:center;padding:5px;">To</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div id="dx_txtGoldWtTo"></div>
+                                    </div>
+                                    <div class="col-md-7" style="margin-top:5px">
+                                        <div id="dx_rngGoldWgt"></div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom: 5px;">
+                                    <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Price (@Addressbook.CommonClasses.SessionFacade.UserSession.CURRENCYCODE)</legend>
+
+                                    <div class="col-md-2">
+                                        <div id="dx_txtPriceFrom"></div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="" style="font-weight:600;text-align:center;padding:5px;">To</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div id="dx_txtPriceTo"></div>
+                                    </div>
+                                    <div class="col-md-7" style="margin-top:5px">
+                                        <div id="dx_rngPrice"></div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom: 5px;">
+                                    <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Diamond Shape</legend>
+
+                                    <div class="col-md-12">
+                                        <div class="Diamshape">
+                                            <div class="diamond_shape" id="diamondallshape">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom: 5px;">
+                                    <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Charni Group</legend>
+
+                                    <div class="col-md-12">
+                                        <div id="dx_tagCharniGroup"></div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom: 5px;">
+                                    <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Charni</legend>
+
+                                    <div class="col-md-12">
+                                        <div id="dx_tagCharni"></div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom: 5px;">
+                                    <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Concept</legend>
+
+                                    <div class="col-md-12">
+                                        <div id="dx_tagConcept"></div>
+                                    </div>
+                                </fieldset>
+
+
+                                <fieldset style="border: 1px solid #dee1e3;display:none;background-color: #fafafa;padding-bottom: 5px;" class="physical">
+                                    <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Physical Stock</legend>
+                                    <div class="col-md-12">
+                                        <label class="col-sm-3 control-label " style="font-weight:600;text-align: left;margin-top: 8px;">Stock Type</label>
+                                        <div class="col-sm-9">
+                                            <div id="dx_tagStockType" style="margin-top: 8px;"></div>
+                                        </div>
+                                        <label class="col-sm-3 control-label" style="font-weight:600;text-align: left;margin-top: 8px;">Stock Status</label>
+                                        <div class="col-sm-9">
+                                            <div id="dx_tagStockStatus" style="margin-top: 8px;"></div>
+                                        </div>
+
+                                        <label class="col-sm-3 control-label" style="font-weight:600;text-align: left;margin-top: 8px;">Metal Type</label>
+                                        <div class="col-sm-9">
+                                            <div id="dx_tagMetalType" style="margin-top: 8px;"></div>
+                                        </div>
+
+                                        <label class="col-sm-3 control-label" style="font-weight:600;text-align: left;margin-top: 8px;">Metal Purity</label>
+                                        <div class="col-sm-9">
+                                            <div id="dx_tagPurity" style="margin-top: 8px;"></div>
+                                        </div>
+
+                                        <label class="col-sm-3 control-label" style="font-weight:600;text-align: left;margin-top: 8px;">Metal Colour</label>
+                                        <div class="col-sm-9">
+                                            <div id="dx_tagColor" style="margin-top: 8px;"></div>
+                                        </div>
+
+                                        <label class="col-sm-3 control-label" style="font-weight:600;text-align: left;margin-top: 8px;">Diamond Purity</label>
+                                        <div class="col-sm-9">
+                                            <div id="dx_tagDiaPurity" style="margin-top: 8px;"></div>
+                                        </div>
+
+                                        <label class="col-sm-3 control-label" style="font-weight:600;text-align: left;margin-top: 8px;">Diamond Colour</label>
+                                        <div class="col-sm-9">
+                                            <div id="dx_tagDiaColour" style="margin-top: 8px;"></div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                            </form>
+                        </div><!-- modal-content -->
+                    </div><!-- modal-dialog -->
+                </div><!-- modal -->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cart_panel" style="display:none">
+    <div class="row modal-body">
+        <div class="col-lg-2">
+            <label style="font-size:18px;font-weight:500"> My Cart ( <span id="MycartCounting"></span> ) </label>
+        </div>
+        <div class="col-lg-2" style="text-align:right">
+            <div id="dx_StockType" style="background:none;"></div>
+        </div>
+        <div class="col-lg-8" style="text-align:right">
+            <div id="dx_Carttool" style="background:none;"></div>
+        </div>
+        <div class="col-lg-12" style="margin-top:15px">
+            <div id="dx_gridSelectionItem_CartList"></div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalQuotation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Generate Quotation</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar" style="text-align:right">Party Name</label>
+                        <div class="col-md-9">
+                            <div id="dx_txtAutoComplite_PartyList_Cart"></div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar subbook" style="text-align:right;display:none">Book Type</label>
+                        <div class="col-md-7">
+                            <div id="dx_ddlSubBookMaster"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id="dx_btnSave_Quoation"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalGeneratecatalog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                @*<div class="form-horizontal p-10">*@
+                <h4 class="modal-title">Generate Catalog</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                @*</div>
+                    <div class="form-horizontal">
+                        <div class="col-lg-12" style="padding:0px;text-align:right;">
+
+                        </div>
+                    </div>*@
+
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal" id="frm_SelectionList_Cart">
+                        <div class="form-group" style="display:none;">
+                            <label class="col-md-2 control-label addstar">List Name</label>
+                            <div class="col-md-6">
+                                <div id="dx_txtCatalogName_Cart"></div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none;">
+                            <label class="col-md-2 control-label">Remark</label>
+                            <div class="col-md-10">
+                                <div id="dx_txtCatalogRemark_Cart"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 text-right" style="padding-top: 10px;">
+                                <div id="dx_btnSaveCatalog_Cart"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label addstar" style="text-align:right">Select Catalog</label>
+                        <div class="col-md-9">
+                            <div id="dx_txtAutoSelecList_Cart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id="dx_btnAddCatalog_Cart"></div>
+                <div id="dx_btnSave_GenerateCatalog"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalSelectionList" tabindex="-1" role="dialog" aria-labelledby="ModalSelectionList" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CatalogModal_title">Manage Catalog</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="FrmCatalogEntry" style="display:none;">
+                    <div class="form-group Editcatalog">
+                        <label class="col-md-2 control-label">Select Catalog</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtAutoSelecList"></div>
+                        </div>
+                    </div>
+                    <div class="form-group Addcatalog" style="display:none;">
+                        <label class="col-md-2 control-label addstar">Catalog Name</label>
+                        <div class="col-md-6">
+                            <div id="dx_txtSelectionListName"></div>
+                        </div>
+                    </div>
+                    <div class="form-group Addcatalog" style="display:none;">
+                        <label class="col-md-2 control-label">Remark</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSelectionListRemark"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 text-right" style="padding-top: 10px;">
+                            <div id="dx_btnViewSelectionList"></div>
+                            <div id="dx_btnAddSelectionList"></div>
+                            <div id="dx_btnSaveSelectionList"></div>
+                            <div id="dx_btnCancel"></div>
+                        </div>
+                    </div>
+                </form>
+                <form class="form-horizontal" id="FrmCatalogList" style="display:none;">
+                    <div class="form-group">
+                        <div class="col-md-12 text-right">
+                            <div id="dx_btnBackFromList"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12" style="padding-top: 10px;">
+                            <div id="dx_gridSelectionList"></div>
+                        </div>
+                    </div>
+                </form>
+                <form class="form-horizontal" id="FrmCatalogItemList" style="display:none;">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <div id="dx_txtAutoComplite_PartyList"></div>
+                        </div>
+
+                        <div class="col-md-8 text-right">
+                            <div id="dx_catalogtool"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12" style="padding-top: 10px;">
+                            <div id="dx_gridSelectionItemList"></div>
+                        </div>
+                    </div>
+                </form>
+                <form class="form-horizontal" id="FrmShareCatalog" style="display:none;">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Type</label>
+                        <div class="col-md-10">
+                            <div id="dx_CatalogRadioSocial" style="margin-top: 5px;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group CatalogMobileShare">
+                        <label class="col-md-2 control-label">Mobile No</label>
+                        <div class="col-md-4">
+                            <div id="dx_txtCatalogMobileNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group CatalogMobileShare">
+                        <label class="col-md-2 control-label">Message</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtCatalogShareMessage"></div>
+                        </div>
+                    </div>
+                    <div class="form-group CatalogEmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Id</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtCatalogSharingEmailId"></div>
+                        </div>
+                    </div>
+                    <div class="form-group CatalogEmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Subject</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtCatalogSharingSubject"></div>
+                        </div>
+                    </div>
+                    <div class="form-group CatalogEmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Body</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtCatalogSharingEmailBody"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 text-right" style="padding-top: 10px;">
+                            <div id="dx_btnCatalogSubmitShare"></div>
+                            <div id="dx_btnBacktoList"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalSharing" tabindex="-1" role="dialog" aria-labelledby="ModalSharing" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share Design</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Party Name</label>
+                        <div class="col-lg-9">
+                            <div id="dx_txtSharetoPartyList"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Type</label>
+                        <div class="col-md-10">
+                            <div id="dx_RadioSocial" style="margin-top: 5px;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Mobile No</label>
+                        <div class="col-md-4">
+                            <div id="dx_txtMobileNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Message</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtShareMessage"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Id</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailId"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Subject</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingSubject"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Body</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailBody"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="dx_btnSubmitShare"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalCloudfilter" tabindex="-1" role="dialog" aria-labelledby="ModalCloudfilter" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<h5 class="modal-title" id="exampleModalLongTitle">Filter</h5>*@
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>*@
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;margin-top: 11px;padding-top: 11px;padding-bottom:5px;">
+                                <label class="col-md-3 control-label" style="font-weight:600;padding-top: 8px;">Active</label>
+                                <div class="col-md-9">
+                                    <div id="dx_chngIsActive"></div>
+                                </div>
+
+                            </fieldset>
+                        </div>
+
+                        <div class="col-md-8">
+                            <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom:5px;">
+                                <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Display On B2B</legend>
+
+                                <label class="col-md-2 control-label" style="font-weight:600;padding-top: 8px;">Web</label>
+                                <div class="col-md-4">
+                                    <div id="dx_chngDisWebB2B"></div>
+                                </div>
+
+                                <label class="col-md-2 control-label" style="font-weight:600;padding-top: 8px;">App</label>
+                                <div class="col-md-4">
+                                    <div id="dx_chngDisAppB2B"></div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom:5px;">
+                                <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Display On Outlet</legend>
+
+                                <label class="col-md-3 control-label" style="font-weight:600;padding-top: 8px;">Web</label>
+                                <div class="col-md-9">
+                                    <div id="dx_chngDisOutlet"></div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="col-md-8">
+                            <fieldset style="border: 1px solid #dee1e3;background-color: #fafafa;padding-bottom:5px;">
+                                <legend style="border: 0;margin-left: 1em; padding: 0.2em 0.8em;width:auto;font-weight:600;margin-bottom: 0;">Display On B2C</legend>
+
+                                <label class="col-md-2 control-label" style="font-weight:600;padding-top: 8px;">Web</label>
+                                <div class="col-md-4">
+                                    <div id="dx_chngDisWebB2C"></div>
+                                </div>
+
+                                <label class="col-md-2 control-label" style="font-weight:600;padding-top: 8px;">App</label>
+                                <div class="col-md-4">
+                                    <div id="dx_chngDisAppB2C"></div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSaveChangeDisModal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalPriceSetting" tabindex="-1" role="dialog" aria-labelledby="ModalPriceSetting" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Price Setting</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Account</label>
+                        <div class="col-md-8">
+                            <div id="dx_txtPriceAcc"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Dia Purity</label>
+                        <div class="col-md-4">
+                            <div id="dx_ddlPriceDiaPurity"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Dia Color</label>
+                        <div class="col-md-4">
+                            <div id="dx_ddlPriceDiaColor"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="dx_btnSavePriceSetting"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DesignRelated" tabindex="-1" role="dialog" aria-labelledby="DesignRelated" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Product Details >> <a id="lblDesignHeader"></a> </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="itemshowMain">
+                            <img src="" id="selectedImgPreview" style="width: 100%;" />
+                            <video id="selectedVideoPreview" controls autoplay style="display:none;width: 100%;">
+                                <source src="movie.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="itemshowsubitem">
+                            <div id="ViewImgsList" class="owl-carousel owl-theme">
+                                @*<div class="item">
+                                        <img src="http://192.168.0.101/trinity/UploadFiles/DesignMaster//RING/NICE RING/thumb/0caf7d13-4487-494c-8744-3954aa3c6fb6.jpg" alt="TRN0001" title="" class="img-responsive list-img" style="display: block;">
+                                    </div>
+                                    <div class="item">
+                                        <img src="http://192.168.0.101/trinity/UploadFiles/DesignMaster//RING/NICE RING/thumb/0caf7d13-4487-494c-8744-3954aa3c6fb6.jpg" alt="TRN00012" title="" class="img-responsive list-img" style="display: block;">
+                                    </div>
+                                    <div class="item">
+                                        <img src="http://192.168.0.101/trinity/UploadFiles/DesignMaster//RING/NICE RING/thumb/0caf7d13-4487-494c-8744-3954aa3c6fb6.jpg" alt="TRN00013" title="" class="img-responsive list-img" style="display: block;">
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-5" style="padding:0px !important;">
+
+                        <legende>PRODUCT INFORMATION</legende> <hr>
+                        <ul>
+                            <li> Dimensions  : <span id="Dimensions"></span> </li>
+                            <li> Size : <span id="Size"></span> </li>
+                            <li> Color :   <span id="Color"></span></li>
+                            <li> Purity : <apan id="Purity"></apan></li>
+                        </ul>
+
+                        <fieldset>
+                            <legend>Related Designs</legend>
+                            <ul id="listRelatedDesigns">
+                                @*<li>
+                                        <img src="" style="width:50px;height:50px;display:inline-block" />
+                                        <p style="display:inline-block"></p>
+                                    </li>*@
+                            </ul>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dx_popupSelListDelete"></div>
+<div id="dx_popupSelListItemsDelete"></div>
+<div id="dx_popupSelListItemsDelete_Cart"></div>
+<div id="dx_popupSelListDelete_Cart"></div>
+<input type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.EMPLOYEE_NAME" id="hdn_UserName" />
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+<link href="~/Content/plugin/owl_carousel/dist/assets/owl.carousel.min.css" rel="stylesheet" />
+<link href="~/Content/plugin/owl_carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Content/plugin/owl_carousel/dist/owl.carousel.min.js"></script>
+    <script src="~/Script/Manufacturing/DesignTree.js?v=@DateTime.UtcNow"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+        //$("#listicogrid").click(function () {
+        //    $(this).addClass('actlistbox');
+        //    $("#listicopit").removeClass('actlistbox');
+        //});
+
+        //$("#listicopit").click(function () {
+        //    $(this).addClass('actlistbox');
+        //    $("#listicogrid").removeClass('actlistbox');
+        //});
+    </script>
+    <script type="text/x-jsrender" id="renderDesignList">
+        {{* var newprice= ''}}
+        {{setvar "newprice" price/}}
+        {{* newprice = DesignTreeView.GetFormatedCurrency($.views.helpers.getvar('newprice'))/}}
+        <div class="product-layout product-grid product-category product-item col-lg-2 col-md-3 col-sm-6 col-xs-12 mob-nopad orderrow">
+            <div class="product-thumb">
+                <div class="image product-image" style="background-color:#fff !important">
+                    <div class="cl-border"></div>
+                    <a href="{{:imgpath}}" data-fancybox="gallery">
+                        <img src="{{:imgpath_thumb}}" alt="{{:designcode}}" title="" class="img-responsive list-img" style="display: block;width:100%;">
+                    </a>
+
+                    {{if newdesign}}
+                    <label class="heart_position" style="left: 11px;"><i class="fa fa-heart" aria-hidden="true"></i>  {{:islike}}</label>
+                    <label class="heart_position" style="right: 11px;"><i class="fa fa-eye" aria-hidden="true"></i>  {{:isview}}</label>
+                    <img data-toggle="tooltip" title="New List" style="width:28px;position: absolute;top: -5px;right: 20px;" src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/Content/images/wishlistnews.png" />
+                    {{/if}}
+                </div>
+                <div>
+
+                    <div class="caption">
+                        <div class="row">
+                            <lable class="col-sm-5 col-xs-5 text-left" style="padding-right:0;">{{:grossweight}}<span> gm</span></lable>
+                            <lable class="col-sm-3 col-xs-3 design-code " style="padding:0;">{{:designcode}}</lable>
+                            <lable class="col-sm-4 col-xs-4 text-right" style="padding-left:0;">{{:diacts}}<span> cts</span></lable>
+                        </div>
+                        <div class="row price-clr">
+                            <lable class="col-sm-4 col-xs-4 text-left" style="padding-right:0;">{{:purity}}</lable>
+                            <div class="col-sm-4 col-xs-4" style="padding:0;">
+                                {{* var StarString= ''}}
+                                {{setvar "StarString" ratestar1/}}
+                                {{* StarString = htmlDecode($.views.helpers.getvar('StarString'))/}}
+                                <div title="{{:maxsold}}">{{*:StarString}}</div>
+                            </div>
+                            <lable class="col-sm-4 col-xs-4 text-right" style="padding-left:0;">{{:dipurity}}/{{:dicolour}}</lable>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-3">
+                                {{if relateddesigns}}
+                                <div class="checkinfo" style="position:initial;margin-top: 5px;">
+                                    <button data-toggle="tooltip" data-placement="bottom" title="More Info" onclick="DesignTreeView.OpenMoreDetails('{{:dm_id}}','{{:designcode}}')">
+                                        <i class="icon-info3"></i>
+                                    </button>
+                                </div>
+                                {{else}}
+                                <div class="checkinfo NoRelatedItems" style="position:initial;margin-top: 5px;">
+                                    <button data-toggle="tooltip" data-placement="bottom" title="More Info" onclick="DesignTreeView.OpenMoreDetails('{{:dm_id}}','{{:designcode}}')">
+                                        <i class="icon-info3"></i>
+                                    </button>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div class="col-sm-6 col-xs-6 text-center" style="color: #1780a9;font-weight: 600;margin-top: 5px;">
+                                <lable>{{:bagno}}</lable>
+                            </div>
+                            <div class="addCartdetail col-sm-3 col-xs-3" style="position:initial;margin-top: 2px;">
+                                <button data-toggle="Add Cart" data-placement="bottom" title="Add Cart" onclick="DesignTreeView.AddDesignToSelectionList({{:dm_id}},{{:pm_id}})">
+                                    <i class="icon-cart-add"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="checklist" style="top: -19px;">
+                            <div class="">
+                                <input class="form-check-input chkSelectDesign" type="checkbox" value="" designid="{{:dm_id}}">
+                            </div>
+                        </div>
+
+
+
+                        <div class="Price_rate">
+                            <lable class="text-endss">
+                                <span class="indianprice">{{*:newprice}}</span>
+                            </lable>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </script>
+    <script id="renderDiaShape" type="text/x-jsrender">
+        <div class="dvshape" id="{{>shape}}" onclick="DesignTreeView.Shapeclick(this.id)">
+            <img src="{{>imagepath}}" id="img{{>shape}}" />
+            <br />
+            <span id="shapename{{>shape}}">{{>shape}}</span>
+        </div>
+    </script>
+    <script type="text/x-jsrender" id="renderDesignImgs">
+        <div class="item">
+            {{if imgtype == "VIDEO"}}
+            <img src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/Content/images/play-button.png" onclick="DesignTreeView.SelectImgFromSlider('{{:imgpath}}','{{:imgtype}}')" alt="{{:actualname}}" title="" class="img-responsive list-img" style="display: block;">
+            {{else}}
+            <img src="{{:imgpath_thumb}}" onclick="DesignTreeView.SelectImgFromSlider('{{:imgpath}}','{{:imgtype}}')" alt="{{:actualname}}" title="" class="img-responsive list-img" style="display: block;">
+            {{/if}}
+        </div>
+    </script>
+    <script type="text/x-jsrender" id="renderRelatedDesign">
+        {{* var newprice= ''}}
+        {{setvar "newprice" price/}}
+        {{* newprice = DesignTreeView.GetFormatedCurrency($.views.helpers.getvar('newprice'))/}}
+        <li>
+            <div style="width:70px;height:70px;display:inline-block">
+                <a href="{{:imgpath}}" data-fancybox="gallery">
+                    <img src="{{:imgpath_thumb}}" style="width:100%" />
+                </a>
+            </div>
+
+            <div style="display:inline-block;margin-left: 5px;">
+                <p><a>{{:designcode}}</a></p>
+                <p>GWgt: {{:grossweight}} gm &nbsp;&nbsp;&nbsp; DWgt: {{:diacts}} cts</p>
+                <p>{{:purity}}</p>
+            </div>
+            <button data-toggle="Add Cart" data-placement="bottom" title="More Info" onclick="DesignTreeView.AddDesignToSelectionList({{:dm_id}},{{:pm_id}})">
+                <i class="icon-cart-add"></i>
+            </button>
+            <div style="position:absolute;right:0;bottom: 0;">{{*:newprice}}</div>
+        </li>
+    </script>
+
+
+
+}

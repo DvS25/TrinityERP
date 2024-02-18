@@ -1,0 +1,293 @@
+﻿@{
+    ViewBag.Title = "Analysis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .container{
+        font-size:inherit !important;
+        padding:0px !important;
+    }
+</style>
+
+@Html.Partial("~/Views/Common/_ChartViewer.cshtml")
+
+@*-------Start Script-------------------------------------*@
+<input type="hidden" id="hdnPageType" value="@ViewBag.PageType"/>
+@section Scripts{
+<script src="~/Content/plugin/Gridsatck/lodash.min.js"></script>
+<script src="~/Content/plugin/Gridsatck/gridstack.js"></script>
+<script src="~/Content/plugin/Gridsatck/gridstack.jQueryUI.js"></script>
+<script src="~/Content/plugin/Sidebar-Dashboard/SidebarChart.js"></script>
+<script id="AutoCompleteList" type="text/x-jsrender">
+    <option value="{{>valuefield}}" selected="selected">{{:valuefield}}</option>
+</script>
+<script type="text/x-jsrender" id="FilterFields">
+    {{if datatype == 'String'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-md-2 col-sm-3 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-md-1 col-sm-2">
+            <select id="ddlOperator{{:fieldid}}" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                <option value="eq">=</option>
+                <option value="neq">!=</option>
+                <option value="Like">Like</option>
+            </select>
+        </div>
+        <div class="col-md-3 col-sm-3">
+            <input type="text" id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} />
+        </div>
+    </div>
+    {{else datatype == 'Date'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-md-2 col-sm-3 col-xs-12 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-md-2 col-sm-2 col-xs-4">
+            <select id="ddlOperator{{:fieldid}}" onchange="ChartView.OnChangeDateOperator(this);" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} ddlDateOpr OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                <option value="Today">Today</option>
+                <option value="Yesterday">Yesterday</option>
+                <option value="Last7Days">Last 7 Days</option>
+                <option value="Last30Days">Last 30 Days</option>
+                <option value="ThisMonth">This Month</option>
+                <option value="LastMonth">Last Month</option>
+                <option value="ThisYear">This Year</option>
+                <option value="CustomRange">Custom Range</option>
+            </select>
+        </div>
+        <div id="divdateRange{{:fieldid}}" style="display:none;">
+            <div class="col-md-2 col-sm-3 col-xs-8">
+                <div class="input-group date pull-left">
+                    <input type="text" id="From{{:fieldid}}" name="From{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox FromDate" placeholder="From Date" autocomplete="off">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+            <label id="LblTo{{:fieldid}}" class="col-sm-1 control-label {{if iscompulsary==1}}addstar{{/if}}" style="text-align: center;">To</label>
+            <div class="col-md-2 col-sm-3 col-xs-8">
+                <div class="input-group date pull-left">
+                    <input type="text" id="To{{:fieldid}}" name="To{{:fieldid}}" class="form-control ToDate" placeholder="To Date" autocomplete="off">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} id="hdn{{:fieldid}}" class="SelectedDateValue" />
+    </div>
+    {{else datatype == 'Int' || datatype == 'Decimal'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-md-2 col-sm-3 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-sm-1">
+            <select id="ddlOperator{{:fieldid}}" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                <option value="eq">=</option>
+                <option value="neq">!=</option>
+                <option value="gt">&gt;</option>
+                <option value="lt">&lt;</option>
+                <option value="gte">&gt;=</option>
+                <option value="lte">&lt;=</option>
+            </select>
+        </div>
+        <div class="col-md-3 col-sm-3">
+            <input type="text" id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox numbertype" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} />
+        </div>
+    </div>
+    {{else datatype == 'Combobox'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-md-2 col-sm-3 col-xs-12 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-md-1 col-sm-2 col-xs-4">
+            <select id="ddlOperator{{:fieldid}}" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                {{if ismultiselect == 0}}
+                {{if columnname == "Leave Month" || columnname == "LeaveMonth" || columnname == "Leave Year" || columnname == "LeaveYear"}}
+                <option value="eq">=</option>
+                {{else}}
+                <option value="eq">=</option>
+                <option value="neq">!=</option>
+                <option value="Like">Like</option>
+                {{/if}}
+                {{else}}
+                <option value="in">In</option>
+                <option value="notin">Not In</option>
+                {{/if}}
+            </select>
+        </div>
+        <div class="col-md-3 col-sm-5 col-xs-12 mob-mt5">
+            {{if ismultiselect == 0 ~fieldvalue=fieldvalue}}
+            <select id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} Combobox inputbox" DefaultOperator="{{:defaultoperator}}">
+                <option value=''>-- Select --</option>
+                {{for optionlist.option.optionval}}
+                <option value="{{:idfield}}" {{if ~fieldvalue == idfield}} selected="selected" {{/if}}>{{:valuefield}}</option>
+                {{/for}}
+            </select>
+            {{else}}
+            <select id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} MultiCombobox inputbox" multiple="multiple" DefaultOperator="{{:defaultoperator}}" style="width: 100%" selecteddata="{{:fieldvalue}}">
+                {{for optionlist.option.optionval}}
+                <option value="{{:idfield}}">{{:valuefield}}</option>
+                {{/for}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+    {{else datatype == 'AutoSuggest'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-sm-2 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-sm-1">
+            <select id="ddlOperator{{:fieldid}}" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                {{if ismultiselect == 0}}
+                <option value="eq">=</option>
+                <option value="neq">!=</option>
+                <option value="Like">Like</option>
+                {{else}}
+                <option value="in">In</option>
+                <option value="notin">Not In</option>
+                {{/if}}
+            </select>
+        </div>
+        <div class="col-sm-3">
+            {{if ismultiselect == 0}}
+            <input type="text" id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox AutoSuggest" placeholder="Search {{:columnname}}" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} />
+            <input type="hidden" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} id="hdn{{:fieldid}}" />
+            {{else}}
+            <select id="{{:fieldid}}" name="{{:fieldid}}" style="width:100%" multiple="multiple" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox AutoSuggestMultiSelect OperatorSelect" DefaultOperator="{{:defaultoperator}}" placeholder="Search {{:columnname}}" {{if fieldvalue != ''}} selecteddata="{{:fieldvalue}}" {{/if}}></select>
+            {{/if}}
+        </div>
+    </div>
+    {{/if}}
+</script>
+<script id="JSChartList" type="text/x-jsrender">
+    <div class="col-md-4 col-sm-6 m-t-10" onclick="ChartView.CharttriggerId('{{>chartid}}',{{>isfilterfield}},{{>isdefaultfilter}},'{{>title}}','{{>charttype}}',{{>ismultivaluedchart}})" style="cursor:pointer;">
+        <div class="ch-mainbox ">
+            <div class="ch-box">
+                <div class="col-md-10 col-sm-10 col-xs-10">
+                    <h5 class="col-333 mt15 mb2 chheadl" style="margin-top: 9px;"><span class="ch-head ">{{>title}}</span></h5>
+                    <p class="ch-desciption mt0 chheadl">{{>discription}}</p>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2"><span class="ch-image-sec">{{:totaldashboradchart}}</span></div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/x-jsrender" id="ModalFilterFields">
+    {{if datatype == 'String'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-md-2 col-sm-4 col-xs-12 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-md-2 col-sm-2 col-xs-12">
+            <select id="ddlOperator{{:fieldid}}" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                <option value="eq">=</option>
+                <option value="neq">!=</option>
+                <option value="Like">Like</option>
+            </select>
+        </div>
+        <div class="col-md-5 col-sm-8 col-xs-12 ipad-mt">
+            <input type="text" id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} />
+        </div>
+    </div>
+    {{else datatype == 'Date'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-md-2 col-sm-12 col-xs-12 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-md-2 col-sm-12 col-xs-12">
+            <select id="ddlOperator{{:fieldid}}" onchange="ChartView.OnChangeDateOperator(this);" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} ddlDateOpr OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                <option value="Today">Today</option>
+                <option value="Yesterday">Yesterday</option>
+                <option value="Last7Days">Last 7 Days</option>
+                <option value="Last30Days">Last 30 Days</option>
+                <option value="ThisMonth">This Month</option>
+                <option value="LastMonth">Last Month</option>
+                <option value="ThisYear">This Year</option>
+                <option value="CustomRange">Custom Range</option>
+            </select>
+        </div>
+
+        <div id="divdateRange{{:fieldid}}" style="display:none;">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="input-group date pull-left">
+                    <input type="text" id="From{{:fieldid}}" name="From{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox FromDate" placeholder="From Date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+            <label id="LblTo{{:fieldid}}" class="col-sm-1 control-label {{if iscompulsary==1}}addstar{{/if}}" style="text-align: center;">To</label>
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="input-group date pull-left">
+                    <input type="text" id="To{{:fieldid}}" name="To{{:fieldid}}" class="form-control ToDate" placeholder="To Date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} id="hdn{{:fieldid}}" class="SelectedDateValue" />
+    </div>
+    {{else datatype == 'Int' || datatype == 'Decimal'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-md-2 col-sm-2 col-xs-12 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-md-2 col-sm-3 col-xs-12">
+            <select id="ddlOperator{{:fieldid}}" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                <option value="eq">=</option>
+                <option value="neq">!=</option>
+                <option value="gt">&gt;</option>
+                <option value="lt">&lt;</option>
+                <option value="gte">&gt;=</option>
+                <option value="lte">&lt;=</option>
+            </select>
+        </div>
+        <div class="col-md-5 col-sm-7 col-xs-12">
+            <input type="text" id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox numbertype" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} />
+        </div>
+    </div>
+    {{else datatype == 'Combobox'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-md-2 col-sm-2 col-xs-12 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-md-2 col-sm-3 col-xs-12">
+            <select id="ddlOperator{{:fieldid}}" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                {{if ismultiselect == 0}}
+                {{if columnname == "Leave Month" || columnname == "LeaveMonth" || columnname == "Leave Year" || columnname == "LeaveYear"}}
+                <option value="eq">=</option>
+                {{else}}
+                <option value="eq">=</option>
+                <option value="neq">!=</option>
+                <option value="Like">Like</option>
+                {{/if}}
+                {{else}}
+                <option value="in">In</option>
+                <option value="notin">Not In</option>
+                {{/if}}
+            </select>
+        </div>
+        <div class="col-md-5 col-sm-7 col-xs-12 mob-mt5">
+            {{if ismultiselect == 0 ~fieldvalue=fieldvalue}}
+            <select id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} Combobox inputbox" DefaultOperator="{{:defaultoperator}}">
+                <option value=''>-- Select --</option>
+                {{for optionlist.option.optionval}}
+                <option value="{{:idfield}}" {{if ~fieldvalue == idfield}} selected="selected" {{/if}}>{{:valuefield}}</option>
+                {{/for}}
+            </select>
+            {{else}}
+            <select id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} MultiCombobox inputbox" multiple="multiple" DefaultOperator="{{:defaultoperator}}" style="width: 100%" selecteddata="{{:fieldvalue}}">
+                {{for optionlist.option.optionval}}
+                <option value="{{:idfield}}">{{:valuefield}}</option>
+                {{/for}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+    {{else datatype == 'AutoSuggest'}}
+    <div class="form-group">
+        <label id="Lbl{{:fieldid}}" class="col-md-2 col-sm-2 col-xs-12 control-label {{if iscompulsary==1}}addstar{{/if}}">{{:columnname}}</label>
+        <div class="col-md-2 col-sm-3 col-xs-12">
+            <select id="ddlOperator{{:fieldid}}" name="Operator{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} OperatorSelect" DefaultOperator="{{:defaultoperator}}" aria-required="true" aria-invalid="false">
+                {{if ismultiselect == 0}}
+                <option value="eq">=</option>
+                <option value="neq">!=</option>
+                <option value="Like">Like</option>
+                {{else}}
+                <option value="in">In</option>
+                <option value="notin">Not In</option>
+                {{/if}}
+            </select>
+        </div>
+        <div class="col-md-5 col-sm-7 col-xs-12 mob-mt5">
+            {{if ismultiselect == 0}}
+            <input type="text" id="{{:fieldid}}" name="{{:fieldid}}" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox AutoSuggest" placeholder="Search {{:columnname}}" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} />
+            <input type="hidden" {{if fieldvalue != ''}} value="{{:fieldvalue}}" {{/if}} id="hdn{{:fieldid}}" />
+            {{else}}
+            <select id="{{:fieldid}}" name="{{:fieldid}}" style="width:100%" multiple="multiple" class="form-control {{if iscompulsary==1}}required{{/if}} inputbox AutoSuggestMultiSelect OperatorSelect" DefaultOperator="{{:defaultoperator}}" placeholder="Search {{:columnname}}" {{if fieldvalue != ''}} selecteddata="{{:fieldvalue}}" {{/if}}></select>
+            {{/if}}
+        </div>
+    </div>
+    {{/if}}
+</script>
+<script src="~/Script/Common/ChartViewer.js"></script>
+}
+@*-------End Script-------------------------------------*@

@@ -1,0 +1,33 @@
+﻿
+ @{
+        Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+        ViewBag.Title = "Ledger Report";
+ }
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-body">
+        <div class="form-group row">
+            <div class="col-md-6 text-right">
+                <label class="col-md-2 control-label" style="padding-top: 6px;">From Date</label>
+                <div class="col-md-4">
+                    <div id="dx_datefrom"></div>
+                </div>
+                <label class="col-md-2 control-label"  style="padding-top: 6px;">To Date</label>
+                <div class="col-md-4">
+                    <div id="dx_dateto"></div>
+                </div>
+                
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-2" id="dx_btnSubmit"></div>
+            </div>
+            </div>
+        <br />
+        <div > 
+            <div id="dx_dataGrid"  style="height: 500px;"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script src="~/Script/Manufacturing/LedgerReport.js?@DateTime.UtcNow"></script>
+}

@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "SubCategory";
+}
+<div class="row" style="overflow-x: auto;">
+    <div class="col-sm-12" style="padding-top:10px">
+        <div class="jqGrid_wrapper" id="jqgrid_Subcategory">
+            <table id="table_list_Subcategory"></table>
+            <div id="pager_list_Subcategory"></div>
+        </div>
+    </div>
+    <input type="hidden" value="" id="approvalhidden" />
+</div>
+
+@section Scripts{
+
+    <script src="~/Script/AppManagement/SubCategory.js"></script>
+}

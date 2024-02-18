@@ -1,0 +1,454 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+}
+
+
+@*<html class="loaded">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+        <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
+        <meta name="author" content="PIXINVENT">
+        <link rel="shortcut icon" type="image/png" href="/Content/assets/images/favicon.png">
+        <title>YearEndProcess</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700" rel="stylesheet">
+        <link href="/Content/assets/css/plugins/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+        <link href="/Content/assets/js/scripts/dist/jquery-confirm.min.css" rel="stylesheet">
+        <link href="/Content/assets/vendors/css/charts/jquery-jvectormap-2.0.3.css" rel="stylesheet">
+        <link href="/Content/assets/css/vendors.min.css" rel="stylesheet">
+        <link href="/Content/assets/css/app.min.css" rel="stylesheet">
+        <link href="/Content/assets/css/core/menu/menu-types/horizontal-menu.min.css" rel="stylesheet">
+        <link href="/Content/assets/css/core/colors/palette-gradient.min.css" rel="stylesheet">
+        <link href="/Content/assets/vendors/css/charts/morris.css" rel="stylesheet">
+        <link href="/Content/assets/fonts/simple-line-icons/style.min.css" rel="stylesheet">
+        <link href="/Content/assets/css/style.css" rel="stylesheet">
+        <link href="/Content/assets/css/plugins/icheck/icheck.css" rel="stylesheet">
+        <link href="/Content/assets/css/plugins/icheck/custom.css" rel="stylesheet">
+        <link href="/Scripts/plugins/JqGrid/css/ui.jqgrid.css" rel="stylesheet">
+        <link href="/Scripts/plugins/JqGrid/css/layout-jqgrid.css" rel="stylesheet">
+        <link href="/Content/assets/css/plugins/switch/css/bootstrap-switch.css" rel="stylesheet">
+        <link href="/Scripts/plugins/bootstraptoggle/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <link href="/Content/assets/js/scripts/Toster/toastr.css" rel="stylesheet">
+        <link href="/Content/assets/js/scripts/DatePicker/css/datepicker.css" rel="stylesheet">
+        <link href="/Content/assets/js/scripts/filupload/jquery.fileupload.css" rel="stylesheet">
+        <link href="/Content/assets/js/scripts/Select2/css/select2.min.css" rel="stylesheet">
+        <link href="/Content/assets/js/scripts/fontawesome/css/font-awesome.css" rel="stylesheet">
+        <link href="/Content/assets/css/components.min.css" rel="stylesheet">
+        <link href="/Content/assets/css/style.css" rel="stylesheet">
+        <link href="/Content/assets/js/scripts/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+        <style type="text/css">
+            .jqstooltip {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                visibility: hidden;
+                background: rgb(0, 0, 0) transparent;
+                background-color: rgba(0,0,0,0.6);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+                color: white;
+                font: 10px arial, san serif;
+                text-align: left;
+                white-space: nowrap;
+                padding: 5px;
+                border: 1px solid white;
+                z-index: 10000;
+            }
+
+            .jqsfield {
+                color: white;
+                font: 10px arial, san serif;
+                text-align: left;
+            }
+        </style>
+    </head>*@
+@*<body class=" menu-expanded pace-done">
+    <div class="pace  pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner"></div>
+        </div>
+        <div class="pace-activity"></div>
+    </div>*@
+<!-- fixed-top-->
+@*<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow navbar-static-top navbar-light navbar-brand-center" data-nav="brand-center">
+        <div class="navbar-wrapper">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav flex-row">
+                    <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="/Home">
+                            <img class="brand-logo" alt="modern admin logo" src="/Content/assets/images/1.png">
+                        </a>
+                    </li>
+                    <li class="nav-item d-md-none">
+                        <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-container content">
+                <div class="collapse navbar-collapse" id="navbar-mobile">
+                    <ul class="nav navbar-nav mr-auto float-left">
+                        <li class="nav-item d-none d-md-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav float-right">
+                        <li class="dropdown dropdown-user nav-item">
+                            <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                <span class="mr-1">
+                                    Hello,
+                                    <span class="user-name text-bold-700">Paresh Kanani</span>
+                                </span>
+                                <span class="avatar avatar-online">
+                                    <img src="http://admin.trinityjewells.com/UploadFiles/OutletEmployeeDetails/7493a20f-0061-435e-ac25-459aca927439.jpg" alt="avatar"><i></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="/Login/LogOut"><i class="ft-power"></i> Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>*@
+<!-- Main Menu-->
+@*<div id="sticky-wrapper-sticky-wrapper" class="sticky-wrapper is-sticky" style="height: 70px;">
+        <div id="sticky-wrapper" class="sticky-wrapper" style="height: 70px; width: 1349px; position: fixed; top: 0px; z-index: auto;">
+            <div class="header-navbar navbar-expand-sm navbar navbar-horizontal navbar-fixed navbar-dark navbar-without-dd-arrow navbar-shadow navbar-brand-center" role="navigation" data-menu="menu-wrapper" data-nav="brand-center">
+                <div class="navbar-container main-menu-content" data-menu="menu-container">
+                    <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation"><li class="dropdown nav-item"><a class="dropdown-toggle nav-link" href="/Home/Index"><i class="la la-home"></i><span>Dashboard</span></a></li><li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="javascript: void(0);" data-toggle="dropdown"><i class="la la-cogs"></i><span>Settings</span></a><ul class="dropdown-menu"><li data-menu=""><a class="dropdown-item" href="/Settings/UserGroupPermission" data-toggle="dropdown"><i class="iconimg la la-users" aria-hidden="true"></i>User Group Permission</a></li><li data-menu=""><a class="dropdown-item" href="/Settings/EmployeeDetails" data-toggle="dropdown"><i class="iconimg la la-user" aria-hidden="true"></i>Employee Details</a></li><li data-menu=""><a class="dropdown-item" href="/Settings/GSTRateMaster" data-toggle="dropdown"><i class="iconimg fa fa-pencil-square-o" aria-hidden="true"></i>GST Rate Master</a></li><li data-menu=""><a class="dropdown-item" href="/Settings/PriceListSetting" data-toggle="dropdown"><i class="iconimg la la-inr" aria-hidden="true"></i>Price List Setting</a></li><li data-menu=""><a class="dropdown-item" href="/Settings/InvoiceSetting" data-toggle="dropdown"><i class="iconimg la la-file-text" aria-hidden="true"></i>Invoice Setting</a></li></ul></li><li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="javascript: void(0);" data-toggle="dropdown"><i class="la la-shopping-cart"></i><span>Purchase</span></a><ul class="dropdown-menu"><li data-menu=""><a class="dropdown-item" href="/Purchase/PurchaseEntry" data-toggle="dropdown"><i class="iconimg la la-shopping-cart" aria-hidden="true"></i>Purchase Entry</a></li><li data-menu=""><a class="dropdown-item" href="/Purchase/PartyEntry" data-toggle="dropdown"><i class="iconimg la la-user" aria-hidden="true"></i>Party Master</a></li><li data-menu=""><a class="dropdown-item" href="/Purchase/GeneralPurchase" data-toggle="dropdown"><i class="iconimg fa fa-credit-card" aria-hidden="true"></i>General Purchase</a></li><li data-menu=""><a class="dropdown-item" href="/Purchase/MaterialPurchaseSales" data-toggle="dropdown"><i class="iconimg la la-shopping-cart" aria-hidden="true"></i>Material Purchase &amp; Sales</a></li><li data-menu=""><a class="dropdown-item" href="/Purchase/PurchaseReturn" data-toggle="dropdown"><i class="iconimg la la-file-text" aria-hidden="true"></i>Purchase Return</a></li></ul></li><li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="javascript: void(0);" data-toggle="dropdown"><i class="la la-dropbox"></i><span>Stock</span></a><ul class="dropdown-menu"><li data-menu=""><a class="dropdown-item" href="/Stock/StockInward" data-toggle="dropdown"><i class="iconimg la la-truck" aria-hidden="true"></i>Stock Inward</a></li><li data-menu=""><a class="dropdown-item" href="/Stock/StockReturn" data-toggle="dropdown"><i class="iconimg la la-bar-chart" aria-hidden="true"></i>Stock Return</a></li></ul></li><li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="javascript: void(0);" data-toggle="dropdown"><i class="la la-inr"></i><span>Sales</span></a><ul class="dropdown-menu"><li data-menu=""><a class="dropdown-item" href="/Sales/CustomerMaster" data-toggle="dropdown"><i class="iconimg la la-user" aria-hidden="true"></i>Customer Master</a></li><li data-menu=""><a class="dropdown-item" href="/Sales/SalesEntry" data-toggle="dropdown"><i class="iconimg la la-shopping-cart" aria-hidden="true"></i>Sales Entry</a></li><li data-menu=""><a class="dropdown-item" href="/Sales/OffersMaster" data-toggle="dropdown"><i class="iconimg fa fa-gift" aria-hidden="true"></i>Offers Master</a></li><li data-menu=""><a class="dropdown-item" href="/Sales/SalesReturn" data-toggle="dropdown"><i class="iconimg la la-file-text" aria-hidden="true"></i>Sales Return</a></li><li data-menu=""><a class="dropdown-item" href="/Sales/SalesOrder" data-toggle="dropdown"><i class="iconimg fa fa-gavel" aria-hidden="true"></i>Sales Order</a></li></ul></li><li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="javascript: void(0);" data-toggle="dropdown"><i class="la la-calculator"></i><span>Account</span></a><ul class="dropdown-menu"><li data-menu=""><a class="dropdown-item" href="/Account/AccountMaster" data-toggle="dropdown"><i class="iconimg la la-calculator" aria-hidden="true"></i>Account Master</a></li><li data-menu=""><a class="dropdown-item" href="/Account/CashBankBook" data-toggle="dropdown"><i class="iconimg la la-rupee" aria-hidden="true"></i>Cash Bank Book</a></li><li data-menu=""><a class="dropdown-item" href="/Account/JournalMaster" data-toggle="dropdown"><i class="iconimg fa fa-users" aria-hidden="true"></i>Journal Master</a></li><li data-menu=""><a class="dropdown-item" href="/Account/OpeningAccountBalance" data-toggle="dropdown"><i class="iconimg fa fa-balance-scale" aria-hidden="true"></i>Opening Account Balance</a></li><li data-menu=""><a class="dropdown-item" href="/Account/CashToBankEntry" data-toggle="dropdown"><i class="iconimg la la-money" aria-hidden="true"></i>Cash To Bank Entry</a></li><li data-menu=""><a class="dropdown-item" href="/Account/YearEndProcess" data-toggle="dropdown"><i class="iconimg la la-exchange" aria-hidden="true"></i>Year End Process</a></li></ul></li><li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="javascript: void(0);" data-toggle="dropdown"><i class="la la-file-text"></i><span>Report</span></a><ul class="dropdown-menu"><li data-menu=""><a class="dropdown-item" href="/Report/LedgerReport" data-toggle="dropdown"><i class="iconimg la la-file-text" aria-hidden="true"></i>Ledger Report</a></li><li data-menu=""><a class="dropdown-item" href="/Report/StockReport" data-toggle="dropdown"><i class="iconimg fa fa-files-o" aria-hidden="true"></i>Stock Report</a></li><li data-menu=""><a class="dropdown-item" href="/Report/AccountReport" data-toggle="dropdown"><i class="iconimg fa fa-file-text-o" aria-hidden="true"></i>Account Report</a></li><li data-menu=""><a class="dropdown-item" href="/Report/StockTally" data-toggle="dropdown"><i class="iconimg fa fa-bar-chart-o" aria-hidden="true"></i>Stock Tally</a></li><li data-menu=""><a class="dropdown-item" href="/Report/GSTReports" data-toggle="dropdown"><i class="iconimg fa fa-percent" aria-hidden="true"></i>GST Reports</a></li><li data-menu=""><a class="dropdown-item" href="/Report/Purchase_Sales_Reports" data-toggle="dropdown"><i class="iconimg fa fa-line-chart" aria-hidden="true"></i>Purchase/Sale Reports</a></li><li data-menu=""><a class="dropdown-item" href="/Report/MaterialStockReport" data-toggle="dropdown"><i class="iconimg fa fa-pie-chart" aria-hidden="true"></i>Material Stock Report</a></li><li data-menu=""><a class="dropdown-item" href="/Report/Profit_Loss_Report" data-toggle="dropdown"><i class="iconimg fa fa-line-chart" aria-hidden="true"></i>Profit-Loss Report</a></li></ul></li></ul>
+                </div>
+            </div>
+        </div>
+    </div>*@
+@*<div class="app-content content">*@
+
+
+<style>
+    .table td, .table th {
+        padding: 7px !important;
+    }
+
+    .table th {
+        font-size: 13px !important;
+        background: #dbdbdb;
+        color: #202020;
+        border: 1px solid #c3c1c1 !important;
+    }
+
+    /*font-size: 13px !important;
+            background:#dbdbdb;
+            color: black;
+            border: 1px solid black; */
+
+    .table td {
+        font-size: 15px !important;
+        border: 1px solid #c3c1c1 !important;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #E3EBF3;
+        border-top: 1px solid #E3EBF3;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    /*input {
+            /*min-height: 5px;*/
+    }
+
+    */ input[type=radio] {
+        margin: 0px 0 0;
+    }
+
+    .custom-item {
+        /*position: relative;*/
+        /*min-height: 30px;*/
+    }
+</style>
+
+
+<div class="container" style="margin-top:20px;">
+
+    <div class="form-body">
+        <div class="form-group row">
+            <div class="col-md-12 table-responsive">
+                <table id="TableAccountYearPeriod" class="table table-bordered table-striped table-responsive" style="width:100%;display:table; background-color:#ededed;">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;width:30%">Account Year</th>
+                            <th style="text-align:center;width:20%">Year End Status</th>
+                            <th style="text-align:center;width:20%">Period Close</th>
+                            <th style="text-align:center;width:30%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyAccountYearPeriod"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="form-group row" style="margin-top:15px;">
+            <label class="col-sm-12" onclick="YearEndProcess.ShowProcessDetail();" style="color:#307ecc;">
+                <i id="iProcessDetail" class="fa fa-lg fa-caret-up"></i><span id="spProcessDetail" style="margin-left:3px;">Hide Process Detail</span>
+            </label>
+        </div>
+
+        <div id="divProcessDetail" style="">
+            <div class="form-group row">
+                <div class="col-md-12 input-group">
+                    <div class="col-md-8" style="display:flex;">
+                        <label class="label-control">Show : </label>
+                        <div class=" " style="margin: 0px 5px;">
+                            <input type="radio" name="PCDRadio" id="rbtnPCDRunning" class="icheck" autocomplete="off">
+                            <label class="control-label" for="rbtnPCDRunning">Running</label>
+                        </div>
+                        <div class="" style="margin: 0px 5px;">
+                            <input type="radio" name="PCDRadio" id="rbtnPCDCompleted" class="icheck" checked="" autocomplete="off">
+                            <label class="control-label" for="rbtnPCDCompleted">Completed</label>
+                        </div>
+                        <div class="" style="margin: 0px 5px;">
+                            <input type="radio" name="PCDRadio" id="rbtnPCDAll" class="icheck" autocomplete="off">
+                            <label class="control-label" for="rbtnPCDAll">ALL</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="pull-right" style="text-align:right;">
+                            <span id="lblTimerCounter" class="bold fs-12 m-l-xxs"></span>
+                            <input type="checkbox" id="chkAutoRefresh" class="icheck" style="padding-top: 5px;" autocomplete="off">
+                            <label class="form-control-label" for="chkAutoRefresh" style="padding-left:5px"> Auto Refresh</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="text-align:right;">
+                    <div class="pull-right" style="width: 25px;">
+                        <span id="lblTimerCounter" class="bold fs-12 m-l-xxs"></span>
+                    </div>
+
+                </div>
+            </div>
+            @*<div class="col-md-12">
+                    <div id="dx_switchAccyearOpening"></div>
+                </div>*@
+            <div class="form-group row">
+                <div class="col-md-12 table-responsive" style="padding:12px 0px;">
+                    <table id="TableYearEndProcess" class="table table-bordered table-striped table-responsive" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center;width:10%">From Acc Year</th>
+                                <th style="text-align:center;width:10%">To Acc Year</th>
+                                <th style="text-align:center;width:14%">Start Date</th>
+                                <th style="text-align:center;width:14%">End Date</th>
+                                <th style="text-align:center;width:8%">Total Accounts</th>
+                                <th style="text-align:center;width:8%">Complete Accounts</th>
+                                @*<th style="text-align:center;width:8%">Total Products</th>
+                                    <th style="text-align:center;width:8%">Complete Products</th>*@
+                                <th style="text-align:center;width:10%">Status</th>
+                                <th style="text-align:center;width:10%">Error</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyYearEndProcess" style="display: none;"></tbody>
+                    </table>
+                </div>
+                <label id="lblPCDGridMsg" style="" class="col-sm-12 m-t-xxs text-danger italic fs-11">No Records found</label>
+                <div id="ProcessDetailPager" class="col-sm-12 text-right" style="display:none">
+                    <label class="control-label"><span id="RecordsProcessDetail">1 - 0</span> of <span id="TotalRecordProcessDetail">0</span></label>
+                    <div class="btn-group">
+                        <div class="btn btn-primary waves-effect waves-light" data-toggle="tooltip" data-original-title="Previous" id="backwardProcessDetail" disabled="disabled" style="display: none;"><i class="fa fa-angle-left fs-15"></i></div>
+                        <div class="btn btn-primary waves-effect waves-light" data-original-title="Next" id="forwardProcessDetail" disabled="disabled" style="display: none;"><i class="fa fa-angle-right fs-15"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="" id="modalError" role="dialog" aria-labelledby="lblmodalUpload" style="padding-right: 17px; display: none;">
+    @*modal fade text-left show*@
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="lblmodalUpload">Erorr Detail</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="TxtErrorDetail" style="word-break:break-all;">
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal" tabindex="50">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*</div>*@
+@*<div class="floatingContainer">
+        <div class="subActionButton Atten" data-toggle="modal" data-target="#EmpAccountYearFilterModel" data-ddltype="attn">
+            <p class="floatingText"><span class="floatingTextAtten" id="attnyear">Account Year : 19-20</span></p>
+        </div>
+        <div class="actionButton">
+        </div>
+    </div>*@
+@*<footer class="footer footer-static footer-light navbar-shadow" style="width:100%;bottom:0;position:fixed;">
+        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+            <span class="text-center d-block d-md-inline-block">
+                Copyright © 2018 <a class="text-bold-800 grey darken-2" href="#" target="_blank">Trinity</a>, All rights reserved.
+            </span>
+        </p>
+    </footer>*@
+<input type="hidden" id="hdnFilterAccYearId" value="2" autocomplete="off">
+@*<div class="modal fade text-left show" id="EmpAccountYearFilterModel" tabindex="-1" role="dialog" aria-labelledby="EmpAccountYearFilterLabel" style="padding-right: 17px;padding-top:50px">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom:0px !important">
+                    <h4 class="modal-title" id="myModalLabel15"><i class="font-success-sharp fa fa-calendar" id="iconType"></i> Set Account Year</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form" action="#" method="GET" style="background: #fff;" autocomplete="off">
+                        <div class="form-group row">
+                            <label class="col-sm-3 control-label" style="padding-top: 5px;">Account Year </label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="ddlEmpFileterAttnACYear" onchange="Common_OutletCommonView.SubmitEmpAccountYear();" autocomplete="off">
+                                    <option value="1" acname="18-19">18-19</option>
+
+                                    <option value="2" acname="19-20">19-20</option>
+
+                                    <option value="3" acname="20-21">20-21</option>
+
+                                    <option value="4" acname="21-22">21-22</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/Content/assets/vendors/js/vendors.min.js"></script>
+    <script src="/Content/assets/js/scripts/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/Content/assets/js/scripts/filupload/jquery.ui.widget.js"></script>
+    <script src="/Content/assets/js/scripts/filupload/jquery.iframe-transport.js"></script>
+    <script src="/Content/assets/js/scripts/filupload/jquery.fileupload.js"></script>
+    <script src="/Content/assets/vendors/js/charts/jquery.sparkline.min.js"></script>
+    <script src="/Content/assets/vendors/js/charts/raphael-min.js"></script>
+    <script src="/Content/assets/vendors/js/charts/morris.min.js"></script>
+    <script src="/Content/assets/data/jvector/visitor-data.js"></script>
+    <script src="/Content/assets/js/core/app-menu.min.js"></script>
+    <script src="/Content/assets/js/core/app.min.js"></script>
+    <script src="/Content/assets/js/scripts/customizer.min.js"></script>
+    <script src="/Content/assets/js/scripts/ui/breadcrumbs-with-stats.min.js"></script>
+    <script src="/Content/assets/vendors/js/ui/jquery.sticky.js"></script>
+    <script src="/Content/assets/js/scripts/icheck/icheck.min.js"></script>
+    <script src="/Scripts/plugins/bootstapwizard/jquery.bootstrap.wizard.js"></script>
+    <script src="/Content/assets/js/scripts/jquery-validation/validator.js"></script>
+    <script src="/Scripts/plugins/JqGrid/js/i18n/grid.locale-en.js"></script>
+    <script src="/Scripts/plugins/JqGrid/js/jquery.jqGrid.min.js"></script>
+    <script src="/Content/assets/css/plugins/switch/js/bootstrap-switch.js"></script>
+    <script src="/Scripts/plugins/bootstraptoggle/js/bootstrap-toggle.min.js"></script>
+    <script src="/Content/assets/js/scripts/JSRender/jsrender.min.js"></script>
+    <script src="/Content/assets/js/scripts/JSRender/Xml2Json.js"></script>
+    <script src="/Content/assets/js/scripts/Toster/toastr.min.js"></script>
+    <script src="/Content/assets/js/scripts/dist/jquery-confirm.min.js"></script>
+    <script src="/Content/assets/js/core/jquery.validate.min.js"></script>
+    <script src="/Content/assets/js/scripts/DatePicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/Content/assets/js/scripts/Select2/js/select2.full.min.js"></script>
+    <script src="/Content/assets/js/scripts/Select2/js/select2.min.js"></script>
+    <script src="/Scripts/Common/Common.js"></script>*@
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Script/Manufacturing/YearEndProcess.js?v=@DateTime.UtcNow"></script>
+
+    <script id="YearEndProcessDetail" type="text/x-jsrender">
+        <tr>
+            <td style="text-align:center;">{{>currentaccyearname}}</td>
+            <td style="text-align:center;">{{>nextaccyearname}}</td>
+            <td style="text-align:center;">{{>startdate}}</td>
+            <td style="text-align:center;">{{>enddate}}</td>
+            <td style="text-align:center;">{{>totalaccounts}}</td>
+            <td style="text-align:center;">{{>completeaccounts}}</td>
+            <td style="text-align:center;">{{>totalproducts}}</td>
+            <td style="text-align:center;">{{>completeproducts}}</td>
+            <td style="text-align:center;">{{>status}}</td>
+            <td style="text-align:center;">
+                {{if errormessage}}
+                {{if errormessage != ""}}
+                <div><a target="_self" href="javascript:void(0)" onclick="YearEndProcess.ViewError('{{>errormessage}}');">View</a></div>
+                {{/if}}
+                {{/if}}
+            </td>
+        </tr>
+    </script>
+
+    @*<script src="~/Script/Common/Common.js"></script>*@
+}
+<script id="AccountYearList" type="text/x-jsrender">
+    <option value="{{>accountyearid}}" acname="{{>accountyearname}}">{{>accountyearname}}</option>
+</script>
+<script src="/Scripts/MasterScripts/Account/YearEndProcess.js"></script>
+
+@*<script id="AccountYearPeriodList" type="text/x-jsrender" data-jsv-tmpl="_1">
+    <tr>
+        <td style="text-align:center;">{{:accountyearname}}</td>
+        <td style="text-align:center;">
+            <div>
+                {{if isyearendprocess == 1}}
+                <span class="Mylabel Mylabel-success" style="font-size: 100% !important;">Yes</span>
+                {{else}}
+                <span class="Mylabel Mylabel-danger" style="font-size: 100% !important;">No</span>
+                {{/if}}
+            </div>
+            {{if isyearendprocess == 1}}
+            <div style="margin-top: 10px;">
+                Date : {{:yearendprocessdate}}
+            </div>
+            {{/if}}
+        </td>
+        <td style="text-align:center;">
+            <div>
+                <input type="checkbox" id="ChkIsClose{{:accountyearid}}" class="Myswitch" {{if isperiodclose == 1}} checked {{/if}}>
+            </div>
+            {{if isperiodclose == 1}}
+            <div style="margin-top: 10px;">
+                Date : {{:periodclosedate}}
+            </div>
+            {{/if}}
+        </td>
+        <td style="text-align:center;">
+            {{if isperiodclose != 1}}
+            <button type="button" id="btnYearEndProcess" class="btn btn-success waves-effect waves-light" onclick="YearEndProcess.StartYearEndProces({{:accountyearid}});">
+                Run Year End Process
+            </button>
+            {{/if}}
+        </td>
+
+    </tr>
+</script>*@
+<script id="EmpAccountYearFilterDropdownList" type="text/x-jsrender" data-jsv-tmpl="_0">
+    <option value="{{>accountyearid}}" acname="{{>accountyearname}}">{{>accountyearname}}</option>
+</script>
+<script src="/Scripts/Common/OutletCommon.js"></script>
+<script>
+    //$(document).ready(function () {
+    //    $("#sticky-wrapper").sticky();
+    //});
+</script>
+
+<div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div>
+</body>
+</html>

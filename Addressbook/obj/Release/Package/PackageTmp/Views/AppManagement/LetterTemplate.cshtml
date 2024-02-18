@@ -1,0 +1,197 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Letter Template";
+}
+
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-12">
+        <div class="panel" id="panelEditTemplates" style="display: none;">
+            <div class="panel-body">
+                <div style="height:32px;margin-bottom: 10px;">
+                    <button id="btnCancelletter" class="btn btn-sm pull-right purple" type="button" name="Cancelletter"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                </div>
+                <form method="get" id="frmLetterTemplates" class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Category </label>
+                        <div class="col-sm-4" style="margin-top:6px" id="typeofcategory">
+                            <input type="radio" id="typeadmin" class="ab" name="radioparty" value="Admin" checked>
+                            <label for="typeadmin" class="radiocategory">Admin</label>
+                            <input type="radio" id="typeparty" class="ab" name="radioparty" value="Party">
+                            <label for="typeparty" class="radiocategory">Party</label>
+                            <input type="radio" id="typeoutlet" class="ab" name="radioparty" value="Outlet">
+                            <label for="typeoutlet" class="radiocategory">Outlet</label>
+                            <input type="radio" id="typesales" class="ab" name="radioparty" value="Sales">
+                            <label for="typesales" class="radiocategory">Sales</label>
+                            <input type="radio" id="typeb2c" class="ab" name="radioparty" value="B2C">
+                            <label for="typeb2c" class="radiocategory">B2C</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Activity Name<span style="color:red"> * </span></label>
+                        <div class="col-sm-3">
+                            <select id="ddlActivityType" style="width: 100%;height: 3.5rem!important;" name="NotificationType" class="form-control required"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Letter Name<span style="color:red"> * </span></label>
+                        <div class="col-sm-3">
+                            <input type="text" id="lettername" name="lettername" class="form-control required" />
+                        </div>
+                    </div>
+                    <div class="form-group row" id="employeediv" style="display:none">
+                        <label class="col-sm-2 form-control-label">Emplyoee Name :<span style="color:red"> *</span></label>
+                        <div class="col-sm-3">
+                            <select class="js-example-basic-multiple allemplyeename" name="states[]" multiple="multiple" id="txt_employeename"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="panel panel-default alt" style="box-shadow:none">
+                            <div role="tabpanel">
+                                <ul class="nav nav-tabs navborder" role="tablist">
+                                    <li class="rowtab nav-item active" role="presentation" id="litabEmail">
+                                        <a class="nav-link" data-toggle="tab" href="#tabEmail">Email Template</a>
+                                    </li>
+                                    <li class="rowtab nav-item" role="presentation" id="litabSms">
+                                        <a class="nav-link" data-toggle="tab" href="#tabSms">SMS Template</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-9">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tabEmail">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Subject</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" placeholder="Enter Subject" class="form-control" maxlength="500" name="EmailSubject" id="txtEmailSubject">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Email Body<span style="color:red"> * </span></label>
+                                                <div class="col-sm-10">
+                                                    <div id="txtEmailBody" class="summernote required" name="emailbody"></div>
+                                                    <label id="EmailBody_error" class="error" for="txtEmailBody" style="display:none">This Field Is Required.</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-10 col-sm-offset-2" style="padding-bottom: 13px;">
+                                                    <button id="btnSaveTemplates" type="button" class="btn btn-success waves-effect waves-light" tabindex="8">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tabSms">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">SMS Body<span style="color:red"> * </span></label>
+                                                <div class="col-sm-7">
+                                                    <textarea rows="4" cols="50" maxlength="160" typeof="text" style="resize: none;" placeholder="Enter SMS Body" class="form-control" name="SMSBody" id="txtSMSBody"></textarea>
+                                                    <span id="TotalSMSchars">0</span> characters remaining
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-7 col-sm-offset-2" style="padding-bottom: 13px;">
+                                                    <button id="btnsmsTemplates" type="button" class="btn btn-success waves-effect waves-light" tabindex="8">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <div class="col-sm-12" style="margin-top:6px;display:inline" id="contentvalue">
+                                            <input type="radio" id="emailcontent" class="ab" name="radiocontent" value="Content" style="display:inline-block" checked>
+                                            <label for="emailcontent" style="padding-right: 13px;">Content</label>
+                                            <input type="radio" id="emailpicture" class="ab" name="radiocontent" value="Picture" style="display:inline-block">
+                                            <label for="emailpicture">Picture</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="legendvalue" style="height: 430px !important;overflow-y: auto;overflow-x: hidden;">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" style="background-color:lightgray;text-align:center">Legend of Values</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Values</th>
+                                                    <th>Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ddlettervalue">
+                                              
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="picturevalue" style="display:none">
+                                        <div class="row" style="float:right">
+                                            <label title="Upload image file" class="btn btn-primary" for="btnimageUpload">
+                                                <input type="file" accept="image/*" name="file" id="btnimageUpload" class="hide" tabindex="1" required>
+                                                Upload Picture
+
+                                            </label>
+                                            <img id="ItemimgPreview" type="hidden" src="" style="display:none" />
+                                            <input type="hidden" id="hdnimageId" value="" />
+                                            <input type="hidden" id="hdndomainfirstpath" value="@System.Configuration.ConfigurationManager.AppSettings["FirstdomainPath"]" />
+                                        </div>
+                                        <div class="row lettertable">
+                                            <table class="table" frame="box" style="border-color: #8080805c;">
+                                                <tbody id="dataimagelist"></tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel" id="panelListTemplates" style="display: block;">
+            <div class="panel-heading">
+                @if (Model.ISADD == 1)
+                    {
+                        <div class="Pull_Text_Left">
+                            <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddTemplates" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Template</button>
+                        </div>
+                    }
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12" style="overflow-x:auto; overflow-y:hidden; ">
+                        <div class="jqGrid_wrapper" id="jqGrid_list_NotificationTemplates">
+                            <table id="table_Main_LetterTemplates"></table>
+                            <div id="pager_Main_LetterTemplates"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="hdnTemplatesID" value="" />
+    </div>
+</div>
+@section Scripts{
+    <script id="ActivityTypeList" type="text/x-jsrender">
+        <option value="{{>lettertypeid}}">{{>lettertypename}}</option>
+    </script>
+    <script id="DDLettervaluediv" type="text/x-jsrender">
+        <tr>
+            <td><a href="javascript:void(0)" class="valuedesc" onclick="linkvalue($(this).html())">{{>lettervalue}}</a></td>
+            <td>{{>letterdescription}}</td>
+        </tr>
+    </script>
+    <script id="Dataemployeename" type="text/x-jsrender">
+        <option value="{{>userid}}">{{>sal_empfullname}}</option>
+    </script>
+    <script id="Getimagedata" type="text/x-jsrender">
+        <tr class="row">
+            <td style="display:none">{{>lettertemplateid}}</td>
+            <td style="display:none"><img id="image{{>lettertemplateid}}" src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/UploadFiles/Letter Template/{{>lettertemplatepath}}" /></td>
+            <td class="com-sm-10" style="color:#333333c7;">{{>lettertemplateimagename}}</td>
+            <td class="col-sm-1 permissionaddimage"><a href="#0" onclick="Addimage({{>lettertemplateid}})"><i class="fa fa-plus fa-lg" style="color: #28b128;"></i></a></td>
+            <td class="com-sm-1 permissiondlt"><a href="#0" onclick="dltimage({{>lettertemplateid}})"><i class="fa fa-times fa-lg" style="color: #e14444;"></i></a></td>
+        </tr>
+    </script>
+    <script src="~/Content/plugin/summernote-master/summernote.js"></script>
+    <script src="~/Script/AppManagement/LetterTemplate.js"></script>
+}

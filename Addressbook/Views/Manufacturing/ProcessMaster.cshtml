@@ -1,0 +1,144 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "process Master";
+}
+
+
+<style>
+    /*------------------------------------ Searuch image style ---------------------------*/
+    .custom-item {
+        position: relative;
+        min-height: 30px;
+    }
+
+        .custom-item .product-name {
+            display: inline-block;
+            padding-left: 50px;
+            text-indent: 0;
+            line-height: 30px;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .custom-item > img {
+            left: 1px;
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            height: 30px;
+        }
+
+    /*------------------------------------ Searuch image style ---------------------------*/
+    #fileuploader-container {
+        border: 1px solid #d3d3d3;
+    }
+
+    #tbl_DesignDetails tbody {
+        counter-reset: rowNumber;
+    }
+
+        #tbl_DesignDetails tbody tr {
+            counter-increment: rowNumber;
+        }
+
+            #tbl_DesignDetails tbody tr td.TableRowNo::before {
+                content: counter(rowNumber);
+                min-width: 1em;
+                margin-right: 0.5em;
+            }
+
+    #ModalEdit .modal-header .close {
+        position: absolute;
+        right: 20px;
+        top: 15%;
+        margin-top: 0;
+        font-size: 35px !important;
+    }
+</style>
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_OrderMaster" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+
+            <div class="col-md-10" style="padding-bottom:20px;">
+                <div class="form-group">
+                    <label class="col-md-2 control-label addstar">Process Name</label>
+                    <div class="col-md-2">
+                        <div id="dx_txtProcessName"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label addstar">Display Order</label>
+                    <div class="col-md-2">
+                        <div id="dx_numDisplayOrder"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Is Active</label>
+                    <div class="col-md-2">
+                        <div id="dx_switchIsActive"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Description</label>
+                    <div class="col-md-5">
+                        <div id="dx_txtDescription"></div>
+                    </div>
+
+                </div>
+                </div>
+
+
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="dx_popupRecordDelete"></div>
+
+
+@section Scripts{
+    <script src="~/Script/Manufacturing/ProcessMaster.js?v=@DateTime.UtcNow"></script>
+
+    <script id="Render_QuotationMaster" type="text/x-jsrender">
+        <tr>
+            <td style="padding: 0 5px;" class="text-center">
+                <input style="width:15px" type="checkbox" class="chkQuotation" />
+            </td>
+            <td style="display:none" class="qm_id">{{:qm_id}}</td>
+            <td style="display:none" class="qi_id">{{:qi_id}}</td>
+            <td style="margin-left:10px; padding-left:5px;"><label style="border-bottom:1px solid #ddd">{{:desgcate}}</label><br />{{:desgsubcate}}</td>
+            <td><img style="width:50px" src='@System.Configuration.ConfigurationManager.AppSettings["DesignImgPath"]/{{:desgcate}}/{{:desgsubcate}}/thumb/{{:imgvirtualname}} ' /></td>
+            <td class="Designcode">{{:designcode}}</td>
+            <td>{{:grossweight}}</td>
+            <td>{{:netweight}}</td>
+            <td>{{:diapcs}}</td>
+            <td>{{:diacts}}</td>
+            <td>{{:price}}</td>
+        </tr>
+    </script>
+}
+

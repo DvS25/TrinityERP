@@ -1,0 +1,182 @@
+﻿/*=====================form page loader backgroud ruby Chandni====================*/
+.Hr-suite-addbtn,
+.Hr-suite-addemp,
+.Hr-suite-addnew {
+    display: none;
+    position: fixed;
+    bottom: 3.5em;
+    left: 2em;
+    cursor: pointer;
+    background-color: #1db198;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    z-index: 99;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+}
+
+.Hr-suite-edithome {
+    display: none;
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+    cursor: pointer;
+    background-color: #1db198;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    z-index: 99;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+}
+
+.Hr-suite-cancel {
+    display: none;
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+    cursor: pointer;
+    background-color: #d32f2f;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    z-index: 99;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+}
+
+.Hr-suite-Save {
+    display: none;
+    position: fixed;
+    bottom: 4.5em;
+    left: 1em;
+    cursor: pointer;
+    /*background-color:#22a612;*/
+    background-color:#5ead55;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    z-index: 99;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+}
+
+.Hr-suite-btnpnl {
+    position: fixed;
+    bottom: 9em;
+    left: 2em;
+    cursor: pointer;
+    background-color: #4982bd;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    z-index: 99;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+}
+.Hr-suite-addbtn:before {
+    content: '\f067';
+    color: #FFF;
+    position: absolute;
+    margin-top: 7px;
+    margin-left: 14px;
+    opacity: 1;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: 'FontAwesome';
+}
+
+.Hr-suite-addemp:before {
+    content: '\f234';
+    color: #FFF;
+    position: absolute;
+    margin-top: 7px;
+    margin-left: 14px;
+    opacity: 1;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: 'FontAwesome';
+}
+
+.Hr-suite-addnew:before {
+    content: '\f067';
+    color: #FFF;
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 14px;
+    opacity: 1;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: 'FontAwesome';
+}
+
+.Hr-suite-edithome:before {
+    content: '\f040';
+    color: #FFF;
+    position: absolute;
+    margin-top: 7px;
+    margin-left: 14px;
+    opacity: 1;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: 'FontAwesome';
+}
+
+.Hr-suite-cancel:before {
+    content: '\f00d';
+    color: #FFF;
+    position: absolute;
+    margin-top: 7px;
+    margin-left: 14px;
+    opacity: 1;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: 'FontAwesome';
+}
+
+.Hr-suite-Save:before {
+    content: '\f00c';
+    color: #FFF;
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 12px;
+    opacity: 1;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: 'FontAwesome';
+}
+.Hr-suite-btnpnl:before {
+    content: '\f067';
+    color: #FFF;
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 13px;
+    opacity: 1;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: 'FontAwesome';
+}
+
+.Hr-suite-Ruleaddbtn {
+    display: none;
+    position: fixed;
+    bottom: 2em;
+    left: 2em;
+    cursor: pointer;
+    background-color: #1db198;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    z-index: 99;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+}
+
+.Hr-suite-Ruleaddbtn:before {
+    content: '\f067';
+    color: #FFF;
+    position: absolute;
+    margin-top: 7px;
+    margin-left: -25px;
+    opacity: 1;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'FontAwesome';
+}
+
+/*=====================================================// end custom css by Chandni //================================================================*/

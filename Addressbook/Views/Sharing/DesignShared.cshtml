@@ -1,0 +1,335 @@
+﻿@{
+    Layout = "~/Views/Shared/_SharingLayout.cshtml";
+    ViewBag.Title = "Shared Portal";
+}
+
+<style>
+    #btnheart_fa.icon-heart5, #btnheart_fa.icon-heart-broken2 {
+        color: red;
+    }
+
+    .owl-carousel .owl-nav {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        width: 108.5%;
+        /* top: calc(53% - 51px); */
+        top: 15px;
+        left: -20px;
+    }
+
+    div.owl-carousel .owl-nav .owl-prev, div.owl-carousel .owl-nav .owl-next {
+        font-size: 36px;
+        top: unset;
+        bottom: 15px;
+    }
+
+    .owl-dots {
+        display: none;
+    }
+
+    .owl-theme .owl-nav [class*='owl-'] {
+        font-size: 23px !important;
+        margin: 0px 12px !important;
+    }
+    .owl-stage{
+        height:50px;
+    }
+
+    .sharebox .owl-nav {
+        display: none;
+    }
+
+    .mob-nopad{
+        padding:0px 10px; 
+    }
+    .box-view {
+        box-shadow: -3px 6px 10px 3px #b9b9b9;
+    }
+    .activegoldpurity , .activediamondquality , .activediamondcolor , .activesize ,.activegoldcolor{
+        color:white;
+        cursor:pointer;
+        background-color:#585858;
+    }
+    .activegoldpurity:hover,.activediamondcolor:hover , .activediamondquality:hover ,.activesize:hover ,.activegoldcolor:hover{
+        color:white;
+        cursor:pointer;
+        background-color:#323232;
+    }
+   
+    .scrlhover:hover{
+        color:black;
+        cursor:pointer;
+        background-color:#e9e9e9;
+    }
+
+    .arwrleft{
+        top: 180px !important;
+    }
+
+    .arwright{
+        top: 180px !important;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+    }
+
+</style>
+
+<div class="container-fluid hrb" style="background-color:#000000e8;height:100vh;position:relative;">
+    <div class="pageitem">
+        @*<h6><a>1 of 25</a></h6>*@
+        <h6><a><lable class="control-label" style="font-size:16px" id="lblindex"></lable>  OF  <lable class="control-label" style="font-size:16px" id="lbltotal"></a></h6>
+    </div>
+    <div class="container">
+        <div class="container-shareing">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @*<p class="tagline">These Designs are shared by <span id="lblSharedByName"></span> on <span id="lblSharedDate"></span> from Trinity Jewells.</p>*@
+            </div>
+            <div class="main_parent row new-class-add" id="div_DesignList">
+
+            </div>
+        </div>
+        <div class="spaceup">
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-lg-10 col-md-10 col-sm-10" style="padding-bottom: 25px;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 pdr" style="padding-right:0;padding-top:10px;padding-bottom:10px;background-color:#fff;position:relative;">
+                        <div class="arwrleft">
+                            <i id="btnPrevious" class="fa fa-chevron-left"></i>
+                        </div>
+                        <div class="box-view" style="background-color:#fff;">
+                            @*<a id="lbl_MainImage_a" href="" data-fancybox="gallery">*@
+                            <a id="lbl_MainImage_a" href="" target="_blank">
+                                @*<img src="" alt="" title="" id="lbl_MainImage" class="list-img">*@
+                                <div class="productimg" data-image="" id="lbl_MainImage">
+
+                                </div>
+                            </a>
+                            <video id="lbl_MainImage_a_video" style="display:none;width:100%;height:100% !important" class="detail-wdth" loop="" controls="" muted="" autoplay="autoplay" disablePictureInPicture controlsList="nodownload">
+                                <source src="" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="itemshowsubitem">
+                            @*<div class="owl-carousel owl-theme" id="div_SubImage">
+                                </div>*@
+
+                            <div class="slidedex" style="height:90px;">
+                                <div class="owl-carousel owl-theme" id="slidertopview">
+                                    @*<div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>
+                                        <div class="itmsdesign item">
+                                            <img src="~/Content/images/18k-gold-diamon.png" />
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="arwright">
+                            <i id="btnnext" class="fa fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pdb" style="background-color:#fff;padding-top:10px;padding-bottom:103px;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sharebtn side-brdr" style="background-color:#fff;padding:5px 10px;border-bottom:0;">
+                            <div style="float:left;">
+                                <h5 class="modal-title" style="font-weight: 600;color: #6b6b6b;">Product Details&nbsp;<i class="fa fa-chevron-right"></i>&nbsp;<a style="font-size:16px;" href="javascript:void(0)" id="lblDesignHeader"></a> </h5>
+                            </div>
+
+                            <div style="float:right;">
+                                <button type="button" chkclick="0" class="heart" id="btnlike">
+                                    <i id="btnheart_fa" class="icon-heart6" style="color:black"></i>
+                                </button>
+                            </div>
+                            @*--------------------------- Rating ----------------------------------*@
+                            <div class="mob-12" style="clear:Both" id="">
+                                <div class="col-xs-6" id="lblGoldRateing" style="padding: 5px 0px;"></div>
+                                <div class="col-xs-6" style="font-family: monospace; font-size: 18px; text-align: right; padding: 5px 0px;" id="lblGoldPrice">0.00</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 side-brdr addpdd" style="padding:0px !important;">
+                            <div class="container-fluid" style="width:auto;color:#6b6b6b">
+                                <div class="row" style="height:273px;">
+                                    <div class="col-centered col-sm-6 col-xs-6 mob-nopad pro_detail">
+                                        <p>
+                                            <b class="mob-12">Gross Wgt:</b>
+                                        </p>
+                                        @*<p>
+                                            <b class="mob-12">Net Wgt:</b>
+                                        </p>*@
+                                        @*<p>
+                                            <b class="mob-12">DiaPcs:</b>
+                                        </p>*@
+                                        <p>
+                                            <b class="mob-12">DiaWgt:</b>
+                                        </p>
+                                        <p style="margin-top:12px;">
+                                            <b class="mob-12">Gold Purity:</b>
+                                            <span id="finalgoldpurityName"></span>
+                                        </p>
+                                        @*<p style="margin-top:10px;">
+                                            <b class="mob-12">Amount:</b>
+                                        </p>*@
+                                        @*<p style="margin-top:10px;">
+                                            <b class="mob-12">Rating:</b>
+                                        </p>*@
+                                        <p style="margin-top:15px;">
+                                            <b class="mob-12">Diamond Clarity:</b>
+                                            <span id="finaldiamonqualityName"></span>
+                                        </p>
+                                        <p style="margin-top:15px;">
+                                            <b class="mob-12">Diamond Color:</b>
+                                            <span id="finaldiamondcolorName"></span>
+                                        </p>
+                                        <p style="margin-top:18px;">
+                                            <b class="mob-12">Gold Color:</b>
+                                            <span id="finalgoldcolorName"></span>
+                                        </p>
+                                        <p style="margin-top:20px;">
+                                            <b class="mob-12" id="lblSize"></b>
+                                            <span id="finalSize"></span>
+                                        </p>
+                                       
+                                    </div>
+                                    <div class="col-centered col-sm-6 col-xs-6 mob-nopad pro_detail_right">
+                                        <p style="text-align:right" id="lblSize"></p>
+                                        <p class="mob-12" style="text-align:right" id="lblGrossWgt">0.00</p>
+                                        @*<p class="mob-12" style="text-align:right" id="lblNetWgt">0.00</p>*@
+                                        @*<p class="mob-12" style="text-align:right" id="lblDiaPcs">0.00</p>*@
+                                        <p class="mob-12" style="text-align:right" id="lblDiaWgt">0.00</p>
+                                        <p class="mob-12" style="text-align:right" id="finalgoldpurity">
+                                            <div>
+                                                <ul class="scrollmenu overflow-hidden cursorcss" style="white-space: nowrap; overflow: auto; padding-left:5px; margin-bottom:0px;" id="txtgoldpurity">
+                                                </ul>
+                                            </div>
+                                        </p>
+
+                                        @*<p class="mob-12" style="text-align:right" id=""><div id="lblGoldRateing"></div></p>*@
+                                        
+                                        <p class="mob-12" style="text-align:right" id="finaldiamonpurity">
+                                            <div>
+                                                <ul class="scrollmenu overflow-hidden cursorcss" style="white-space: nowrap; overflow: auto; padding-left:5px; margin-bottom:0px;" id="txtDiamondClarity" >
+                                                </ul>
+                                            </div>
+                                        </p>
+                                        <p class="mob-12" style="text-align:right" id="finaldiamoncolor">
+                                            <div>
+                                                <ul class="scrollmenu overflow-hidden cursorcss" style="white-space: nowrap; overflow: auto; padding-left:5px; margin-bottom:0px;" id="txtDiamondColor">
+                                                </ul>
+                                            </div>
+                                        </p>
+                                        @*<p class="mob-12" style="text-align:right" id="">
+                                            <div>
+                                                <select class="form-control" name="ddlColorType" id="ddlColorType">
+                                                    <option value="ROSE">Rose</option>
+                                                    <option value="WHITE">White</option>
+                                                    <option value="YELLOW">Yellow</option>
+                                                </select>
+                                            </div>
+                                        </p>*@
+                                        <p class="mob-12" style="text-align:right" id="finalMetalcolor">
+                                            <div>
+                                                <ul class="scrollmenu overflow-hidden cursorcss" style="white-space: nowrap; overflow: auto; padding-left:5px; margin-bottom:0px;" id="txtGoldColor"></ul>
+                                            </div>
+                                        </p>
+                                        <p class="mob-12" style="text-align:right" id="finalsize">
+                                            <div>
+                                                <ul class="scrollmenu overflow-hidden cursorcss" style="white-space: nowrap; overflow: auto; padding-left:5px; margin-bottom:0px;" id="txtSize">
+                                                </ul>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+    </div>
+
+    <input type="hidden" id="hdnShareId" value="@ViewBag.ShareId" />
+
+</div>
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+<link href="~/Content/plugin/owl_carousel/dist/assets/owl.carousel.css" rel="stylesheet" />
+<link href="~/Content/plugin/owl_carousel/dist/assets/owl.theme.default.css" rel="stylesheet" />
+
+@section Scripts{
+
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Content/plugin/owl_carousel/dist/owl.carousel.min.js"></script>
+    <script src="~/Script/Sharing/DesignShared.js?v=@DateTime.UtcNow"></script>
+    <script id="Render_Subimage" type="text/x-jsrender">
+
+        @*<a href="@System.Configuration.ConfigurationManager.AppSettings["DesignImgPath"]/{{:desgcate}}/{{:desgsubcate}}/{{:virtualname}}" data-fancybox="gallery">*@
+        {{if imgtype == 'IMG'}}
+        <div class="itmsdesign item">
+            <img filetype="{{:imgtype}}" onclick="DesignSharedView.imageadditionalouter(this)" data-image="{{:imgpath}}" alt="{{:designcode}}" src="{{:imgpath_thumb}}" style=" box-shadow:-3px 3px 10px 3px #b9b9b9;"/>
+
+        </div>
+        {{else}}
+        <div class="itmsdesign item">
+            <img filetype="{{:imgtype}}" onclick="DesignSharedView.imageadditionalouter(this)" data-image="{{:imgpath}}" alt="{{:designcode}}" class="DesignImg" src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/Content/images/play.png" style="height:84px" title="Click here for zoom...">
+        </div>
+        {{/if}}
+        @*</a>*@
+    </script>
+
+    <script id="Datagoldpurity" type="text/x-jsrender">
+        <li onclick="DesignSharedView.Selectgoldpurity(this.id)" id="{{>purity}}" class="scrlhover removegoldpurity" style="text-align:left; width: 60px; padding: 0px 10px;font-size:17px; border:1px solid gray; display: inline;">{{>purity}}</li>
+    </script>
+    <script id="Datatxtdiamonclarity" type="text/x-jsrender">
+        <li onclick="DesignSharedView.Selectdiamondquality(this.id)" id="{{>purity}}" class="scrlhover removediamonquality" style="text-align:left;width: 60px; padding: 0px 10px;font-size:17px; border:1px solid gray; display: inline;">{{>purity}}</li>
+    </script>
+    <script id="Datatxtdiamoncolor" type="text/x-jsrender">
+        <li onclick="DesignSharedView.SeletedDiamoncolor(this.id)" id="{{>colour}}" class="scrlhover removediamondcolor" style="text-align:left;width: 60px; padding: 0px 10px;font-size:17px; border:1px solid gray; display: inline;">{{>colour}}</li>
+    </script>
+    <script id="Datatxtgoldcolor" type="text/x-jsrender">
+        <li onclick="DesignSharedView.SeletedGoldcolor(this.id)" id="{{>colour}}" value="{{>colour}}" class="scrlhover removegoldcolor" style="text-align:left;width: 60px; padding: 0px 7px;font-size:17px; border:1px solid gray; display: inline;">{{>colour}}</li>
+    </script>
+    @*<script id="Datagoldcolor" type="text/x-jsrender">
+        <option onclick="DesignSharedView.Selectgoldcolor(this.id)" id="{{>colour}}" value="{{>colour}}" class="scrlhover" style="width: 80px; padding: 9px 12px;font-size:12px;">{{>colour}}</option>
+    </script>*@
+    <script id="DataSize" type="text/x-jsrender">
+        <li onclick="DesignSharedView.SelectSize(this.id)" id="{{>size}}" class="scrlhover removeSize" style="text-align:left;width: 60px; padding: 1px 10px;font-size:17px; border:1px solid gray; display: inline;">{{>size}}</li>
+    </script>
+
+@*<li onclick="Selectgoldpurity(this.id)" id="{{>purity}}" class="activegoldpurity">{{>purity}}</li>*@
+@*<script id="Datagoldcolor" type="text/x-jsrender">
+        <li onclick="Selectgoldcolor(this.id)" id="{{>gcolor}}" class="activegoldcolor" style="text-align: center;width: 80px;padding: 9px 12px;font-size:12px;">{{>gcolor}}</li>
+</script>*@
+@*<li onclick="Selectdiamonquality(this.id)" id="{{>quality}}" class="activediamondquality dia-cla">{{>quality}}</li>*@
+@*<li onclick="SeletedDiamoncolor(this.id)" id="{{>color}}" class="activediamondcolor" style="width: 40px;font-size: 14px;padding: 7px 9px;">{{>color}}</li>*@
+
+}

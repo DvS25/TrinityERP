@@ -1,0 +1,383 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Party Stock";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div id="viewpartystock" style="display:none">
+            <div style="height:32px;margin-bottom: 10px;">
+                <button id="btnstockback" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+            </div>
+            <div class="block-header">
+                <h2>Design Details</h2>
+            </div>
+            <div class="row clearfix" style="margin-top: 7px;">
+                <div class="col-lg-8 col-md-12 col-sm-12" style="padding-right:0px!important">
+                    <div class="card carddetails">
+                        <div class="body">
+                            <div class="wrap-reset">
+                                <div class="mypost-list">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">Design Code :</label>
+                                            <p class="col-sm-6" id="txtdesigncode"></p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">Category :</label>
+                                            <p class="col-sm-6" id="txtcategory"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">Sub Category :</label>
+                                            <p class="col-sm-6" id="txtsubcategory"></p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">PSize :</label>
+                                            <p class="col-sm-6" id="txtpsize"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">Labour Type :</label>
+                                            <p class="col-sm-6" id="txtlabourtype"></p>
+                                        </div>
+                                      
+                                    </div>
+                                    <h3 style="">Metal Details</h3>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">Type :</label>
+                                            <p class="col-sm-3" id="">Gold</p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">Color :</label>
+                                            <p class="col-sm-3" id="txtgoldcolor"></p>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">Quality :</label>
+                                            <p class="col-sm-3" id="txtquality"></p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">WGT :</label>
+                                            <p class="col-sm-3" id="txtwgt"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-6" style="text-align:right">Gold Price :</label>
+                                            <p class="col-sm-3" id="txtgoldprice"></p>
+                                        </div>
+                                      
+                                    </div>
+                                    <h3 style="">Gems Details</h3>
+                                    <div id="textgemsdetails">
+                                        
+                                    </div>
+                                    <h3 style="display:none" id="otherdetailstitle">Other Details</h3>
+                                    <div style="display:none" id="textotherdetails">
+
+                                    </div>
+                                   
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12 designseconddiv" style="padding-left:7px">
+                    <div class="card owl-carousel owl-theme" id="owl-demo" style="margin-bottom:0px!important">
+                        <div class="item" id="textjwelleryimg">
+                            <img id="categoryimage" src="~/Content/images/diamond.jpeg" class="img-fluid" width="100%" height="200px" />
+                        </div>
+                        @*<div class="item"><img src="~/Content/images/diamond.jpeg" class="img-fluid" width="100%" height="200px"/></div>
+                        <div class="item"><img src="~/Content/images/diamond.jpeg" class="img-fluid" width="100%" height="200px"/></div>*@
+                    </div>
+                    <div class="card designdetails">
+                        <div class="header">
+                            <h2>About Design</h2>
+                        </div>
+                        <div class="body">
+                            <strong>Height</strong>
+                            <p id="txtdesignheight">100</p>
+                            <strong>Width</strong>
+                            <p id="txtdesignwidth">200</p>
+                            <strong>Length</strong>
+                            <p id="txtdesignlength">300</p>
+
+                        </div>
+                       
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="panel" id="gridviewpartystock">
+            <div class="panel-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="width: 10.666667%!important">Select Party</label>
+                            <div class="col-sm-3" id="textselectparty">
+                                <input id="partyinput" onclick="BindAutocomplete(this.id)" class="form-control partyinput" value="" style="padding-top:0px!important;padding-bottom: 0px!important;" />
+                            </div>
+                            <p style="display:inline">
+                                <input type="radio" id="physicalstock" name="radio-group" checked>
+                                <label for="physicalstock">Physical Stock</label>
+                            </p>
+                            <p style="display:inline;margin-left: 10px;">
+                                <input type="radio" id="virtualstock" name="radio-group">
+                                <label for="virtualstock">Virtual Stock</label>
+                            </p>
+                            <button type="button" id="searchparty" class="btn btn-primary shadow-none addon-btn waves-effect waves-light" style="padding: 8px 1.75rem;margin-left:10px">Search!</button>
+                            <button type="button" id="btnpartypolicy" data-toggle="modal" data-target="#openviewmodal" class="btn btn-success addon-btn waves-effect waves-light" style="float: right;margin-right: 30px;padding: 8px 19px;">Party Policy</button>
+                        </div>
+                    </form>
+
+                    <!-- Modal -->
+                    <div class="modal" id="modalopenpolicy" role="dialog" data-add="add" data-backdrop="static">
+                        <div class="modal-dialog modal-lg" role="document">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" style="margin-top:10px;color:gray" id="btnmodalclose">&times;</button>
+                                    <h3 class="modal-title">Party Policy</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div role="tabpanel">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item active" role="presentation"><a class="nav-link" id="tabrawmaterial" data-toggle="tab" href="#tab-1">Raw Material</a></li>
+                                            <li class="nav-item" role="presentation" id="tablabour"><a class="nav-link"  data-toggle="tab" role="tab" aria-expanded="true" href="#tab-2">Labour</a></li>
+                                            <li class="nav-item" role="presentation" id="tabother"><a class="nav-link" id="tabother" data-toggle="tab" role="tab" aria-expanded="true" href="#tab-3">Other</a></li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="tab-content">
+                                        <div id="tab-1" class="tab-pane active" role="tabpanel" style="margin-top:10px">
+
+                                            <div role="tabpanel">
+                                                <ul class="nav nav-tabs navborder" role="tablist">
+
+                                                    <li class="rowtab nav-item active" role="presentation" id="rowgoldtab">
+                                                        <a class="nav-link" data-toggle="tab" href="#tab-4">Gold</a>
+                                                        
+                                                        
+                                                    </li>
+                                                    <li class="rowtab nav-item" role="presentation" id="rowdiamondtab">
+                                                        <a class="nav-link" data-toggle="tab" href="#tab-5">Diamond</a>
+                                                       
+                                                    </li>
+                                                    <li class="rowtab nav-item" role="presentation" id="rowcolorstone">
+                                                        <a class="nav-link" data-toggle="tab" href="#tab-6">Color Stone</a>
+                                                       
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-content">
+
+                                                <div id="tab-4" class="tab-pane active" role="tabpanel">
+                                                    <div class="" id="abcd" style="box-shadow:none!important">
+                                                        <div class="row" style="padding-top: 22px;">
+                                                            <label class="col-sm-2" style="width: 12.666667%">Gold Rate :</label>
+                                                            <p class="col-sm-2" style="font-size:15px" id="textgoldrate"></p>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div id="tab-5" class="tab-pane" role="tabpanel">
+                                                    <div class="">
+                                                        <div class="col-sm-12" style="overflow-x: auto; overflow-y: hidden;">
+                                                            <div class="jqGrid_wrapper" id="jqgrid_rowdiamond">
+                                                                <table id="table_list_rowdiamond"></table>
+                                                                <div id="pager_list_rowdiamond"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="tab-6" class="tab-pane" role="tabpanel">
+                                                    <div class="">
+                                                        <div class="col-sm-12" style="overflow-x: auto; overflow-y: hidden;">
+                                                            <div class="jqGrid_wrapper" id="jqgrid_colorstone">
+                                                                <table id="table_list_colorstone"></table>
+                                                                <div id="pager_list_colorstone"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div id="tab-2" class="tab-pane" role="tabpanel">
+                                            <div class="panel">
+                                                    <div class="col-sm-12" style="overflow-x: auto; overflow-y: hidden;">
+                                                        <div class="jqGrid_wrapper" id="jqgrid_rowgold">
+                                                            <table id="table_list_rowgold"></table>
+                                                            <div id="pager_list_rowgold"></div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-3" class="tab-pane" role="tabpanel" style="margin-top:10px">
+                                            <div role="tabpanel">
+                                                <ul class="nav nav-tabs navborder" role="tablist">
+                                                    <li class="rowtab nav-item active" role="presentation" id="jobpolicyli">
+                                                        <a class="nav-link" data-toggle="tab" href="#tabjobwork">Job Work Policy</a>
+                                                    </li>
+                                                    <li class="rowtab nav-item" role="presentation" id="businesspolicyli">
+                                                        <a class="nav-link" data-toggle="tab" href="#tabbusinesspolicy">Business Policy</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="tab-content">
+
+                                                <div id="tabjobwork" class="tab-pane active" role="tabpanel">
+                                                     <div class="row panel" style="box-shadow:none!important;overflow-y: auto;max-height: 500px; ">
+                                                         <div class="col-sm-12" id="text_bindjobwork">
+                                                            
+                                                         </div>
+                                                       
+                                                     </div>
+                                                </div>
+                                                <div id="tabbusinesspolicy" class="tab-pane active" role="tabpanel">
+                                                        <div class="row panel" style="box-shadow:none!important;overflow-y: auto;max-height: 500px; ">
+                                                            <div class="col-sm-12" id="text_bindbusinessdetails">
+
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="overflow-x: auto; overflow-y: hidden;">
+                        <div class="jqGrid_wrapper" id="jqgrid_partystock">
+                            <table id="table_list_PartyStock"></table>
+                            <div id="pager_list_PartyStock"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+
+@section Scripts{
+
+    <script id="JwelleryImage" type="text/x-jsrender">
+       
+    </script>
+    <script id="Gemsdetailsdata" type="text/x-jsrender">
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Diamond Weight :</label>
+                    <p class="col-sm-3 txtdiamongweight">{{>wgt}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Diamond Pieces :</label>
+                    <p class="col-sm-3 txtdiamondpcs">{{>pcs}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Shape :</label>
+                    <p class="col-sm-3" id="txtdiamondshap">{{>shape}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Quality :</label>
+                    <p class="col-sm-3" id="txtquality">{{>quality}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">MM Size :</label>
+                    <p class="col-sm-3" id="txtmmsize">{{>mmsize}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Width MMSize :</label>
+                    <p class="col-sm-3" id="txtwidthmmsize">{{>width_mmsize}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">SVSize :</label>
+                    <p class="col-sm-3" id="txtsvsize">{{>svsize}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">DSize :</label>
+                    <p class="col-sm-3" id="txtdsize">{{>size}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Diamond Price:</label>
+                    <p class="col-sm-3" id="txtdiamondprice">{{>diamondprice}}</p>
+                </div>
+            </div>
+        </div>
+        <hr />
+    </script>
+    <script id="Otherdetailsdata" type="text/x-jsrender">
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Shape :</label>
+                    <p class="col-sm-3" id="txtotherdiamondshap">{{>shape}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Quality :</label>
+                    <p class="col-sm-3" id="txtotherquality">{{>quality}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">MM Size :</label>
+                    <p class="col-sm-3" id="txtothermmsize">{{>mmsize}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Width MMSize :</label>
+                    <p class="col-sm-3" id="txtotherwidthmmsize">{{>width_mmsize}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">SVSize :</label>
+                    <p class="col-sm-3" id="txtothersvsize">{{>svsize}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-sm-6" style="text-align:right">Size :</label>
+                    <p class="col-sm-3" id="txtotherdsize">{{>size}}</p>
+                </div>
+            </div>
+        </div>
+        <hr />
+    </script>
+    <script id="Bindjobworkdata" type="text/x-jsrender">
+        <hr />
+        <h4 style="border-bottom:1px">{{>policy_name}}</h4>
+        <hr />
+        {{if policy_detail}}
+        {{for policy_detail.detailsjob}}
+        <p id="policydetails" style="font-size:15px!important">{{>policy_detailnode}}</p>
+        {{/for}}
+        {{/if}}
+    </script>
+    <script src="~/Content/plugin/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/Script/Sales/PartyStock.js"></script>
+}
+
+
+
+

@@ -1,0 +1,73 @@
+﻿@model Addressbook.Models.PagePermission
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Customer List";
+}
+
+<div class="panel">
+    <div class="panel-body">
+        @Html.Partial("~/Views/Account/CustomerList/_ContactDetailsGrid.cshtml")
+     
+     @*<ul class="nav nav-tabs" role="tablist" style="background-color:#fff;padding: 15px 0px 0px 0px;">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#Hometab" id="homedemotab" role="tab">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#Contact" id="contactdemotab" role="tab">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#EmailDemo" id="emaildemotab" role="tab">Email Demo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#SMSDemo" id="smsdemotab" role="tab">SMS Demo</a> 
+            </li>            
+        </ul>
+        <div class="tab-content" style="background-color:#fff">
+            <div id="Hometab" class="tab-pane active" role="tabpanel">
+                @Html.Partial("~/Views/Account/CustomerList/_ContactDetailsGrid.cshtml")                
+            </div>
+            <div id="Contact" class="tab-pane" role="tabpanel">
+                @Html.Partial("~/Views/Account/CustomerList/_Contact.cshtml")
+            </div>
+
+            <div id="EmailDemo" class="tab-pane" role="tabpanel">
+                @Html.Partial("~/Views/Account/CustomerList/_EmailDemo.cshtml")
+            </div>
+            <div id="SMSDemo" class="tab-pane" role="tabpanel">
+                @Html.Partial("~/Views/Account/CustomerList/_SMSDemo.cshtml")
+            </div>
+        </div>*@
+    </div>
+</div>
+
+
+
+@section Scripts {       
+    <script id="DdlcityList" type="text/x-jsrender">
+        <option value="{{>cityid}}">{{>cityname}}</option>
+    </script>
+    <script id="DdlStateList" type="text/x-jsrender">
+        <option value="{{>stateid}}">{{>statename}}</option>
+    </script>
+    <script id="DdlCountryList" type="text/x-jsrender">
+        <option value="{{>countryid}}">{{>countryname}}</option>
+    </script>
+    <script id="ddlGroupList" type="text/x-jsrender">
+        <option value="{{>groupid}}">{{>groupname}}</option>
+    </script>
+    <script id="ddlDistrictList" type="text/x-jsrender">
+        <option value="{{>districtid}}">{{>districtname}}</option>
+    </script>
+
+    <script src="~/Content/plugin/summernote-master/summernote.js"></script>
+    <script src="~/Content/plugin/Select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugin/filupload/jquery.fileupload.js"></script>
+    <script src="~/Content/plugin/HTML2PDF/jspdf.debug.js"></script>
+    <script src="~/Content/plugin/HTML2PDF/html2pdf.js"></script>
+    <script src="~/Content/plugin/Select2/js/select2.full.min.js"></script>
+
+    <script src="~/Script/Account/CustomerList.js"></script>
+    <script src="~/Script/Account/CustomerList/SMSDemo.js"></script>
+    <script src="~/Script/Account/CustomerList/EmailDemo.js"></script>
+    
+}

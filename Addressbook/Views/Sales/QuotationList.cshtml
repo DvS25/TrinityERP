@@ -1,0 +1,299 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Order List";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div id="Desinglist" style="display:none">
+            @*<div style="height:32px;margin-bottom: 10px;">
+
+                </div>*@
+            <div class="row" id="quotationdesigndiv">
+                <h2>Order Design</h2>
+                <button id="btnquotdesingback" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+            </div>
+            <div class="row" id="quotationdesign">
+
+            </div>
+        </div>
+        <div class="panel" id="GridViewQuotationlist" style="padding-bottom: 30px;">
+            <div class="panel-body">
+                <div class="quotationlable">
+                    <label class="col-sm-1 qutlbl">Party<span style="color:red"> *</span></label>
+                    <div class="col-sm-3" id="textselectparty">
+                        <input id="partyinput" onclick="BindAutocomplete(this.id)" class="form-control partyinput" value="" style="padding-top:0px!important;padding-bottom: 0px!important;" />
+                    </div>
+                    <label class="col-sm-2 qutlbl" style="margin-left: -82px">From Date<span style="color:red"> *</span></label>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <input class="form-control" id="txt_fromdate" name="date" placeholder="dd MMM yyyy" type="text" data-provide="datepicker" />
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="col-sm-1 qutlbl">To Date<span style="color:red"> *</span></label>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <input class="form-control" id="txt_todate" name="date" placeholder="dd MMM yyyy" type="text" data-provide="datepicker" />
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" id="searchparty" class="btn btn-primary shadow-none addon-btn waves-effect waves-light" style="padding: 8px 1.75rem;margin-left:10px">Search!</button>
+                </div>
+            </div>
+            <div style="overflow-x: auto; overflow-y: hidden;" id="quotationlistpage">
+                <div class="jqGrid_wrapper" id="jqgrid_Quotationlist">
+                    <table id="table_list_Quotationlist"></table>
+                    <div id="pager_list_Quotationlist"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalopendesigndetails" role="dialog" data-add="add" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top:10px;color:gray" id="btnmodalclose">&times;</button>
+                <h3 class="modal-title">Design Details</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <img id="categoryimage" src="~/Content/images/diamond.jpeg" class="img-fluid" width="150px" height="150px" />
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="col-sm-12">
+                            <h2 style="margin-top:0px" id="txt_desing"></h2>
+                            <hr />
+                        </div>
+                        <div class="col-sm-12">
+                            <h4 style="margin-top:0px;font-size:20px!important">Metal Details :</h4>
+                        </div>
+                        <hr />
+                        <div id="golddetails"></div>
+                        <hr />
+                        <div class="col-sm-12">
+                            <h4 style="margin-top:0px;font-size:20px!important">Diamond Details :</h4>
+                        </div>
+                        <hr />
+                        <div class="col-sm-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Shape</th>
+                                        <th>Quality</th>
+                                        <th>Color</th>
+                                        <th>SvSize</th>
+                                        <th>Size</th>
+                                        <th>PCS</th>
+                                        <th>Weight</th>
+                                        <th>Price</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="diamonddetails">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr />
+                        <div class="col-sm-12 colorstoneheader">
+                            <h4 style="margin-top:0px;font-size:20px!important">Color Stone Details :</h4>
+                        </div>
+                        <hr />
+                        <div class="col-sm-12 colorstoneheader">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Shape</th>
+                                        <th>Quality</th>
+                                        <th>Color</th>
+                                        <th>Size</th>
+                                        <th>PCS</th>
+                                        <th>Weight</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="colorstonedetails"></tbody>
+                            </table>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script id="Quotationdesigndata" type="text/x-jsrender">
+        <div class="row desingbox">
+            <button type="button" id="{{>quotation_itemno}}" onclick="desingdetaild(this.id)" class="btn btn-primary shadow-none addon-btn waves-effect waves-light btndetailview">View Details</button>
+            <div class="col-sm-2" style="padding-left:0px!important">
+                <img id="categoryimage{{>quotation_itemno}}" src="{{>imagepath}}" class="img-fluid" width="150px" height="150px" />
+            </div>
+            <input type="hidden" class="itemnovalue" value="{{>quo_no}}" id="itemno{{>quotation_itemno}}" />
+            <div class="col-sm-8 desingdetailbox">
+                <div class="body">
+                    <div class="wrap-reset">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="col-sm-6" style="text-align:right">Design Code :</label>
+                                <p class="col-sm-6" id="txtdesigncode{{>quotation_itemno}}">{{>designcode}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-sm-7" style="text-align:right">Metal Weight :</label>
+                                <p class="col-sm-5" id="txtcategory">{{>metalwgt}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-sm-8" style="text-align:right">Diamond Weight :</label>
+                                <p class="col-sm-4" id="txtcategory">{{>diamondwtg}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="col-sm-6" style="text-align:right">Quantity :</label>
+                                <p class="col-sm-6" id="txtdesigncode">{{>total_qty}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-sm-7" style="text-align:right">Metal KT :</label>
+                                <p class="col-sm-5" id="txtcategory">{{>metalkt}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-sm-8" style="text-align:right">Diamond Purity :</label>
+                                <p class="col-sm-4" id="txtcategory">{{>diamond_purity}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="col-sm-6" style="text-align:right">Size :</label>
+                                <p class="col-sm-6" id="txtdesigncode">{{>jsize}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-sm-7" style="text-align:right">Metal Color :</label>
+                                <p class="col-sm-5" id="txtcategory">{{>metalcolor}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="col-sm-8" style="text-align:right">Diamond Color :</label>
+                                <p class="col-sm-4" id="txtcategory">{{>diamondcolor}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="GoldDetailsdata" type="text/x-jsrender">
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="col-sm-6" style="text-align:right">Category :</label>
+                <p class="col-sm-6" id="txtdesigncode">{{>rm_category}}</p>
+            </div>
+            <div class="col-sm-6">
+                <label class="col-sm-7" style="text-align:right">Sub Category :</label>
+                <p class="col-sm-5" id="txtcategory">{{>rm_subcate}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="col-sm-6" style="text-align:right">Purity :</label>
+                <p class="col-sm-6" id="txtdesigncode">{{>metal_purity}}</p>
+            </div>
+            <div class="col-sm-6">
+                <label class="col-sm-7" style="text-align:right">Color :</label>
+                <p class="col-sm-5" id="txtcategory">{{>metal_color}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="col-sm-6" style="text-align:right">Weight :</label>
+                <p class="col-sm-6" id="txtdesigncode">{{>metal_wtg}}</p>
+            </div>
+            <div class="col-sm-6">
+                <label class="col-sm-7" style="text-align:right">Price :</label>
+                <p class="col-sm-5" id="txtcategory">{{>metal_price}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="col-sm-6" style="text-align:right;">Amount :</label>
+                <p class="col-sm-6" id="txtcategory">{{>metal_amount}}</p>
+            </div>
+        </div>
+    </script>
+
+    <script id="DiamondDetailsdata" type="text/x-jsrender">
+        @*<div class="row">
+            <div class="col-sm-6">
+                <label class="col-sm-6" style="text-align:right">Category :</label>
+                <p class="col-sm-6" id="txtdesigncode">{{>rm_category}}</p>
+            </div>
+            <div class="col-sm-6">
+                <label class="col-sm-7" style="text-align:right">Sub Category :</label>
+                <p class="col-sm-5" id="txtcategory">{{>rm_subcate}}</p>
+            </div>
+        </div>*@
+        <tr>
+            <td>{{>diamond_shape}}</td>
+            <td>{{>diamond_purity}}</td>
+            <td>{{>diamond_color}}</td>
+            <td>{{>diamond_svsize}}</td>
+            <td>{{>diamond_size}}</td>
+            <td>{{>diamond_pcs}}</td>
+            <td>{{>diamond_wtg}}</td>
+            <td>{{>diamond_price}}</td>
+            <td>{{>diamond_amount}}</td>
+        </tr>
+        @*<div class="row">
+            <div class="col-sm-6">
+                <label class="col-sm-6" style="text-align:right">Diamong Purity :</label>
+                <p class="col-sm-6">{{>diamond_purity}}</p>
+            </div>
+            <div class="col-sm-6">
+                <label class="col-sm-7" style="text-align:right">Diamond Color :</label>
+                <p class="col-sm-5">{{>diamond_color}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="col-sm-6" style="text-align:right">DIamond Weight :</label>
+                <p class="col-sm-6">{{>diamond_wtg}}</p>
+            </div>
+            <div class="col-sm-6">
+                <label class="col-sm-7" style="text-align:right">Diamond Pcs :</label>
+                <p class="col-sm-5">{{>diamond_pcs}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="col-sm-6" style="text-align:right">Diamond Price :</label>
+                <p class="col-sm-6">{{>diamond_price}}</p>
+            </div>
+            <div class="col-sm-6">
+                <label class="col-sm-7" style="text-align:right">Diamond Amount :</label>
+                <p class="col-sm-5">{{>diamond_amount}}</p>
+            </div>
+        </div>
+        <hr />*@
+    </script>
+<script id="ColorstoneDetailsdata" type="text/x-jsrender">
+    <tr>
+        <td>{{>colorstone_shape}}</td>
+        <td>{{>colorstone_purity}}</td>
+        <td>{{>colorstone_color}}</td>
+        <td>{{>colorstone_size}}</td>
+        <td>{{>colorstone_pcs}}</td>
+        <td>{{>colorstone_wtg}}</td>
+        <td>{{>colorstone_amount}}</td>
+    </tr>
+  
+</script>
+    <script src="~/Script/Sales/QuotationList.js"></script>
+
+}

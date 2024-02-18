@@ -1,0 +1,212 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+}
+
+<style>
+    .input-group-addon {
+        padding: 7px 27px;
+    }
+</style>
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_CreditDebitNote" class="form-horizontal" style="display:none">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-1 control-label addstar">Book Type</label>
+                    <div class="col-md-3">
+                        <div id="dx_ddlBookType"></div>
+                    </div>
+                    <label class="col-md-3 control-label">Voucher No</label>
+                    <div class="col-md-2">
+                        <div id="dx_txtVoucherNo"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <label class="col-md-1 control-label addstar">Tran Type</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtTransactionType"></div>
+                    </div>
+                    <label class="col-md-3 control-label addstar">Voucher Date</label>
+                    <div class="col-md-2">
+                        <div id="dx_txtVoucherDate"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label addstar">Party Name</label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <div id="dx_txtpartyName"></div>
+                            <span class="input-group-addon"  id="spanpartycurrency"></span>
+                        </div>
+                    </div>
+                    <label class="col-md-2 control-label addstar">Exchange Rate</label>
+                    <div class="col-md-1">
+                        <div id="dx_txtExchangeRate"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label addstar">Tran No</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtTransactionNo"></div>
+                    </div>
+                    <label class="col-md-3 control-label">Voucher Type</label>
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-addon col-md-3" style="width: 186px; height: 35px; border-radius: 4px; border: 1px solid #dedede; text-align: left;" id="spanVoucherType"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label addstar">Item Name</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <div id="dx_ItemName"></div>
+                            <span class="input-group-addon" style="width:87px;" id="spanhsncode"></span>
+                        </div>
+                    </div>
+                    <label class="col-md-3 control-label addstar">TaxProfile</label>
+                    <div class="col-md-2">
+                        <div id="dx_taxProfile"></div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label addstar">Party Name</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon col-md-3" style="border: 1px solid #d7d7d7; width: 146px; height: 35px; border-radius: 4px; text-align: left;" id="spanpartyname"></span>
+                                <span class="input-group-addon col-md-3" style="width: 40px; height:35px; border-radius: 4px;" id="spanpartycurrency"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>*@
+            <div class="col-md-12" style="margin-top:20px">
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Remarks</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtRemarks"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Amount In Rs</label>
+                        <div class="col-md-3">
+                            <div id="txtTotalAmountInRs"></div>
+                        </div>
+                        <label class="col-md-3 control-label addstar">Amount</label>
+                        <div class="col-md-3">
+                            <div id="dx_txtamt"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="div_AmtWithTax">
+                        <label class="col-md-3 control-label">AmtwithTax in Rs</label>
+                        <div class="col-md-3">
+                            <div id="txtAmtWithTaxinRs"></div>
+                        </div>
+                        <label class="col-md-3 control-label ">Amt with Tax</label>
+                        <div class="col-md-3">
+                            <div id="txtAmtWithTax"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3"> Round Off.</label>
+                        <div class="col-md-3" style="padding-top:7px;">
+                            <input type="radio" id="rd_Less" name="rd_RoundOff" class="DiscType" value="Less" checked />
+                            <label style="vertical-align:top" class="control-label" for="rd_Less">Less</label>
+                            <input type="radio" id="rd_Add" name="rd_RoundOff" class="DiscType" value="Add" />
+                            <label style="vertical-align:top" class="" for="rd_Add">Add</label>
+                        </div>
+                        <label class="control-label col-md-3"> Add / Less</label>
+                        <div class="col-md-3">
+                            <div id="txtRoundOff"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @*<label class="col-md-3 control-label">Final Amt In Rs</label>
+                            <div class="col-md-3">
+                                <div id="txtFinalAmtInRs"></div>
+                            </div>*@
+                        <label class="col-md-9 control-label">Final Amount</label>
+                        <div class="col-md-3">
+                            <div id="txtFinalAmount"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-9 control-label">Final Amt In Rs</label>
+                        <div class="col-md-3">
+                            <div id="txtFinalAmtInRs"></div>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                            <label class="control-label col-lg-3 col-lg-offset-7">Final Amount</label>
+                            <div class="col-lg-2">
+                                <div id="txtFinalAmount"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-3 col-lg-offset-7">FinalAmtInRs</label>
+                            <div class="col-lg-2">
+                                <div id="txtFinalAmtInRs"></div>
+                            </div>
+                        </div>*@
+                    @*<div class="form-group">
+                            <label class="col-md-9 control-label">Amt with Tax</label>
+                            <div class="col-md-3">
+                                <div id="txtAmtWithTax"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-9 control-label">AmtwithTax in Rs</label>
+                            <div class="col-md-3">
+                                <div id="txtAmtWithTaxinRs"></div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel-footer" style="padding-top:10px;padding-bottom:10px;">
+            <div class="col-md-12 text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+<input type="hidden" id="hdnSBOOKID" value="@ViewBag.SBOOKID" />
+
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Content/plugin/Cropper/cropper.min.js"></script>
+    <script src="~/Script/Manufacturing/CreditDebitNote.js?v=@DateTime.UtcNow"></script>
+}

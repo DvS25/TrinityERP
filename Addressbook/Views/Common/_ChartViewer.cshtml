@@ -1,0 +1,195 @@
+﻿<link href="~/Content/plugin/Sidebar-Dashboard/SidebarChart.css" rel="stylesheet" />
+<link href="~/Content/plugin/Gridsatck/gridstack.css" rel="stylesheet" />
+
+@*-------Start Bind Chart Design-------------------------------------*@
+<input type="hidden" id="hdnChartEmpId" value="@Addressbook.CommonClasses.SessionFacade.UserSession.USERID" />
+<div class="Hr-suite-edithome floatingContainer" style="display:block;" id="btneditgridstack"></div>
+<div class="Hr-suite-cancel fbt" id="btncancelgridstack"></div>
+<div class="Hr-suite-Save hidden-sm hidden-xs" id="btnSavegridstack"></div>
+<div><a href="#ChartListSidePanel" style="display:none;" id="btnAddNewCharticon" onclick="ChartView.AddNewChart();" class="floatadd waves-effect waves-button waves-classic ch-nav-trigger" title="Add New Widget"><i class="fa fa-plus my-floatadd"></i></a></div>    
+
+<nav class="ch-nav-container ch-wid" id="ChartListSidePanel">
+    <header>
+        <h3>Setup Chart List</h3>
+        <a id="BtnClosePnl" style="cursor:pointer;" class="ch-close chwidget-check"><i class="fa fa-check widget-chk-icon"></i></a>
+    </header>
+    <div class="row pb115">
+        <div class="col-sm-12" style="padding:10px 100px;">
+            <div id="PanelAllChartList" class="grid-stack dashbourd-top">
+            </div>
+            <div class="panel panel-white m-t-10" id="panelChartResult" style="display: none;">
+                <div class="panel-heading clearfix">
+                    <div class="col-md-11 col-sm-11 col-xs-12 caption no-p">
+                        <span class="caption-subject font-common-sharp bold  Appl-Head"><i class="fa fa-file-text-o"></i> &nbsp;<span id="lblChartName"></span></span>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-12 mob-mtb15">
+                        <button class="btn btn-default btn-sm faa-parent animated-hover purple pull-right mob-p" type="button" data-systemstatus="Cancel" id="btnBack"
+                                onclick="ChartView.BackFromEditPanel();">
+                            <i class="fa fa-arrow-left faa-horizontal"></i>&nbsp;Back
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-body mob-mt35">
+                    <div class="col-md-12 col-sm-12 col-xs-12 No-m-display" id="DivGenerateNewChart">
+                        <div class="btn-group mt7" style="float:right;">
+                            <button class="btn btn-default hr-font-green m-b-sm btn-sm" type="button" id="btnGenerateNewChart"><i class="fa fa-plus"></i>&nbsp;Add New Chart Criteria</button>
+                        </div>
+                    </div>
+                    <div id="FilterList" class="col-md-12 col-sm-12 col-xs-12" style="overflow-x:auto; overflow-y:hidden;">
+                        <div class="jqGrid_wrapper" id="jqGrid_DefaultSettingList">
+                            <table id="tableDefaultSettingList"></table>
+                            <div id="pagerDefaultSettingList"></div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdnCriteriaSummaryId" />
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form id="frmChartResult" method="get" class="form-horizontal">                            
+                            <div id="divFilterElements">
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 col-sm-3 col-xs-12 form-control-label">Chart Type</label>
+                                <div class="col-md-10 col-sm-9 col-xs-12" id="divChartType" style="padding-top: 5px;">
+
+                                </div>
+                                <label id="ChartType-error" class="error col-md-10 col-sm-9 col-md-offset-2 col-sm-offset-3 col-xs-12" style="display: none;"></label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 col-sm-3 col-xs-12 form-control-label">Box Width</label>
+                                <div class="col-md-2 col-sm-2 col-xs-6">
+                                    <select id="txtChartWidthXval" name="ChartWidthXval" class="form-control required">
+                                        <option value="">-Width-</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                </div>
+                                <label class="col-md-2 col-sm-2 col-xs-12 form-control-label">Box Height</label>
+                                <div class="col-md-2 col-sm-2 col-xs-6">
+                                    <select id="txtChartWidthYval" name="ChartWidthYval" class="form-control required">
+                                        <option value="">-Height-</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 col-sm-3 col-xs-12 form-control-label">Is Display</label>
+                                <div class="col-md-10 col-sm-9">
+                                    <div class="checkbox">
+                                        <label class="form-control-label">
+                                            <input id="ChkDisplayonDashboard" name="DisplayonDashboard" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" checked />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 col-sm-3 col-xs-12 form-control-label">Filter Caption<span style="color:red"> *</span></label>
+                                <div class="col-md-4 col-sm-4">
+                                    <input type="text" id="txtCaption" name="Caption" class="form-control required" placeholder="Caption">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 col-sm-3 col-xs-12 form-control-label">Remark</label>
+                                <div class="col-md-5 col-sm-6">
+                                    <textarea rows="2" cols="5" typeof="text" style="width:100%" class="form-control" id="txtRemark" placeholder="Enter Remark"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-offset-2 col-sm-offset-3 col-md-4 col-sm-9 col-xs-12">
+                                    <button id="btnSaveChart" class="btn btn-success waves-effect waves-light" type="button">Save Chart Criteria</button>
+                                    <button id="btnFilterListCancel" name="FilterListCancel" type="button" class="btn btn-default waves-effect">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="hdnChartId" />
+            <input type="hidden" id="hdnIsFilterField" />
+            <input type="hidden" id="hdnIsMultiValuedChart" />
+        </div>
+    </div>
+</nav>
+<div id="DivChartDataList" style="margin: 20px 50px;">
+
+</div>
+<div class="modal fade" id="FilterElementModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:1px solid #cac6c6 !important;padding-bottom:30px !important;">
+                <h4 class="modal-title">Chart : <span id="CaptionChart"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="form-horizontal" id="FrmChartFilter" role="form">
+                    <div id="divFilterElementList">
+
+                    </div>
+                    <div class="form-group" id="ModalChartType">
+                        <label class="col-md-2 col-sm-2 form-control-label">Chart Type</label>
+                        <div class="col-md-10 col-sm-9" id="divModalChartType">
+
+                        </div>
+                        <label id="ModalChartType-error" class="error col-md-offset-2" style="display: none;"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 col-sm-2 form-control-label">Box Width</label>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            <select id="txtModalChartWidthXval" name="ChartWidthXval" class="form-control required">
+                                <option value="">-Width-</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                        <label class="col-md-2 col-sm-2 col-xs-12 form-control-label">Box Height</label>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            <select id="txtModalChartWidthYval" name="ChartWidthYval" class="form-control required">
+                                <option value="">-Height-</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdnModalIsFilter" />
+                    <input type="hidden" id="hdnModalChartId" />
+                    <input type="hidden" id="hdnModalCriteriaSummaryId" />
+
+                    <input type="hidden" id="hdnModalOldX" />
+                    <input type="hidden" id="hdnModalOldY" />
+                </form>
+            </div>
+            <div class="modal-footer">                
+                <button id="btnApplyFilter" type="button" class="btn btn-success waves-effect waves-light">Apply Changes</button>
+                <button type="button" class="btn btn-default waves-effect" id="btnCancelModal" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*-------End Bind Chart Design-------------------------------------*@
+

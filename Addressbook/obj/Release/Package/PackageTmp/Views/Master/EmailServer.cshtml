@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "EmailServer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-12">
+        <div class="panel" id="panelEmailSettingList">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12" style="overflow-x: auto; overflow-y: hidden;">
+                        @if (Model.ISADD == 1)
+                        {
+                            <div class="Pull_Text_Left">
+                                <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" type="button" id="btnAddEmailSetting" style="font-weight:600!important"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New</button>
+                            </div>
+                        }
+                        <div class="jqGrid_wrapper" id="jqGrid_EmailSetting" style="overflow-x: auto;overflow-y:auto">
+                            <table id="tableEmailSetting"></table>
+                            <div id="pagerEmailSetting"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="panelEmailEdit" style="display:none">
+            <div class="panel-body">
+                <div id="userWizard">
+                    <div style="height:32px;margin-bottom: 10px;">
+                        <button id="btnBack" class="btn btn-sm pull-right purple" type="button" name="CancelUserGroup"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                    </div>
+                    <form id="FrmEmailSetting" class="form-horizontal">
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">Display Name<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input id="txtDisplayName" class="form-control required" name="DisplayName" type="text" placeholder="Display Name" tabindex="1" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-5 control-label">Sever Name<span style="color:red"> *</span></label>
+                                <div class="col-sm-7">
+                                    <input id="txtSeverName" class="form-control required" name="SeverName" type="text" placeholder="Sever Name" tabindex="2" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 form-control-label">Port No<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input class="form-control required" type="text" name="PortNo" id="txtPortNo" placeholder="Port No" tabindex="3">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-5 control-label ">Authentication Type<span style="color:red"> *</span></label>
+                                <div class="col-sm-7" style="padding-top: 4px;">
+                                    <input type="radio" id="RdNone" class="ab" name="AuthenticationType" value="None" checked>
+                                    <label for="RdNone">None</label>
+                                    <input type="radio" id="RdBasic" class="ab" name="AuthenticationType" value="Basic">
+                                    <label for="RdBasic">Basic</label>
+                                    <input type="radio" id="RdSecure" class="ab" name="AuthenticationType" value="Secure">
+                                    <label for="RdSecure">Secure</label>
+                                    <input type="radio" id="RdSSL" class="ab" name="AuthenticationType" value="SSL">
+                                    <label for="RdSSL">SSL</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 form-control-label">User Name<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input class="form-control required" type="text" name="UserName" id="txtUserName" placeholder="User Name" tabindex="4">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-5 form-control-label">Password<span style="color:red"> *</span></label>
+                                <div class="col-sm-7">
+                                    <input class="form-control required" type="password" name="Password" id="txtPassword" placeholder="Password" tabindex="5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 form-control-label">Default Mail From<span style="color:red"> *</span></label>
+                                <div class="col-sm-8">
+                                    <input class="form-control required" type="text" name="DefaultMailFrom" id="txtDefaultMailFrom" placeholder="Default Mail From" tabindex="6">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-5 control-label">Always Use As default mail</label>
+                                <div class="col-sm-7">
+                                    <div class="checkbox" style="margin-top:0px!important">
+                                        <label class="form-control-label activelable">
+                                            <input type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" id="chkEmailAlwaysDef" data-size="small" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <div class="col-sm-8 col-sm-offset-4">
+                                    <button class="btn btn-primary" type="button" id="btnTestEmail"><i class="fa fa-cogs"></i>&nbsp;Test Setting</button>
+                                    <button type="button" class="btn btn-success" id="btnSaveEmail" style="padding-left: 20px;padding-right: 20px;">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <input type="hidden" id="hdnEmailProfileId" value="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/plugin/newbootstrap/bootstrap.min.css" rel="stylesheet" />
+@section Scripts {
+<script src="~/Script/Master/EmailServer.js"></script>
+}

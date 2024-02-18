@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Head Mas | Trinity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-12">
+        <div class="panel" id="panelView">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12" style="overflow-x: auto; overflow-y: hidden;">
+                        @if (Model.ISADD == 1)
+                        {
+                            <div class="Pull_Text_Left">
+                                <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" type="button" id="btnAdd" style="font-weight:600!important"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New  Head</button>
+                            </div>
+                        }
+                        <div class="jqGrid_wrapper" id="jqgrid_ExpenseDtl" style="overflow-x: auto;overflow-y:auto">
+                            <table id="table_list_HeadDtl"></table>
+                            <div id="pager_list_HeadDtl"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel" id="panelEdit" style="display:none">
+            <div class="panel-body">
+                <div id="userWizard">
+                    <div style="height:32px;margin-bottom: 10px;">
+                        <button id="btnCancelExpenseDtl" class="btn btn-sm pull-right purple" type="button" name="CancelAccountYear"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                    </div>
+                    <form id="frmAccYearDetails" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Head Name<span style="color:red"> *</span></label>
+                            <div class="col-sm-4">
+                                <input id="txtHeadName" class="form-control required" name="HeadName" type="text" placeholder="Head Name" tabindex="1" />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> Head Name<span style="color:red"> *</span></label>
+                            <div class="col-sm-4">
+                                <select class="form-control required" name="GroupHeadName" id="ddlGroupHead">
+                                    <option value="">--Select--</option>
+                                    <option value="ADMINISTRATION">ADMINISTRATION</option>
+                                    <option value="BROKER">BROKER</option>
+                                    <option value="CAPITAL ACCOUNT">CAPITAL ACCOUNT</option>
+                                    <option value="COURIER">COURIER</option>
+                                    <option value="CREDITORS/DEBITORS">CREDITORS/DEBITORS</option>
+                                    <option value="CURRENT ASSETS">CURRENT ASSETS</option>
+                                    <option value="DESIGNER">DESIGNER</option>
+                                    <option value="EMPLOYEE">EMPLOYEE</option>
+                                    <option value="FACTORY">FACTORY</option>
+                                    <option value="FACTORY EXP">FACTORY EXP</option>
+                                    <option value="FACTORY EXPENCES">FACTORY EXPENCES</option>
+                                    <option value="FIXED ASSETS">FIXED ASSETS</option>
+                                    <option value="INV CURRENT ASSETS">INV CURRENT ASSETS</option>
+                                    <option value="JOBWORK">JOBWORK</option>
+                                    <option value="LEBORATORY">LEBORATORY</option>
+                                    <option value="LOANS">LOANS</option>
+                                    <option value="OFFICE EXPENCES">OFFICE EXPENCES</option>
+                                    <option value="OTHER">OTHER</option>
+                                    <option value="OTHER INCOMES">OTHER INCOMES</option>
+                                    <option value="PROVISIONS EXPENCES">PROVISIONS EXPENCES</option>
+                                    <option value="STOCK">STOCK</option>
+                                    <option value="SYSTEM">SYSTEM</option>
+                                    <option value="WORKER">WORKER</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 form-control-label" style="margin-top:5px">Description</label>
+                            <div class="col-sm-4">
+                                <input id="txtDescription" class="form-control" name="Description" type="text" placeholder="Description" tabindex="2" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Is Active </label>
+                            <div class="col-sm-2">
+                                <div class="checkbox" style="margin-top:0px!important">
+                                    <label class="form-control-label"><input type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" id="activeonoff" /></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Sort Order<span style="color:red"> *</span></label>
+                            <div class="col-sm-4">
+                                <input id="txtSortOrder" class="form-control required" name="SortOrder" type="text" placeholder="Sort Order" tabindex="4" />
+                            </div>
+                        </div>
+                        
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <div class="col-sm-8 col-sm-offset-4">
+                                    <button type="button" class="btn btn-success" id="btnSaveExpenseDtl" style="padding-left: 20px;padding-right: 20px;">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <input type="hidden" id="hdnHeadId" value="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+   
+<script src="~/Script/Outlet/HeadMas.js"></script>
+}
+

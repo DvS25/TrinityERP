@@ -1,0 +1,119 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+}
+
+<style>
+
+      #tbl_DesignDetails tbody {
+        counter-reset: rowNumber;
+    }
+
+        #tbl_DesignDetails tbody tr {
+            counter-increment: rowNumber;
+        }
+
+            #tbl_DesignDetails tbody tr td.TableRowNo::before {
+                content: counter(rowNumber);
+                min-width: 1em;
+                margin-right: 0.5em;
+            }
+</style>
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_AccountOpeningBalance" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">Voucher No</label>
+                <div class="col-md-2">
+                    <div id="dx_VchrNo"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Account Name</label>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <div id="dx_txtaccname"></div>
+                        <span class="input-group-addon" style="width: 49px;" id="spanCashBankCurr"></span>
+                    </div>
+                </div>
+                <label class="control-label col-md-2">Amount</label>
+                <div class="col-md-2">
+                    <div id="dx_txtAmount"></div>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <label class="col-md-2 control-label ">Remarks</label>
+                <div class="col-md-3">
+                    <div id="dx_txtRemarks"></div>
+                </div>
+                <label class="col-md-2 control-label">Total Amt In Rs</label>
+                <div class="col-md-2">
+                    <div id="txtTotalAmountInRs"></div>
+                </div>
+            </div>
+            <div class="col-md-12 mt-10">
+                <div class="form-group">
+                    <table class="table table-bordered" id="tbl_DesignDetails" style="margin-bottom:10px;">
+                        <thead style="background-color: #fafafa;">
+                            <tr>
+                                <th width="4%">No.</th>
+                                <th width="13%">Bill Date</th>
+                                <th width="6%">Bill No.</th>
+                                <th width="8%">Bill Type</th>
+                                <th width="6%">Due Days</th>
+                                <th width="10%">Broker</th>
+                                <th width="10%">Amount</th>
+                                <th width="6%">Ex Rate</th>
+                                <th width="10%">Amount In Rs</th>
+                                <th width="10%">Remarks</th>
+                                <th width="4%"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="OpeningBalanceTBody"></tbody>
+                        <tfoot style="background-color: #fafafa;">
+                            <tr>
+                                <th colspan="10">
+                                    <div class="col-md-2">
+                                        <a href="javascript:void(0);" style="text-decoration:underline;" id="lnk_AddNewRow"><i class="fa fa-plus"></i>&nbsp;Add New Row</a>
+                                    </div>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+         
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+@section Scripts{
+    <script src="~/Script/Manufacturing/AccountOpeningBalance.js?v=@DateTime.UtcNow"></script>
+}
+
+

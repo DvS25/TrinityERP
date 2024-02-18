@@ -1,0 +1,196 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "CreditDebit";
+
+}
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+            {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_CreditDebit" class="form-horizontal" style="display:none">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="form-group ">
+                <div class="form-group">
+                    <label class="col-md-2 control-label ">Book Type</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtTransactiontype"></div>
+                    </div>
+                    <label class="col-md-2 control-label">Bank Name</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtBankName"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Voucher No</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtVoucherNo"></div>
+                    </div>
+                    <label class="col-md-2 control-label">Cheque No.</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtcheque"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label addstar">Voucher Date</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtVoucherDate"></div>
+                    </div>
+                    <label class="col-md-2 control-label">Cheque Date</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtchequeDate"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label addstar">Cash/Bank Acc</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <div id="dx_txtcashbankacc"></div>
+                            <span class="input-group-addon" id="btnAddSelectionList">0.00</span>
+                            <span class="input-group-addon" style="width: 49px;" id="spanCashBankCurr"></span>
+                        </div>
+                    </div>
+                    <label class="col-md-2 control-label addstar">Payment type</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtpaymenttype"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label addstar" id="place">Receive From Acc</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <div id="dx_txtrecacc"></div>
+                            <span class="input-group-addon" id="btnAddSelectionRecieveList">0.00</span>
+                            <span class="input-group-addon" style="width: 49px;" id="spanCurrencyName"></span>
+                        </div>
+                    </div>
+                    <label class="col-md-2 control-label addstar">Amount</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtAmount"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label addstar">Due Days</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtduedays"></div>
+                    </div>
+                    <label class="col-md-2 control-label">Ex Rate</label>
+                    <div class="col-md-3">
+                        <div id="dx_txtExchangeRate"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-7 control-label">Amount In Rs</label>
+                    <div class="col-md-3">
+                        <div id="txtTotalAmountInRs"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label ">Remarks</label>
+                    <div class="col-md-4">
+                        <div id="dx_txtRemarks"></div>
+                    </div>
+                </div>
+                <div class="panel-footer p-10">
+                    <div class="row text-center">
+
+                        <div id="dx_btnSubmit"></div>
+                        <div id="dx_btnCancel"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+@*---------------------------Share Model-------------------------------------------------*@
+<div class="modal fade" id="ModalSharing" tabindex="-1" role="dialog" aria-labelledby="ModalSharing" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share Design</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Party Name</label>
+                        <div class="col-lg-9">
+                            <div id="dx_txtSharetoPartyList"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Type</label>
+                        <div class="col-md-10">
+                            <div id="dx_RadioSocial" style="margin-top: 5px;"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Mobile No</label>
+                        <div class="col-md-4">
+                            <div id="dx_txtMobileNo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group MobileShare">
+                        <label class="col-md-2 control-label">Message</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtShareMessage"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Id</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailId"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Subject</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingSubject"></div>
+                        </div>
+                    </div>
+                    <div class="form-group EmailSharing" style="display:none;">
+                        <label class="col-md-2 control-label">Email Body</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtSharingEmailBody"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div id="dx_btnSubmitShare"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hdnSBOOKID" value="@ViewBag.SBOOKID" />
+
+@*--------------------------------/share model-------------------------------*@
+
+
+<input type="hidden" value="@Addressbook.CommonClasses.SessionFacade.UserSession.EMPLOYEE_NAME" id="hdn_UserName" />
+
+@section Scripts{
+    <script src="~/Script/Manufacturing/CreditDebit.js?V=@DateTime.UtcNow"></script>
+}

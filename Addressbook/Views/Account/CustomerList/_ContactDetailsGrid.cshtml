@@ -1,0 +1,731 @@
+﻿<div class="row">
+    <div class="main-header" id="mainheaderdiv" style="padding-bottom: 0;">
+        <div id="viewcontactform">
+            <div class="row" id="mainbodydiv">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-btn" id="btn-addon3.1"><button type="submit" class="btn btn-primary shadow-none addon-btn waves-effect waves-light">Search!</button></span>
+                        <input id="btnaddon3" type="text" class="form-control" placeholder="Serach anything .." aria-describedby="btn-addon3.1">
+                        @*<span class="input-group-btn" id="btn-addon3.2"><button type="submit" class="btn btn-success shadow-none addon-btn waves-effect waves-light">Go!</button></span>*@
+                    </div>
+                </div>
+                <div class="col-sm-5 cst-mobile">
+                    @if (Model.ISADD == 1)
+                    {
+                    <button class="btn btn-success waves-effect waves-light" id="btnAddNewcontact" type="button">Add Contact</button>
+                    }
+
+                    @*<button class="btn btn-primary waves-effect waves-light" id="btnSerach" type="button"><i class="fa fa-search"></i></button>*@
+                    <div class="dropdown-warning">
+                        <button class="btn btn-warning dropdown-toggle waves-effect waves-light " type="button" id="dropdown4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-cogs"></i></button>
+                        <div class="dropdown-menu settingdrop" aria-labelledby="dropdown4" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut" style="right: 0 !important; left:unset">
+                            <h6 class="" style="padding-left:13px;">get mobile and email</h6>
+                            <a class="dropdown-item waves-light waves-effect demodrop" data-toggle="modal" data-target="#SMS-modal" onclick="Master_ContactView.ContactSelect(this);" data-type="mobile_1"><i class="fa fa-mobile-phone" style="font-size: 19px;"></i> Mobile 1</a>
+                            <a class="dropdown-item waves-light waves-effect demodrop" data-toggle="modal" data-target="#SMS-modal" onclick="Master_ContactView.ContactSelect(this);" data-type="mobile_2"><i class="fa fa-mobile-phone" style="font-size: 19px;"></i> Mobile 2</a>
+                            <a class="dropdown-item waves-light waves-effect demodrop" data-toggle="modal" data-target="#Email-Modal" onclick="Master_ContactView.ContactSelect(this);" data-type="Email_1"><i class="fa fa-envelope"></i> Email 1</a>
+                            <a class="dropdown-item waves-light waves-effect demodrop" data-toggle="modal" data-target="#Email-Modal" onclick="Master_ContactView.ContactSelect(this);" data-type="Email_2"><i class="fa fa-envelope"></i> Email 2</a>
+                            <a class="dropdown-item waves-light waves-effect demodrop" href="#0" onclick="Master_ContactView.Stickey(this);"><i class="fa fa-file-pdf-o"></i> Sticker</a>
+                            <input type="hidden" id="hdnBEmail1" value="" />
+                        </div>
+                    </div>
+
+                    @if (Model.ISDOWNLOAD == 1)
+                    {
+                    <div class="dropdown-warning">
+                        <button class="btn btn-primary dropdown-toggle waves-effect waves-light " type="button" id="dropdown5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp; Import/Export</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdown5" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut" style="right: 0 !important; left:unset">
+
+                            <label id="liImport" title="Upload image file" for="inputImage" class="dropdown-item waves-light waves-effect importli" style="">
+                                <input type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.binary.macroEnabled.12" name="file" id="inputImage" style="display:none;">
+                                <i class="fa fa-file-excel-o text-primary" style="padding-left: 10px;"></i>&nbsp;&nbsp;&nbsp;Import
+                            </label>
+                            <input type="hidden" id="hdnex" value="" />
+                            <label id="expoerli"><a href="#" class="dropdown-item waves-light waves-effect demodrop" id="liExport" style="color:black"><i class="fa fa-file-excel-o text-primary" style="padding-left: 10px;"></i>&nbsp;&nbsp;&nbsp;Export</a></label>
+
+                        </div>
+                    </div>
+                    }
+                    @*<div class="dropdown-warning">
+                        <button class="btn btn-success dropdown-toggle waves-effect waves-light " type="button" id="dropdown4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Master Email/SMS</button>
+                        <div class="dropdown-menu settingdrop" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut" style="right: 0 !important; left:unset">
+                            <a class="dropdown-item waves-light waves-effect demodrop" data-toggle="modal" data-target="#Email-Modal"><i class="fa fa-envelope"></i> Email Demo</a>
+                            <a class="dropdown-item waves-light waves-effect demodrop" data-toggle="modal" data-target="#SMS-modal"><i class="fa fa-mobile-phone" style="font-size: 19px;"></i> SMS Demo</a>
+
+                        </div>
+                    </div>*@
+
+                </div>
+            </div>
+
+            <!-- 4-blocks row start -->
+            <div class="row" id="maindivk">
+                <div class="card" style="margin-bottom:0px;">
+                    <div class="card-block">
+                        <div class="" id="contact_view">
+                            <div class="table-responsive">
+                                <div class="jqGrid_wrapper" id="jqgrid_contact">
+                                    <div id="pager_list_Contact"></div>
+                                    <table id="table_list_Contact"></table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="" id="finalpdf_view" style="display:none">
+                            <div id="pdf_button" class="col-sm-12">
+                                <button id="btn_genpdf" type="button" class="btn btn-success waves-effect waves-light m-r-30">Generate PDF</button>
+                                <button class="btn btn-info waves-effect waves-light" id="btnbackpdf" type="button">Back</button>
+                            </div>
+                            <div id="pdf_div" class="col-sm-12" style="padding-left: 0px; display:none">
+                                <div class="col-sm-5" id="test">
+
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="" id="letter_div" style="display:none">
+                            <div id="letter_button" class="col-sm-12">
+                                <button id="btn_letterpdf" type="button" class="btn btn-success waves-effect waves-light m-r-30">Generate PDF</button>
+                                <button class="btn btn-default waves-effect" id="btnbackletterpdf" type="button">Back</button>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="" style="width:580px;" id="letterprint">
+                                    <div class="row">
+                                        <div class="col-sm-5 pull-left" id="todiv">
+                                            <p style="font-weight:600; font-size:18px;">TO:</p>
+                                            <p style="font-weight:600" id="lt_fullname"></p>
+                                            <p id="lt_companyname"></p>
+                                            <p id="lt_address"></p>
+                                            <p id="lt_email"></p>
+                                            <p id="lt_mobile"></p>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" id="frmletter_body">
+                                        <form id="frmletterdemo">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <textarea placeholder="Letter body type here..." class="form-control" rows="8" id="txtletterBody"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-9">
+                                                    <button type="button" class="btn btn-success waves-effect waves-light m-r-30" id="btnSaveletter">Submit</button>
+                                                    @*<button class="btn btn-info waves-effect waves-light" id="btnbactrinty" type="button">Back</button>*@
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-12" id="letter_bodytext" style="margin: 15px 0px;min-height: 400px;">
+                                        <p id="letter_body" style="text-align:justify"></p>
+                                    </div>
+                                    <div class="row" id="default_tr">
+                                        <div class="col-sm-5 pull-right">
+                                            <p style="font-weight:600; font-size:18px;">From:</p>
+                                            <p style="font-weight:600">Trinity Jewellery</p>
+                                            <p>405,Princess Plaza, Sardar Chowk,Mini Bazar,Varachha Road,surat.</p>
+                                            <p>trinity.jewells@gmail.com</p>
+                                            <p>98791 47206</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal fade" id="Contact_del_modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="text-danger-color">Are you sure to delete this record?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="btn_contactdel" type="button" class="btn btn-danger waves-effect " data-dismiss="modal">Delete</button>
+                                <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Addcontactfrom" style="padding-top: 15px;background-color:#fff; display:none">
+            <button id="backtocontactview" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active trinity-tab" data-toggle="tab" href="#Basictab" role="tab" id="tab1">Basic Details</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link trinity-tab" data-toggle="tab" href="#HomeTab" role="tab" id="tab2">Home Details</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link trinity-tab" data-toggle="tab" href="#OfficeTab" role="tab" id="tab3">Office Details</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link trinity-tab" data-toggle="tab" href="#ReferenceBy" role="tab" id="tab4">Reference By</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active m-t-15" id="Basictab" role="tabpanel">
+                    <form>
+                        <input type="hidden" id="hdnContact" value="" />
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Salutation</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="text_b_salutation">
+                                    <option value="Mr." selected="selected">Mr.</option>
+                                    <option value="Miss.">Miss.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="M/S.">M/S.</option>
+                                    <option value="Dr.">Dr.</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 form-control-label">Full Name</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="text_B_fullname">
+                                <label id="lbltext_B_fullname" class="error" style="display:none">This field is required.</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Nick Name</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="text_B_nickname">
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">Group Name</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="text_B_Groupname"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Birthdate</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="date" id="txt_b_bridthdate">
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">Anry Date</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="date" id="txt_b_Anrydate">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">1_Mobile No</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="number" id="txt_b_mobile1">
+                                <label id="lbltxt_b_mobile1" class="error" style="display:none">Please enter a valid number.</label>
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">2_Mobile No</label>
+                            <div class="col-sm-4">
+                                <input class="form-control number" type="number" id="txt_b_mobile2">
+                                <label id="lbltxt_b_mobile2" class="error" style="display:none">Please enter a valid number.</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">1_Email</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="email" id="txt_b_Email1">
+                                <label id="lbltxt_b_Email1" class="error" style="display:none">Please enter a valid email address.</label>
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">2_Email</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="email" id="txt_b_Email2">
+                                <label id="lbltxt_b_Email2" class="error" style="display:none">Please enter a valid email address.</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Comments</label>
+                            <div class="col-sm-4">
+                                <textarea class="form-control" rows="3" id="txt_B_Comments"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button id="btn_b_Csave" type="button" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                @*<button type="button" class="btn btn-default waves-effect" id="btn_b_CClear">Clear</button>*@
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane m-t-15" id="HomeTab" role="tabpanel">
+                    <form>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Address</label>
+                            <div class="col-sm-4">
+                                <textarea class="form-control" rows="3" id="txt_h_address"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">1_Telephone</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="number" id="txt_b_telep1">
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">2_Telephone</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="number" id="txt_b_telep2">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">1_Mobile No</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="number" id="txt_H_mobile1">
+                                <label id="lbltxt_H_mobile1" class="error" style="display:none">Please enter a valid number.</label>
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">2_Mobile No</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="number" id="txt_H_mobile2">
+                                <label id="lbltxt_H_mobile2" class="error" style="display:none">Please enter a valid number.</label>
+                            </div>
+                        </div>
+                        @*<div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Country</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="txt_H_Country" onchange="Master_ContactView.Citystate(this);"></select>
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">State</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="txt_H_state"></select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">District</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="text_H_District"></select>
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">City</label>
+                            <div class="col-sm-4">
+                                <select class="form-control " id="txt_H_city"></select>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+
+                            <label class="col-sm-2 form-control-label">Zip Code</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" max="5" type="number" id="txt_H_Zipcode">
+                            </div>
+                        </div>*@
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button id="btn_H_Csave" type="button" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                @*<button id="btn_H_CClear" type="button" class="btn btn-default waves-effect">Clear</button>*@
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane m-t-15" id="OfficeTab" role="tabpanel">
+                    <form>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Company Name</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="txt_O_Comapnyname">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Address</label>
+                            <div class="col-sm-4">
+                                <textarea class="form-control" rows="3" id="txt_O_address"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2  form-control-label">1_Telephone</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="txt_O_tele1">
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">2_Telephone</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="txt_O_tele2">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2  form-control-label">Fax</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="txt_O_fax">
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">Mobile No</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="number" id="txt_O_Mobile">
+                                <label id="lbltxt_O_Mobile" class="error" style="display:none">Please enter a valid number.</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2  form-control-label">Post</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="txt_O_post">
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">Email</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="txt_O_Email">
+                                <label id="lbltxt_O_Email" class="error" style="display:none">Please enter a valid Email Id.</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2  form-control-label">Contact Person</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="txt_O_contactperson">
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">Department</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="txt_O_Department">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2  form-control-label">C_prsn 1_Mobile</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="number" id="txt_O_cmobile1">
+                                <label id="lbltxt_O_cmobile1" class="error" style="display:none">Please enter a valid number.</label>
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">C_prsn 2_Mobile</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="number" id="txt_O_cmobile2">
+                                <label id="lbltxt_O_cmobile2" class="error" style="display:none">Please enter a valid number.</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">City</label>
+                            <div class="col-sm-4">
+                                <select id="txt_O_city" name="city" style="width: 100%" class="form-control"></select>
+                                @*<select class="form-control" id="txt_o_city" onchange="Master_ContactView.CityChange(this);"></select>*@
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">Zip Code</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="txt_O_zipcode">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">District</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="text_O_District"></select>
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">State</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="txt_O_state"></select>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Country</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="txt_O_Country"></select>
+                            </div>
+
+                            <label class="col-sm-2 form-control-label">Website</label>
+                            <div class="col-sm-4">
+                                <input type="text" maxlength="50" class="form-control" id="txt_O_Website" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10 col-sm-offset-2" style="padding-bottom:10px">
+                                <button id="btn_O_Csave" type="button" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                @*<button id="btn_O_CClear" type="button" class="btn btn-default waves-effect">Clear</button>*@
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane m-t-15" id="ReferenceBy" role="tabpanel">
+                    <form>
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-sm-offset-2">
+
+                                <div id="reviewid">
+                                    <p style="display:inline">
+                                        <input type="radio" id="Good" value="Good" name="radio-group" checked>
+                                        <label for="Good">Good</label>
+                                    </p>
+                                    <p style="display:inline;margin-left: 10px;">
+                                        <input type="radio" id="Best" value="Best" name="radio-group">
+                                        <label for="Best">Best</label>
+                                    </p>
+                                    <p style="display:inline;margin-left: 10px;">
+                                        <input type="radio" id="Great" value="Great" name="radio-group">
+                                        <label for="Great">Great</label>
+                                    </p>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">1. Reference By</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="Referecebyone" placeholder="Person Name">
+                            </div>
+                            <label class="col-sm-2 form-control-label">Notes</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="Companynameone" placeholder="Notes">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">2. Reference By</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="Referecebytwo" placeholder="Person Name">
+                            </div>
+                            <label class="col-sm-2 form-control-label">Notes</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="Companynametwo" placeholder="Notes">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">3. Reference By</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="Referecebythree" placeholder="Person Name">
+                            </div>
+                            <label class="col-sm-2 form-control-label">Notes</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="Companynamethree" placeholder="Notes">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Add Favourite List</label>
+                            <div class="col-sm-2">
+                                <div class="checkbox" style="margin-top:0px!important">
+                                    <input id="Favactiveonoff" data-on="Yes" data-off="No" class="toggleSwitch" checked type="checkbox">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button id="btn_R_Csave" type="button" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="Email-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="width: 1150px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Email Demo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="frmemail">
+                    <div id="pnlEditEmail" style="display:none;background-color:#fff">
+                        <div style="height:32px;margin-bottom: 30px;margin-right: 19px">
+                            <button name="cancelEmail" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 form-control-label">Template Name *</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="txtEmail">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 form-control-label">Subject Name</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="txtEmailSub">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 form-control-label">Email Body *</label>
+                            <div class="col-sm-6">
+                                <div id="txtEmailBody" class="summernote required"></div>
+                                <label id="EmailBody_error" class="error" for="txtGroup" style="display:none">This field is required.</label>
+                            </div>
+                            <div class="col-sm-4">
+                                    <div class="col-sm-12">
+                                        <label title="Upload image file" class="btn btn-primary" for="btnimageUpload">
+                                            <input type="file" accept="image/*" name="file" id="btnimageUpload" class="hide" tabindex="1" required>
+                                            Upload Picture
+                                        </label>
+                                        <img id="ItemimgPreview" src="" style="display:none"/>
+                                        <input type="hidden" id="hdnimageId" value="" />
+                                        <input type="hidden" id="hdndomainfirstpath" value="@System.Configuration.ConfigurationManager.AppSettings["FirstdomainPath"]" />
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top: 10px;">
+                                        <table class="table" frame="box" style="border-color: #8080805c;">
+                                            <tbody id="dataimagelist"></tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="hdnEmailId" value="" />
+                        <div class="form-group row">
+                            <div class="col-sm-9 col-sm-offset-2" style="padding-bottom: 13px;">
+                                @*<button type="button" class="btn btn-default waves-effect" name="cancelEmail">Cancel</button>*@
+                                <button type="button" id="btnSaveEmail" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                @*<button type="button" id="btnSaveEmailSend" class="btn btn-success waves-effect waves-light m-r-30">Send</button>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pnlViewEMail" style="display:block;background-color:#fff">
+                        @if (Model.ISADD == 1)
+                        {
+                        <div class="Pull_Text_Left">
+                            <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNewEmail" onclick="btnaddnewemail()" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Email</button>
+                        </div>
+                        }
+                        <div class="table-responsive" style="padding:12px 0px;">
+                            <div class="jqGrid_wrapper" id="jqGrid_Email">
+                                <table id="table_list_Email"></table>
+                                <div id="pager_list_Email"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pnldeleteEmail" style="display:none;background-color:#fff">
+                        <h4 class="text-danger-color">Are you sure to delete this record ?</h4>
+                        <div class="row">
+                            <label class="col-sm-3 f-bold form-control-label">Template Name:</label>
+                            <label id="delTemplateNameEmail" class="col-sm-9"></label>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 f-bold form-control-label">Subject Name:</label>
+                            <label id="delSubjectName" class="col-sm-9"></label>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 f-bold form-control-label">Email Body:</label>
+                            <label id="delEmailBody" class="col-sm-3" />
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10 col-sm-offset-3">
+                                <button type="button" class="btn btn-default waves-effect" name="cancelEmail">Cancel</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light" id="btnDeleteEmail">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <link href="~/Content/plugin/summernote-master/summernote.css" rel="stylesheet" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SMS-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">SMS Demo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="pnlAddSMS" style="display:none;background-color:#fff">
+                    <div style="height:32px;margin-bottom: 30px;margin-right: 19px;">
+                        <button name="cancelSMS" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                    </div>
+                    <form id="frmSmsDemo">
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-3 form-control-label">Template Name *</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="text" id="txtSmsName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-3 form-control-label">languages*</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="text_languages">
+                                    <option value="EN" selected="selected">English</option>
+                                    <option value="UC">UC</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-3 form-control-label">SMS Body *</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control required" rows="4" id="txtSmsBody"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-9 col-sm-offset-3" style="padding-bottom: 13px;">
+                                <button type="button" class="btn btn-success waves-effect waves-light m-r-30" id="btnSaveSms">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="pnlViewSMS">
+                    <div style="display:block;background-color:#fff">
+                        @if (Model.ISADD == 1)
+                        {
+                        <div class="Pull_Text_Left">
+                            <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNewSMS" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Sms</button>
+                        </div>
+                        }
+                        <div class="table-responsive" style="padding:12px 0px;">
+                            <div class="jqGrid_wrapper" id="jqGrid_sms">
+                                <table id="table_list_SMS"></table>
+                                <div id="pager_list_SMS"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel" id="pnlDeleteSMS" style="display:none;">
+                    <div class="panel-body">
+                        <div class="row">
+                            <label class="col-sm-3 f-bold form-control-label">Template Name:</label>
+                            <label id="delTemplateName" class="col-sm-9"></label>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 f-bold form-control-label">SMS Body:</label>
+                            <label id="delSMSBody" class="col-sm-9"></label>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-10 col-sm-offset-3">
+                                <button type="button" name="cancelSMS" class="btn btn-default waves-effect">Cancel</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light" id="btnDeleteSMS">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="hdnSmsID" value="" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/plugin/Select2/css/select2.min.css" rel="stylesheet" />
+
+<script id="stickeyList" type="text/x-jsrender">
+    <div class="col-sm-6" style="border:3px solid #3a3a3a; margin:0px 0px; height:130px;">
+        <p style="font-weight:700;"><span>{{>b_salutation}}</span> {{>b_fullname}}</p>
+        <p>{{>o_address}}</p>
+        <p>{{>b_mobile_no_1}}</p>
+        <p>{{>b_email_1}}</p>
+    </div>
+</script>
+<script id="Getimagedata" type="text/x-jsrender">
+    <tr class="row">
+        <td style="display:none">{{>emaildemoid}}</td>
+        <td style="display:none"><img id="image{{>emaildemoid}}" src="@System.Configuration.ConfigurationManager.AppSettings["domainPath"]/UploadFiles/EmailDemoTemplate/{{>emaildemopath}}" /></td>
+        <td class="com-sm-10" style="color:#333333c7;">{{>emaildemoimagename}}</td>
+        <td class="col-sm-1 permissionaddimage"><a href="#0" onclick="Addimage({{>emaildemoid}})"><i class="fa fa-plus fa-lg" style="color: #28b128;"></i></a></td>
+        <td class="com-sm-1 permissiondlt"><a href="#0" onclick="dltimage({{>emaildemoid}})"><i class="fa fa-times fa-lg" style="color: #e14444;"></i></a></td>
+    </tr>
+</script>
+
+
+

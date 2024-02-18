@@ -1,0 +1,178 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "Salary Master";
+}
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+
+<form id="frm_Salary_Master" class="form-horizontal" style="display:none">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Book Type</label>
+                        <div class="col-md-2">
+                            <div id="dx_bookType"></div>
+                        </div>
+                        <label class="col-md-3 control-label addstar">Voucher Date</label>
+                        <div class="col-md-2">
+                            <div id="dx_txtVoucherDate"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Voucher No</label>
+                        <div class="col-md-2">
+                            <div id="dx_VoucherNo"></div>
+                        </div>
+                        <label class="col-md-3 control-label addstar">Due Days</label>
+                        <div class="col-md-2">
+                            <div id="dx_txtDueDays"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label addstar">Creditor Acc</label>
+                        <div class="col-md-3">
+                            <div id="dx_txtCreditorAcc"></div>
+                        </div>
+                        <label class="col-md-2 control-label addstar">Month Days</label>
+                        <div class="col-md-2">
+                            <div id="dx_MonthDays"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:20px;">
+                        <label class="col-md-2 control-label addstar">Month</label>
+                        <div class="col-md-2">
+                            <div id="dx_Month"></div>
+                        </div>
+                        <label class="col-md-3 control-label addstar">Tax Profile</label>
+                        <div class="col-md-2">
+                            <div id="dx_taxProfile"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <div id="dx_txtSearch"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <table class="table table-bordered" id="tbl_SalaryDetails" style="margin-bottom:10px;">
+                        <thead style="background-color: #fafafa;">
+                            <tr>
+                                @*<th width="5%" style="text-align:center;">No.</th>*@
+                                <th width="15%" style="text-align:center;">Employee Account</th>
+                                <th width="14%" style="text-align:center;">Item Name</th>
+                                <th width="10%" style="text-align:center;">HSNCode</th>
+                                <th width="10%" style="text-align:center;">Salary Amount</th>
+                                <th width="8%" style="text-align:center;">Working Days</th>
+                                <th width="8%" style="text-align:center;">Absent Days</th>
+                                <th width="10%" style="text-align:center;">Amount</th>
+                                <th width="10%" style="text-align:center;">Total Tax</th>
+                                <th width="10%" style="text-align:center;">Payable Amount</th>
+                                <th width="5%" style="text-align:center;"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group" style="">
+                        <label class="col-md-2 control-label">Remarks</label>
+                        <div class="col-md-10">
+                            <div id="dx_txtRemarks"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-7">Salary Amount</label>
+                        <div class="col-md-2">
+                            <div id="salaryamt"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-7">Total Amount</label>
+                        <div class="col-md-2">
+                            <div id="totalamt"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-7">TDS</label>
+                        <div class="col-md-2">
+                            <div id="tds"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3 col-lg-offset-7">Total Payable Amount</label>
+                        <div class="col-md-2">
+                            <div id="totalpayamt"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="col-md-6" style="margin-top:15px">
+                <div class="form-group" id="div_Tax">
+                </div>
+            </div>*@
+
+            @*<div class="col-md-12">
+
+                <div class="form-group">
+                    <label class="control-label col-lg-3 col-lg-offset-7">TDS</label>
+                    <div class="col-md-2">
+                        <div id="tds"></div>
+                    </div>
+                </div>
+
+            </div>*@
+
+        </div>
+
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+<input type="hidden" id="hdnSBOOKID" value="@ViewBag.SBOOKID" />
+
+@section Scripts{
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Script/Manufacturing/SalaryMaster.js?V=@DateTime.UtcNow"></script>
+}

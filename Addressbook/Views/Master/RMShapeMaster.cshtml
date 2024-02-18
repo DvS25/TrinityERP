@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "RMShapeMaster";
+}
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_RmShapeMaster" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="form-group">
+
+                <label class="col-md-2 control-label addstar">RM Shape Name</label>
+                <div class="col-md-2">
+                    <div id="dx_txtRMShape"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">RM Category</label>
+                <div class="col-md-2">
+                    <div id="dx_txtRMCateId"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Is Active</label>
+                <div class="col-md-2">
+                    <div id="dx_switchIsActive"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Discription</label>
+                <div class="col-md-5">
+                    <div id="dx_txtDescription"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="panel-footer p-10">
+                    <div class="row text-center">
+                        <div id="dx_btnSubmit"></div>
+                        <div id="dx_btnCancel"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+@section Scripts{
+    <script src="~/Script/Master/RmShapeMaster.js?v=@DateTime.UtcNow"></script>
+}
+
+
+
+

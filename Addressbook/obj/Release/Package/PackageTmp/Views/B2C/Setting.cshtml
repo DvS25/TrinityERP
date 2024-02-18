@@ -1,0 +1,463 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Settings";
+}
+
+<div class="row" style="margin-top:10px">
+    <div class="col-lg-12">
+        <div class="panel" id="panelmaingoldview">
+            <div class="panel-body">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item active" role="presentation" id="navtaborderaction"><a class="nav-link" data-toggle="tab" href="#taborderaction">Order Action</a></li>
+                        <li class="nav-item" role="presentation" id="navdatasettinggold"><a class="nav-link" data-toggle="tab" role="tab" aria-expanded="true" href="#tabextracharges">Extra Charges</a></li>
+                        <li class="nav-item" role="presentation" id="navtabdeliverydays"><a class="nav-link" data-toggle="tab" href="#tabdelivery">Delivery Days</a></li>
+                        <li class="nav-item" role="presentation" id="navtabprivacypolicy"><a class="nav-link" data-toggle="tab" href="#tabprivacypolicy">Privacy Policy</a></li>
+                        <li class="nav-item" role="presentation" id="navtabTermsCondition"><a class="nav-link" data-toggle="tab" href="#tabTermsCondition">Terms & Condition</a></li>
+                        <li class="nav-item" role="presentation" id="navtabFAQ"><a class="nav-link" data-toggle="tab" href="#tabFAQ">FAQ</a></li>
+                    </ul>
+
+                </div>
+                <div class="tab-content">
+                    <div id="taborderaction" class="tab-pane active" role="tabpanel">
+                        <form id="frmB2C_Main_OrderAction">
+                            <div id="panelB2C_Main_OrderActionEdit" style="display:none;background-color:#fff">
+                                <div style="height:32px;margin-bottom: 10px;margin-right: 19px;padding-top: 19px;">
+                                    <button class="btn btn-sm pull-right purple" id="CancelB2C_Main_OrderAction" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Status Type<span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control required" name="staticstatus" id="statusdropdown"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Action Name<span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="Action Name" class="form-control required" name="actionanem" id="txtActionName" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Action Decription<span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <textarea rows="4" type="text" placeholder="Action Description" class="form-control required" name="actiondesctription" id="txtActionDescription"></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="hdnActionId" value="" />
+                                <div class="form-group row">
+                                    <div class="col-sm-4 col-sm-offset-3" style="padding-bottom: 13px;">
+                                        <button type="button" id="btnSaveB2C_Main_OrderAction" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="panelB2C_Main_OrderActionList" style="display:block;background-color:#fff">
+                                @if (Model.ISADD == 1)
+                                {
+                                <div class="Pull_Text_Left">
+                                    <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddB2C_Main_OrderAction" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Action </button>
+                                </div>
+                                }
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_B2C_Main_OrderAction">
+                                        <table id="table_B2C_Main_OrderAction"></table>
+                                        <div id="pager_B2C_Main_OrderAction"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div id="tabextracharges" class="tab-pane" role="tabpanel">
+                        <input id="hdnchargeid" type="hidden" />
+                        <form id="frmaddgoldrate">
+                            @*<div id="pnleamilnotification" style="background-color:#fff;margin-top:10px">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">Add On Gold Rate :</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <input id="txtaddongoldrate" class="form-control required numbersonly" name="monthform" type="text" placeholder="Enter Rate in %" tabindex="1" />
+                                                <span class="input-group-addon">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 form-control-label">Gift Charges :</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <input id="txtgiftcharges" class="form-control required numbersonly" name="monthform" type="text" placeholder="Enter Gift Charges in Rs." tabindex="2" />
+                                                <span class="input-group-addon">Rs.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        @if (Model.ISADD == 1 || Model.ISUPDATE == 1)
+                                        {
+                                        <div class="col-sm-7 col-sm-offset-3" style="margin-top: 8px;">
+                                            <button type="button" class="btn btn-success waves-effect waves-light m-r-30" id="buttonsettinggold">Submit</button>
+                                        </div>
+                                        }
+                                    </div>
+                                </div>*@
+                            <div id="pnl_ExtraCharge" style="background-color:#fff">
+                                <div class="form-group row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <table class="table" id="tbl_ExtraCharge">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No.</th>
+                                                    <th>Currency Name</th>
+                                                    <th>Currency Code</th>
+                                                    <th>Extra Charge On Gold (%)<br /><small>(Will be added in Touch)</small></th>
+                                                    <th>Gift Charges</th>
+                                                    <th>Delivery Charges</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                        <small style="color: red;font-style:italic;">Note: The Amount in Gift & Delivery charges should be respected to Country's Currency.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label">Default Diamond Color : </label>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control required" name="txt_DiaColor" id="txt_DiaColor" />
+                                    </div>
+
+                                    <label class="col-md-2 form-control-label">Default Diamond Clarity : </label>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control required" name="txt_DiaClarity" id="txt_DiaClarity" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label star">Party Code <small>(for Diamond Prices)</small> : </label>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control required" name="txt_PartyCode" id="txt_PartyCode" />
+                                    </div>
+
+                                    <div class="col-sm-2 col-md-offset-4 text-right" style="padding-bottom: 13px;">
+                                        <button type="button" id="buttonsettinggold" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="tabdelivery" class="tab-pane" role="tabpanel" style="margin-top:10px;">
+                        <div class="row">
+                            <div class="col-sm-12" style="overflow-x: auto; overflow-y: hidden;">
+                                @*@if (Model.ISADD == 1)
+                                    {
+                                        <div class="Pull_Text_Left">
+                                            <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" type="button" id="btnAddnewdays" style="font-weight:600!important"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Delivery Days</button>
+                                        </div>
+                                    }*@
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <form id="formextradaysdiv">
+                                    <table class="table col-sm-offset-4" id="tabledelivery">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-sm-1">Sr.No</th>
+                                                <th class="col-sm-3">State</th>
+                                                <th class="col-sm-1">Extra Days</th>
+                                                <th class="col-sm-1 text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="extradaysdiv"></tbody>
+                                        @if (Model.ISADD == 1)
+                                        {
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="2">
+                                                    <div class="row">
+                                                        <label class="col-sm-5 m-t-5 p-r-0">Design Making Days :</label>
+                                                        <div class="col-sm-3">
+                                                            <input value="8" type="text" id="txtalreadymakingdesigns" class="form-control" />
+                                                        </div>
+
+                                                    </div>
+                                                </th>
+                                                <th colspan="2">
+                                                    <a style="float:right" id="btnAddnewdays"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Line</a>
+                                                </th>
+                                            </tr>
+                                        </tfoot>
+                                        }
+                                    </table>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            @if (Model.ISADD == 1 || Model.ISUPDATE == 1)
+                            {
+                            <div class="col-sm-offset-2">
+                                <button type="button" class="btn btn-success waves-effect waves-light m-r-30" id="buttondeliverydays">Submit</button>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    <div id="tabprivacypolicy" class="tab-pane" role="tabpanel">
+                        <form id="frmB2C_privacypolicy">
+                            <div id="panelB2C_privacypolicyEdit" style="display:none;background-color:#fff">
+                                <div style="height:32px;margin-bottom: 10px;margin-right: 19px;padding-top: 19px;">
+                                    <button class="btn btn-sm pull-right purple" id="CancelB2C_privacypolicy" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Policy Name<span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="Enter Policy Name" class="form-control required" name="policyname" id="txtpolicyname" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Display Order<span style="color:red"> *</span></label>
+                                    <div class="col-sm-2">
+                                        <input type="number" placeholder="Display Order" class="form-control required" name="displayorderpolicy" id="txtdisplayorderpolicy" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Decription<span style="color:red"> *</span></label>
+                                    <div class="col-sm-6">
+                                        <div id="">
+                                            <table class="table tablebordercss" id="tableprivacypolicy">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="col-sm-1">Sr.No</th>
+                                                        <th class="col-sm-6">Description</th>
+                                                        <th class="col-sm-1 text-center">Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="dispolicydiv"></tbody>
+                                                @if (Model.ISADD == 1)
+                                                {
+                                                <tfoot>
+                                                    <tr>
+                                                        @*<th colspan="2">
+                                                                <div class="row">
+                                                                    <label class="col-sm-5 m-t-5 p-r-0">Design Making Days :</label>
+                                                                    <div class="col-sm-3">
+                                                                        <input value="8" type="text" id="txtalreadymakingdesigns" class="form-control" />
+                                                                    </div>
+
+                                                                </div>
+                                                            </th>*@
+                                                        <th colspan="3">
+                                                            <a style="float:right" id="btnAddnewpolicydes"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Line</a>
+                                                        </th>
+                                                    </tr>
+                                                </tfoot>
+                                                }
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <input type="hidden" id="hdnprivacypolicyid" value="" />
+                                <div class="form-group row">
+                                    <div class="col-sm-4 col-sm-offset-3" style="padding-bottom: 13px;">
+                                        <button type="button" id="btnSaveprivacypolicy" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="panelB2C_privacypolicyList" style="display:block;background-color:#fff">
+                                @if (Model.ISADD == 1)
+                                {
+                                <div class="Pull_Text_Left">
+                                    <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddB2C_privacypolicy" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Policy </button>
+                                </div>
+                                }
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_privacypolicy">
+                                        <table id="table_B2C_privacypolicy"></table>
+                                        <div id="pager_B2C_privacypolicy"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div id="tabTermsCondition" class="tab-pane" role="tabpanel">
+                        <form id="frmB2C_TermsCondition">
+                            <div id="panelB2C_TermsConditionEdit" style="display:none;background-color:#fff">
+                                <div style="height:32px;margin-bottom: 10px;margin-right: 19px;padding-top: 19px;">
+                                    <button class="btn btn-sm pull-right purple" id="CancelB2C_TermsCondition" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Name<span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="Enter Name" class="form-control required" name="TermsConditionname" id="txtTermsConditionname" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Display Order<span style="color:red"> *</span></label>
+                                    <div class="col-sm-2">
+                                        <input type="number" placeholder="Display Order" class="form-control required" name="displayorderTermsCondition" id="txtdisplayorderTermsCondition" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Decription<span style="color:red"> *</span></label>
+                                    <div class="col-sm-6">
+                                        <div id="">
+                                            <table class="table tablebordercss" id="tableTermsCondition">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="col-sm-1">Sr.No</th>
+                                                        <th class="col-sm-6">Description</th>
+                                                        <th class="col-sm-1 text-center">Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="disTermsConditiondiv"></tbody>
+                                                @if (Model.ISADD == 1)
+                                                {
+                                                <tfoot>
+                                                    <tr>
+                                                        @*<th colspan="2">
+                                                                <div class="row">
+                                                                    <label class="col-sm-5 m-t-5 p-r-0">Design Making Days :</label>
+                                                                    <div class="col-sm-3">
+                                                                        <input value="8" type="text" id="txtalreadymakingdesigns" class="form-control" />
+                                                                    </div>
+
+                                                                </div>
+                                                            </th>*@
+                                                        <th colspan="3">
+                                                            <a style="float:right" id="btnAddnewTermsConditiondes"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Line</a>
+                                                        </th>
+                                                    </tr>
+                                                </tfoot>
+                                                }
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <input type="hidden" id="hdnTermsConditionid" value="" />
+                                <div class="form-group row">
+                                    <div class="col-sm-4 col-sm-offset-3" style="padding-bottom: 13px;">
+                                        <button type="button" id="btnSaveTermsCondition" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="panelB2C_TermsConditionList" style="display:block;background-color:#fff">
+                                @if (Model.ISADD == 1)
+                                {
+                                <div class="Pull_Text_Left">
+                                    <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddB2C_TermsCondition" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New </button>
+                                </div>
+                                }
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_TermsCondition">
+                                        <table id="table_B2C_TermsCondition"></table>
+                                        <div id="pager_B2C_TermsCondition"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div id="tabFAQ" class="tab-pane" role="tabpanel">
+                        <form id="frmB2C_FAQ">
+                            <div id="panelB2C_FAQEdit" style="display:none;background-color:#fff">
+                                <div style="height:32px;margin-bottom: 10px;margin-right: 19px;padding-top: 19px;">
+                                    <button class="btn btn-sm pull-right purple" id="CancelB2C_FAQ" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Name<span style="color:red"> *</span></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="Enter Name" class="form-control required" name="FAQname" id="txtFAQname" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Display Order<span style="color:red"> *</span></label>
+                                    <div class="col-sm-2">
+                                        <input type="number" placeholder="Display Order" class="form-control required" name="displayorderFAQ" id="txtdisplayorderFAQ" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 form-control-label">Decription<span style="color:red"> *</span></label>
+                                    <div class="col-sm-9">
+                                        <div id="">
+                                            <table class="table tablebordercss" id="tableFAQ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="col-sm-1">Sr.No</th>
+                                                        <th class="col-sm-4">Quation</th>
+                                                        <th class="col-sm-4">Answer</th>
+                                                        <th class="col-sm-1 text-center">Delete</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="disFAQdiv"></tbody>
+                                                @if (Model.ISADD == 1)
+                                                {
+                                                <tfoot>
+                                                    <tr>
+                                                        @*<th colspan="2">
+                                                                <div class="row">
+                                                                    <label class="col-sm-5 m-t-5 p-r-0">Design Making Days :</label>
+                                                                    <div class="col-sm-3">
+                                                                        <input value="8" type="text" id="txtalreadymakingdesigns" class="form-control" />
+                                                                    </div>
+
+                                                                </div>
+                                                            </th>*@
+                                                        <th colspan="4">
+                                                            <a style="float:right" id="btnAddnewFAQdes"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Line</a>
+                                                        </th>
+                                                    </tr>
+                                                </tfoot>
+                                                }
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <input type="hidden" id="hdnFAQid" value="" />
+                                <div class="form-group row">
+                                    <div class="col-sm-4 col-sm-offset-3" style="padding-bottom: 13px;">
+                                        <button type="button" id="btnSaveFAQ" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="panelB2C_FAQList" style="display:block;background-color:#fff">
+                                @if (Model.ISADD == 1)
+                                 {
+                                <div class="Pull_Text_Left">
+                                    <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddB2C_FAQ" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New </button>
+                                </div>
+                                }
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_FAQ">
+                                        <table id="table_B2C_FAQ"></table>
+                                        <div id="pager_B2C_FAQ"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Script/B2C/Setting.js"></script>
+    <script id="DdlStateList" type="text/x-jsrender">
+        <option value="{{>stateid}}">{{>statename}}</option>
+    </script>
+    <script id="DdlStatustype" type="text/x-jsrender">
+        <option value="{{>orderstaticstatusid}}">{{>staticstatusname}}</option>
+    </script>
+
+    <script id="render_CurrencyList" type="text/x-jsrender">
+        <tr id="Currency{{:currencyid}}" currencyid="{{:currencyid}}">
+            <td>{{:rownum}}.</td>
+            <td>{{:currencyname}}</td>
+            <td>{{:currencycode}}</td>
+            <td><input type="text" class="form-control required number ExCharge text-right" name="ExCharge{{:currencyid}}" id="txt_ExCharge{{:currencyid}}" value="{{:extrachargeongoldper}}" /></td>
+            <td><input type="text" class="form-control required number GiftCharge text-right" name="GiftCharge{{:currencyid}}" id="txt_GiftCharge{{:currencyid}}" value="{{:giftcharge}}" /></td>
+            <td><input type="text" class="form-control required number DelCharge text-right" name="DelCharge{{:currencyid}}" id="txt_DelCharge{{:currencyid}}" value="{{:deliverycharge}}" /></td>
+        </tr>
+    </script>
+}

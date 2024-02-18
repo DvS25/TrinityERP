@@ -1,0 +1,120 @@
+﻿@{
+    Layout = "~/Views/Shared/_SharingLayout.cshtml";
+    ViewBag.Title = "VoucherView";
+}
+
+<style>
+    .main_div {
+        display: flex;
+        justify-content: center;
+        background-color: #000000e8;
+        height: 100%;
+        position: relative;
+    }
+
+    .center {
+        width: 50%;
+        background-color: white;
+        margin: auto;
+        height: 100%;
+    }
+
+    .Button_Style {
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+
+    #cancleModelButton:hover {
+        color: #d9d9d9;
+    }
+
+    body {
+        line-height: 0;
+    }
+
+    .modal-body {
+        padding-bottom: 40px;
+    }
+
+    #signature {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        background-color: #fff;
+    }
+
+    .jSignature {
+        /*margin-bottom: 10px !important;*/
+        border: 1px solid black !important;
+        /*background-color: #dfdfdf !important;*/
+    }
+</style>
+
+<div class="container-fluid hrb main_div" style="padding-top: 50px;">
+    <div class="center">
+
+        <iframe src="" id="ReportPDF" style="width:100%;height:100%;"></iframe>
+
+
+        @*----------------------------main content----------------------------*@
+
+    </div>
+
+    <input type="hidden" id="hdnShareId" value="@ViewBag.ShareId" />
+
+
+    <div style="position: absolute; top: 55px; right: 10px;">
+        @*<button class="Button_Style"><i class="icon-printer2" aria-hidden="true"></i></button>*@
+        <button class="Button_Style" id="Sign_Model"><i class="icon-pen" aria-hidden="true"></i></button>
+
+    </div>
+</div>
+
+@*------------------------------- signature Model--------------------------*@
+
+<div id="signaturemodal" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="row modal-header">
+
+                <h3 style="text-align:center;"><u>DRAW YOUR SIGNATURE</u></h3>
+
+            </div>
+            <div class="modal-body">
+                <div id="signatureparent">
+                    <div id="signature"></div>
+                </div>
+                <div>
+                    <buttton class="btn btn-info" type="reset" id="ResetButtonforModel" value="reset" style="position: absolute; right: 110px;">
+                        <i class="icon-spinner11" aria-hidden="true"></i></button>
+                        <buttton class="btn btn-success" type="button" id="SaveModelButton" style="margin-top: -5px; position:fixed; right: 65px;">
+                            <i class="icon-checkmark" aria-hidden="true"></i></button>
+                            <buttton class="btn btn-danger" type="cancle" id="cancleModelButton" style="margin-top:-6px;position:fixed; right: 20px;"><i class="icon-cross" aria-hidden="true"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" />
+<link href="~/Content/plugin/owl_carousel/dist/assets/owl.carousel.css" rel="stylesheet" />
+<link href="~/Content/plugin/owl_carousel/dist/assets/owl.theme.default.css" rel="stylesheet" />
+<link href="~/Content/icon/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href="~/Content/New/icons/icomoon/styles.css" rel="stylesheet" />
+
+<input type="hidden" id="hdnVoucherId" value="@ViewBag.VoucherId" />
+<input type="hidden" id="hdnVoucherType" value="@ViewBag.VoucherType" />
+
+@section Scripts{
+
+    <script src="~/Content/plugin/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="~/Content/plugin/owl_carousel/dist/owl.carousel.min.js"></script>
+    <script src="~/Script/Sharing/VoucherView.js?v=@DateTime.UtcNow"></script>
+
+    <script src="~/Content/plugin/jSignature-master/jSignature.js"></script>
+    <script src="~/Content/plugin/jSignature-master/plugins/jSignature.CompressorBase30.js"></script>
+    <script src="~/Content/plugin/jSignature-master/plugins/jSignature.CompressorSVG.js"></script>
+    <script src="~/Content/plugin/jSignature-master/plugins/jSignature.UndoButton.js"></script>
+    <script src="~/Content/plugin/jSignature-master/plugins/signhere/jSignature.SignHere.js"></script>
+}

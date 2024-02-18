@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+}
+
+
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_RmPurityMaster" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Purity</label>
+                <div class="col-md-2">
+                    <div id="dx_txtRMPurity"></div>
+                </div>
+
+                <label class="col-md-2 control-label addstar">RM SubCategory</label>
+                <div class="col-md-2">
+                    <div id="dx_ddlRMSubCate"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Is Active</label>
+                <div class="col-md-2">
+                    <div id="dx_switchIsActive"></div>
+                </div>
+                <label class="col-md-2 control-label addstar">Is Active On Web</label>
+                <div class="col-md-2">
+                    <div id="dx_switchIsActiveOnWeb"></div>
+                </div>
+                <label class="col-md-2 control-label addstar">Is Use In Jewellery</label>
+                <div class="col-md-2">
+                    <div id="dx_switchIsUseInJewellery"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Discription</label>
+                <div class="col-md-5">
+                    <div id="dx_txtDescription"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer p-10">
+            <div class="row text-center">
+                <div id="dx_btnSubmit"></div>
+                <div id="dx_btnCancel"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dx_popupRecordDelete"></div>
+
+@section Scripts{
+    <script src="~/Script/Master/RMPurityMaster.js?V=@DateTime.UtcNow"></script>
+}
+
+
+

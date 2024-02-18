@@ -1,0 +1,310 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Woman's Details";
+}
+<div style="padding-top: 15px;">
+    <div>
+        <div class="panel" id="panelmaingoldview">
+            <div class="panel-body">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item active" role="presentation"><a class="nav-link" id="litabwomans" data-toggle="tab" href="#tabwomans">Woman's Collection</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" id="lithomeslider" data-toggle="tab" role="tab" aria-expanded="true" href="#tabhomeslider">Home Bottom Slider</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" id="litabannounce" data-toggle="tab" role="tab" aria-expanded="true" href="#tabanouncement">Announcement</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tabwomans">
+                        <form id="formwomancollectione">
+                            <input type="hidden" id="hdnwomancollectdetails" value="" />
+                            <div id="editwomandetails" style="display:none;background-color:#fff">
+                                <div style="height:32px;margin-bottom: 30px;margin-right: 19px">
+                                    <button id="btn_woman_cancle" class="btn btn-sm pull-right purple" type="button" style="margin-top: 10px;"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Collection Name<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control required" type="text" name="collectionname" id="text_collectionname" placeholder="Collection Name" tabindex="1">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Collection Keyword<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" name="collectionkeyword" id="text_collectionkeyword" placeholder="Collection Keyword" tabindex="2">
+                                    </div>
+                                    <p class="col-sm-4">Notes: Collection Keyword Separated by Space.</p>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Sub Category</label>
+                                    <div class="col-sm-4">
+                                        <select class="js-example-basic-multiple mutisubcategory" name="subcategory" multiple="multiple" id="text_subcategory" tabindex="3"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Design No.</label>
+                                    <div class="col-sm-4">
+                                        <textarea rows="4" class="form-control" type="text" name="designcode" id="text_designno" placeholder="Design No" tabindex="4"></textarea>
+
+                                    </div>
+                                </div>
+                                <input type="hidden" id="hdnImagePath" value="" />
+                                <input type="hidden" id="hdnIpadPath" value="" />
+                                <input type="hidden" id="hdnB2BWebPath" value="" />
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Mobile Image<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <img src="~/Content/images/upimg.png" class="required" id="ItemimgPreview" style="width: 400px; height: 150px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span class="btn btn-primary btn-file">
+                                            <input type="file" accept="image/*" name="file" id="inputItemImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload File
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label id="ItemimgError" class="error" style="margin-left:2px; display:none">This field is required.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Ipad Image<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <img src="~/Content/images/upimg.png" class="required" id="ItemimgIpadPreview" style="width: 400px; height: 150px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span class="btn btn-primary btn-file">
+                                            <input type="file" accept="image/*" name="file" id="inputItemIpadImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload File
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label id="ItemimgIpadError" class="error" style="margin-left:2px; display:none">This field is required.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">B2BWeb Image<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <img src="~/Content/images/upimg.png" class="required" id="ItemimgB2BWebPreview" style="width: 400px; height: 150px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span class="btn btn-primary btn-file">
+                                            <input type="file" accept="image/*" name="file" id="inputItemB2BWebImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload File
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label id="ItemimgB2BWebError" class="error" style="margin-left:2px; display:none">This field is required.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Display Order<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-2">
+                                        <input class="form-control required" type="number" name="displayorder" id="text_displayorder" placeholder="Display order" tabindex="6">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Is Active </label>
+                                    <div class="col-sm-4">
+                                        <div class="checkbox" style="margin-top:0px!important">
+                                            <label class="form-control-label collectionswitch">
+                                                <input type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" id="activeswichonoff" tabindex="7" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2" style="padding-bottom: 13px;">
+                                        <button id="btn_collection_Csave" type="button" class="btn btn-success waves-effect waves-light" tabindex="8">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="viewwomandetails" style="display:block;background-color:#fff">
+                                @if (Model.ISADD == 1)
+                                {
+                                    <div class="Pull_Text_Left">
+                                        <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNewcollecion" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Woman's Collection</button>
+                                    </div>
+                                }
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_Womanndetails">
+                                        <table id="table_list_Womandetails"></table>
+                                        <div id="pager_list_Womandetails"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="tabanouncement">
+                        <form id="formanouncement">
+                            <input type="hidden" id="hdnannouncemet" value="" />
+                            <div id="editannouncemet" style="display:none;background-color:#fff">
+                                <div style="height:32px;margin-bottom: 30px;margin-right: 19px">
+                                    <button id="btn_announcemet_cancle" class="btn btn-sm pull-right purple" type="button" style="margin-top: 10px;"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Title<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" name="anouncetitle" id="text_anouncetitle" placeholder="Announcement Title" tabindex="1">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <lable id="errortitle" class="col-sm-4 col-sm-offset-2 error" style="color:red;display:none">This Field Is Valid.</lable>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Description<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" name="announcedesription" id="text_announcedesription" placeholder="Announcement Description" tabindex="2">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <lable id="errordescription" class="col-sm-4 col-sm-offset-2 error" style="color:red;display:none">This Field Is Valid.</lable>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">From Date<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input class="form-control" id="txt_fromdate" name="fromdate" placeholder="dd mmm yyyy" type="text" data-provide="datepicker" />
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                        <lable id="errorfromdate" class="error" style="color:red;display:none">This Field Is Valid.</lable>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">To Date<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input class="form-control" id="txt_todate" name="todate" placeholder="dd mmm yyyy" type="text" data-provide="datepicker" />
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                        <lable id="errortodate" class="error" style="color:red;display:none">This Field Is Valid.</lable>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2" style="padding-bottom: 13px;">
+                                        <button id="btn_announcemet_Csave" type="button" class="btn btn-success waves-effect waves-light" tabindex="8">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="viewannouncemet" style="display:block;background-color:#fff">
+                                @if (Model.ISADD == 1)
+                                {
+                                    <div class="Pull_Text_Left">
+                                        <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNewannouncemet" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Announcement</button>
+                                    </div>
+                                }
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_Announcementdetails">
+                                        <table id="table_list_Announcement"></table>
+                                        <div id="pager_list_Announcement"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="tabhomeslider">
+                        <form id="formhomeslider">
+                            <input type="hidden" id="hdnhomedetails" value="" />
+                            <div id="edithomedetails" style="display:none;background-color:#fff">
+                                <div style="height:32px;margin-bottom: 30px;margin-right: 19px">
+                                    <button id="btn_home_cancle" class="btn btn-sm pull-right purple" type="button" style="margin-top: 10px;"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                                </div>
+
+                                <input type="hidden" id="hdnhomeImagePath" value="" />
+                                <input type="hidden" id="hdnhomeIpadPath" value="" />
+                                <input type="hidden" id="hdnhomeB2BWebPath" value="" />
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Mobile Image<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <img src="~/Content/images/upimg.png" class="required" id="ItemimgHomePreview" style="width: 400px; height: 150px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span class="btn btn-primary btn-file">
+                                            <input type="file" accept="image/*" name="file" id="inputItemhomeImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload File
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label id="ItemimghomeError" class="error" style="margin-left:2px; display:none">This field is required.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">Ipad Image<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <img src="~/Content/images/upimg.png" class="required" id="ItemimgHomeIpadPreview" style="width: 400px; height: 150px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span class="btn btn-primary btn-file">
+                                            <input type="file" accept="image/*" name="file" id="inputItemhomeIpadImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload File
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label id="ItemimgIpadhomeError" class="error" style="margin-left:2px; display:none">This field is required.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 form-control-label">B2BWeb Image<span style="color:red"> *</span> </label>
+                                    <div class="col-sm-4">
+                                        <img src="~/Content/images/upimg.png" class="required" id="ItemimgHomeB2BWebPreview" style="width: 400px; height: 150px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span class="btn btn-primary btn-file">
+                                            <input type="file" accept="image/*" name="file" id="inputItemHomeB2BWebImage" class="file-styled"><i class="fa fa-plus"></i>&nbsp;Upload File
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label id="ItemimgB2BWebHomeError" class="error" style="margin-left:2px; display:none">This field is required.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-2" style="padding-bottom: 13px;">
+                                        <button id="btn_home_Csave" type="button" class="btn btn-success waves-effect waves-light">Submit</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div id="viewhomedetails" style="display:block;background-color:#fff">
+                                @if (Model.ISADD == 1)
+                                {
+                                    <div class="Pull_Text_Left">
+                                        <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNewslider" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Home Slider</button>
+
+                                    </div>
+                                }
+                                <div class="table-responsive" style="padding:12px 0px;">
+                                    <div class="jqGrid_wrapper" id="jqGrid_Homeslider">
+                                        <table id="table_list_Homeslider"></table>
+                                        <div id="pager_list_Homeslider"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script id="SubCategoryDropdownList" type="text/x-jsrender">
+        <option value="{{>id}}">{{>catsubcategory}}</option>
+    </script>
+    <script src="~/Script/AppManagement/WomanCollection.js"></script>
+}

@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+    ViewBag.Title = "OutStandingReport";
+}
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-body">
+        <div class="form-group row">
+            <div class="col-md-6 text-right">
+                <label class="col-md-2 control-label" style="padding-top: 6px;">As On Date</label>
+                <div class="col-md-4">
+                    <div id="dx_datefrom"></div>
+                </div>
+                <label class="col-md-3 control-label"  style="padding-top: 6px;">Transaction Type</label>
+                <div class="col-md-3">
+                    <div id="dx_ddlTransactionType"></div>
+                </div>
+               
+            </div>
+            <div class="col-md-6 text-right">
+                <label class="col-md-2 control-label" style="padding-top: 6px;">From Days</label>
+                <div class="col-md-2">
+                    <div id="dx_txtfrom"></div>
+                </div>
+                <label class="col-md-2 control-label" style="padding-top: 6px;">To Days</label>
+                <div class="col-md-2">
+                    <div id="dx_txtto"></div>
+                </div>
+                <div >
+                    <div style="margin-left: 50px;"  class="col-md-2" id="dx_btnSubmit"></div>
+                </div>
+            </div>
+            </div>
+        <br />
+        <div>
+            <div id="dx_dataGrid" style="height: 600px;"></div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-center" id="exampleModalLabel">Remark History</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label" style="padding-top: 6px;">Remarks</label>
+                            <div class="col-md-6">
+                                <div id="dx_Remarks"></div>
+                            </div>
+                            <div style="margin-left: 455px;">
+                                <div id="dx_btnreSubmit"></div>
+                            </div>
+                            </div>
+                        <br />
+                        <div>
+                            <div id="dx_remarksdataGrid"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dx_popupRecordDelete"></div>
+
+@section Scripts{
+    <script src="~/Script/Manufacturing/OutStandingReport.js?@DateTime.UtcNow"></script>
+}

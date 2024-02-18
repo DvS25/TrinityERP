@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Group";
+}
+<div class="panel">
+    <div class="panel-body">
+        <div class="row" style="">
+            <form id="frmgroup">
+                <div id="pnlEdit" style="display:none;background-color:#fff">
+                    <div style="height:32px;margin-bottom: 30px;margin-right: 19px;">
+                        <button id="btn_grp_cancle" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-sm-3 col-form-label form-control-label">Group Name *</label>
+                        <div class="col-sm-5">
+                            <input class="form-control required" type="text" id="txtGroup">
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdngroup" value="" />
+                    <div class="form-group row">
+                        <div class="col-sm-9 col-sm-offset-3" style="padding-bottom: 13px;padding-top: 6px;">
+                            <button type="button" id="btnSave" class="btn btn-success waves-effect waves-light m-r-30">Submit</button>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="pnlView" style="background-color:#fff">
+
+                    @if (Model.ISADD == 1)
+                    {
+                        <div class="Pull_Text_Left" style="padding-left:10px">
+                            <button class="formstylebutton  btn btn-success waves-effect waves-light m-t-10" id="btnAddNew" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Group Name</button>
+                        </div>
+                    }
+                    <div class="table-responsive" style="padding:12px 10px 0px 10px;">
+                        <div class="jqGrid_wrapper" id="jqgrid_group">
+                            <table id="table_list_Group"></table>
+                            <div id="pager_list_Group"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal" id="paneldelete" role="dialog" data-add="add" data-backdrop="static">
+                    <div class="modal-dialog modal-md" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="text-danger-color">Are you sure to delete this record ?</h4>
+                                <label class="col-sm-3 f-bold form-control-label">Group name:</label>
+                                <label id="delGroupname" class="col-sm-9"></label>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 col-sm-offset-3">
+                                        <button type="button" id="delcancel" class="btn btn-default waves-effect">Cancel</button>
+                                        <button type="button" class="btn btn-danger waves-effect waves-light" id="btnDelete">Delete</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Script/Master/CustomerGroup.js"></script>
+}

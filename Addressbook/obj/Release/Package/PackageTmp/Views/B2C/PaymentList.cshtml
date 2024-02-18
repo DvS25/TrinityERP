@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Payment List";
+}
+<div style="padding-top: 15px;">
+    <div>
+        <div class="panel" id="panelmaingoldview">
+            <div class="panel-body">
+                <form id="formwomancollectione">
+                   
+                    <div id="viewpaymentlist" style="display:block;background-color:#fff">
+                        <div class="table-responsive" style="padding:12px 0px;">
+                            <div class="jqGrid_wrapper" id="jqGrid_B2C_Order_Payment_Detail">
+                                <table id="table_B2C_Order_Payment_Detail"></table>
+                                <div id="pager_B2C_Order_Payment_Detail"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Script/B2C/PaymentList.js"></script>
+ }

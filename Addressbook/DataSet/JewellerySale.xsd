@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="JewellerySale" targetNamespace="http://tempuri.org/JewellerySale.xsd" xmlns:mstns="http://tempuri.org/JewellerySale.xsd" xmlns="http://tempuri.org/JewellerySale.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="JewellerySale" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="JewellerySale" msprop:Generator_UserDSName="JewellerySale">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="JewellerySale" msprop:Generator_TableClassName="JewellerySaleDataTable" msprop:Generator_TableVarName="tableJewellerySale" msprop:Generator_RowChangedName="JewellerySaleRowChanged" msprop:Generator_TablePropName="_JewellerySale" msprop:Generator_RowDeletingName="JewellerySaleRowDeleting" msprop:Generator_RowChangingName="JewellerySaleRowChanging" msprop:Generator_RowEvHandlerName="JewellerySaleRowChangeEventHandler" msprop:Generator_RowDeletedName="JewellerySaleRowDeleted" msprop:Generator_RowClassName="JewellerySaleRow" msprop:Generator_UserTableName="JewellerySale" msprop:Generator_RowEvArgName="JewellerySaleRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DescOfGoods" msprop:Generator_ColumnVarNameInTable="columnDescOfGoods" msprop:Generator_ColumnPropNameInRow="DescOfGoods" msprop:Generator_ColumnPropNameInTable="DescOfGoodsColumn" msprop:Generator_UserColumnName="DescOfGoods" type="xs:string" minOccurs="0" />
+              <xs:element name="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_UserColumnName="Quantity" type="xs:long" minOccurs="0" />
+              <xs:element name="PurityKT" msprop:Generator_ColumnVarNameInTable="columnPurityKT" msprop:Generator_ColumnPropNameInRow="PurityKT" msprop:Generator_ColumnPropNameInTable="PurityKTColumn" msprop:Generator_UserColumnName="PurityKT" type="xs:string" minOccurs="0" />
+              <xs:element name="GrossWgtGm" msprop:Generator_ColumnVarNameInTable="columnGrossWgtGm" msprop:Generator_ColumnPropNameInRow="GrossWgtGm" msprop:Generator_ColumnPropNameInTable="GrossWgtGmColumn" msprop:Generator_UserColumnName="GrossWgtGm" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NetWgt" msprop:Generator_ColumnVarNameInTable="columnNetWgt" msprop:Generator_ColumnPropNameInRow="NetWgt" msprop:Generator_ColumnPropNameInTable="NetWgtColumn" msprop:Generator_UserColumnName="NetWgt" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DiaWgtCt" msprop:Generator_ColumnVarNameInTable="columnDiaWgtCt" msprop:Generator_ColumnPropNameInRow="DiaWgtCt" msprop:Generator_ColumnPropNameInTable="DiaWgtCtColumn" msprop:Generator_UserColumnName="DiaWgtCt" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HSN" msprop:Generator_ColumnVarNameInTable="columnHSN" msprop:Generator_ColumnPropNameInRow="HSN" msprop:Generator_ColumnPropNameInTable="HSNColumn" msprop:Generator_UserColumnName="HSN" type="xs:string" minOccurs="0" />
+              <xs:element name="Amount" msprop:Generator_ColumnVarNameInTable="columnAmount" msprop:Generator_ColumnPropNameInRow="Amount" msprop:Generator_ColumnPropNameInTable="AmountColumn" msprop:Generator_UserColumnName="Amount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

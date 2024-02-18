@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenu.cshtml";
+}
+
+<div class="panel panel-flat" id="pnlView">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-10 text-right">
+                @if (Model.ISADD == 1)
+                {
+                    <div id="dx_btnAddNew"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="dx_dataGrid"></div>
+    </div>
+</div>
+
+<form id="frm_AccHeadMaster" class="form-horizontal" style="display:none;">
+    <div class="panel panel-flat">
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Head Name</label>
+                <div class="col-md-2">
+                    <div id="dx_txtHeadname"></div>
+                </div>
+
+                <label class="col-md-2 control-label addstar">Group Name</label>
+                <div class="col-md-2">
+                    <div id="dx_GroupName"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Final Account</label>
+                <div class="col-md-2">
+                    <div id="dx_FinalAccount"></div>
+                </div>
+                <label class="col-md-2 control-label addstar">ShowAs</label>
+                <div class="col-md-2">
+                    <div id="dx_ShowAs"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Display Order</label>
+                <div class="col-md-2">
+                    <div id="dx_numDisplayOrder"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label addstar">Group Active</label>
+                <div class="col-md-2">
+                    <div id="dx_switchGroupActive"></div>
+                </div>
+
+                <label class="col-md-2 control-label addstar">Is Active</label>
+                <div class="col-md-2">
+                    <div id="dx_switchIsActive"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Discription</label>
+                <div class="col-md-5">
+                    <div id="dx_txtDescription"></div>
+                </div>
+            </div>
+            <div class="panel-footer p-10">
+                <div class="row text-center">
+                    <div id="dx_btnSubmit"></div>
+                    <div id="dx_btnCancel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="dx_popupRecordDelete"></div>
+
+
+@section Scripts{
+    <script src="~/Script/Master/AccHeadMaster.js?v=@DateTime.UtcNow"></script>
+}

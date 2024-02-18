@@ -1,0 +1,369 @@
+﻿@{
+    ViewBag.Title = "ChartDesigner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="padding: 10px;">
+    <div class="panel" id="PanelEditChartDesigner" style="display:none;background-color:#fff;">
+        <div class="panel-body" style="padding: 10px;">
+            <div class="col-sm-12" style="margin-bottom:10px;">
+                <button id="BtnBack" class="btn btn-sm pull-right purple" type="button"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+            </div>
+            <div class="col-sm-12">
+                <form id="FrmChartDesigner" class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label m-t-5">Chart Title<span style="color:red"> *</span></label>
+                        <div class="col-sm-10">
+                            <input class="form-control required" type="text" name="ChartTitle" id="txtTitle" placeholder="Chart Title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label m-t-5">Chart Discription<span style="color:red"> *</span></label>
+                        <div class="col-sm-10">
+                            <textarea rows="3" class="form-control required" name="ChartDiscription" type="text" id="txtDiscription"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Select Chart Type<span style="color:red"> *</span></label>
+                        <div class="col-sm-6" style="margin-top:6px" id="gender">
+                            <input type="radio" id="RadioChartTypeSingle" class="ab" name="ChartType" value="Single" checked>
+                            <label for="RadioChartTypeSingle">Single Valued Chart</label>
+                            <input type="radio" id="RadioChartTypeMultiple" class="ab" name="ChartType" value="Multiple">
+                            <label for="RadioChartTypeMultiple">Multiple Valued Chart</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-2 col-sm-2"></div>
+                        <div class="col-md-8 col-sm-8">
+                            <div id="SingleValueChartList">
+                                <div class="checkboxdata checkbox-primary checkbox-inline">
+                                    <input id="ChkColumn" type="checkbox" class="CheckType" name="ChartTypeColumn" />
+                                    <label for="ChkColumn">Column</label>
+                                </div>
+                                <div class="checkboxdata checkbox-primary checkbox-inline">
+                                    <input id="ChkLine" type="checkbox" class="CheckType" name="ChartTypeLine" />
+                                    <label for="ChkLine">Line</label>
+                                </div>
+                                <div class="checkboxdata checkbox-primary checkbox-inline">
+                                    <input id="ChkArea" type="checkbox" class="CheckType" name="ChartTypeArea" />
+                                    <label for="ChkArea">Area</label>
+                                </div>
+                                <div class="checkboxdata checkbox-primary checkbox-inline">
+                                    <input id="ChkPie" type="checkbox" class="CheckType" name="ChartTypePie" />
+                                    <label for="ChkPie">Pie</label>
+                                </div>
+                                <div class="checkboxdata checkbox-primary checkbox-inline">
+                                    <input id="ChkPie3D" type="checkbox" class="CheckType" name="ChartTypePie3D" />
+                                    <label for="ChkPie3D">Pie 3D</label>
+                                </div>
+                                <div class="checkboxdata checkbox-primary checkbox-inline">
+                                    <input id="ChkDonut" type="checkbox" class="CheckType" name="ChartTypeDonut" />
+                                    <label for="ChkDonut">Donut</label>
+                                </div>
+                                <div class="checkboxdata checkbox-primary checkbox-inline">
+                                    <input id="ChkDonut3D" type="checkbox" class="CheckType" name="ChartTypeDonut3D" />
+                                    <label for="ChkDonut3D">Donut 3D</label>
+                                </div>
+                            </div>
+                            <div id="MultiValueChartList" style="display:none;">
+                                <div class="checkboxdata checkbox-primary checkbox-inline">
+                                    <input id="ChkStackedColumn" type="checkbox" class="CheckType" name="ChkStackedColumn" />
+                                    <label for="ChkStackedColumn">Stacked Column</label>
+                                </div>
+                                <div class="checkboxdata checkbox-primary checkbox-inline">
+                                    <input id="ChkStackedLine" type="checkbox" class="CheckType" name="ChartTypeLine" />
+                                    <label for="ChkStackedLine">Stacked Line</label>
+                                </div>
+                            </div>
+                        </div>
+                        <label id="txtChartType-error" class="col-sm-offset-2 col-md-10 col-sm-10 error" style="Display:none;"></label>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Display Order<span style="color:red"> *</span></label>
+                        <div class="col-sm-2">
+                            <input type="number" min="1" id="txtMainDisplayOrder" name="MainDisplayOrder" class="form-control required valid" aria-required="true" aria-invalid="false" />
+                        </div>
+                        <label class="col-sm-1 form-control-label">Is Active </label>
+                        <div class="col-sm-2">
+                            <div class="checkbox">
+                                <label class="form-control-label">
+                                    <input type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" id="ChkIsActive" checked />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Query User For <span style="color:red"> *</span></label>
+                        <div class="col-sm-4">
+                            <input type="radio" name="UseFor" id="rdB2B" class="icheckminimal" checked>
+                            <label for="rdB2B" class="extra-paddingleft">B2B</label>
+                            <input type="radio" name="UseFor" id="rdB2C" class="icheckminimal">
+                            <label for="rdB2C" class="extra-paddingleft">B2C</label>
+                            <input type="radio" name="UseFor" id="rdOutlet" class="icheckminimal">
+                            <label for="rdOutlet" class="extra-paddingleft">Outlet</label>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label ">Chart Query List <span style="color:red"> *</span></label>
+                        <div class="col-sm-4" style="margin-bottom: 3px !important;">
+                            <select id="ddlChartQuery" name="ChartQuery" class="form-control required" onchange="ChartDesignerView.BindTableFields();"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label ">Field Details</label>
+                        <div class="col-md-10">
+                            <div class="table-responsive" id="DivFieldList">
+                                <table class="table table-bordered" style="font-size:13px !important;margin-bottom:0px !important">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:5%" class="text-center">Use</th>
+                                            <th style="width:30%">Field Name</th>
+                                            <th style="width:25%">Caption</th>
+                                            <th style="width:5%" class="text-center">X-Axis Column</th>
+                                            <th style="width:5%" class="text-center">Y-Axis Column</th>
+                                            <th style="width:5%" class="text-center">Is Filter</th>
+                                            <th style="width:15%" class="text-center">Selection</th>
+                                            <th style="width:5%" class="text-center">Is MultiSelect</th>
+                                            <th style="width:10%" class="text-center">Default Operator</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableFieldList"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <label id="DisplayFieldsList-error" class="col-sm-10 col-sm-offset-2 error" for="DisplayFieldsList" style="display: none;">Field Details are required.</label>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10 col-sm-offset-2" style="padding-bottom: 13px;">
+                            <button id="btnSaveChartData" type="button" class="btn btn-success waves-effect waves-light">Submit</button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdnChartId" value="" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="panel" id="PanelViewChartDesigner">
+        <div class="panel-body" style="padding: 10px;">
+            @if (Model.ISADD == 1)
+            {
+                <div class="col-sm-12 Pull_Text_Left">
+                    <button class="formstylebutton btn btn-success waves-effect waves-light m-t-10" id="btnAddNewChart" type="button"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Chart</button>
+                </div>
+            }
+            <div class="col-sm-12" style="overflow-x:auto; overflow-y:hidden;margin-top: 10px;">
+                <div class="jqGrid_wrapper" id="jqGridChartList">
+                    <table id="tableChartList"></table>
+                    <div id="pagerChartList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Script/Account/ChartDesigner.js"></script>
+    <script id="UserGroupList" type="text/x-jsrender">
+        <option value="{{>usergroupid}}">{{>usergroupname}}</option>
+    </script>
+    <script id="ChartQueryList" type="text/x-jsrender">
+        <option value="{{>chartqueryid}}">{{>chartquerytitle}}</option>
+    </script>
+    <script type="text/x-jsrender" id="FieldList">
+        <tr id="Row{{:chartfieldid}}">
+            <td style="text-align: center;">
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input class="IsUse" id="ChkUse{{:chartfieldid}}" type="checkbox" name="ChkUse{{:chartfieldid}}" />
+                    <label for="ChkUse{{:chartfieldid}}"></label>
+                </div>
+            </td>
+            <td style="vertical-align: middle;">{{:fieldname}}</td>
+            <td style="vertical-align: middle;">
+                <input type="text" id="txtCaption{{:chartfieldid}}" name="Caption{{:chartfieldid}}" value="" class="form-control caption"/>
+            </td>
+            <td style="text-align: center;">
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input class="XAxis" id="ChkX{{:chartfieldid}}" type="checkbox" name="XAXIS{{:chartfieldid}}" />
+                    <label for="ChkX{{:chartfieldid}}"></label>
+                </div>
+            </td>
+            <td style="text-align: center;">
+                {{if datatype == 'Int' || datatype == 'Decimal'}}
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input class="YAxis" id="ChkY{{:chartfieldid}}" type="checkbox" name="YAXIS{{:chartfieldid}}" />
+                    <label for="ChkY{{:chartfieldid}}"></label>
+                </div>
+                {{/if}}
+            </td>
+            <td style="text-align: center;">
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input id="ChkF{{:chartfieldid}}" type="checkbox" name="FILTER{{:chartfieldid}}" />
+                    <label for="ChkF{{:chartfieldid}}"></label>
+                </div>
+            </td>
+            <td>
+                <select id="Selection{{:chartfieldid}}" name="Selection{{:chartfieldid}}" class="form-control">
+                    <option value="Compulsory">Compulsory</option>
+                    <option value="Optional">Optional</option>
+                </select>
+            </td>
+            <td style="text-align: center;">
+                {{if datatype == 'Combobox' || datatype == 'AutoSuggest'}}
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input id="ChkM{{:chartfieldid}}" type="checkbox" name="MULTISELECT{{:chartfieldid}}" onchange="ChartDesignerView.OnMultiSelectCheckChange(this);"/>
+                    <label for="ChkM{{:chartfieldid}}"></label>
+                </div>
+                {{/if}}
+            </td>
+            <td>
+                <select id="ddlOperator{{:chartfieldid}}" name="ddlOperator{{:chartfieldid}}" class="form-control">
+                    {{if datatype == 'String' }}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="Like">Like</option>
+                    {{else datatype == 'Date' }}
+                    <option value="Today">Today</option>
+                    <option value="Yesterday">Yesterday</option>
+                    <option value="Last7Days">Last 7 Days</option>
+                    <option value="Last30Days">Last 30 Days</option>
+                    <option value="ThisMonth">This Month</option>
+                    <option value="LastMonth">Last Month</option>
+                    <option value="ThisYear">This Year</option>
+                    <option value="CustomRange">Custom Range</option>
+                    {{else datatype == "Int" || datatype == "Decimal"}}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="gt">&gt;</option>
+                    <option value="lt">&lt;</option>
+                    <option value="gte">&gt;=</option>
+                    <option value="lte">&lt;=</option>';
+                    {{else datatype == "Combobox"}}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="Like">Like</option>';
+                    {{else datatype == "AutoSuggest"}}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="Like">Like</option>';
+                    {{/if}}}
+                </select>
+            </td>
+        </tr>
+    </script>
+    <script type="text/x-jsrender" id="EditFieldList">
+        <tr id="Row{{:chartfieldid}}">
+            <td style="text-align: center;">
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input class="IsUse" id="ChkUse{{:chartfieldid}}" type="checkbox" name="ChkUse{{:chartfieldid}}" {{if isinuse == 1}} checked {{/if}}/>
+                    <label for="ChkUse{{:chartfieldid}}"></label>
+                </div>
+            </td>
+            <td style="vertical-align: middle;">{{:fieldname}}</td>
+            <td style="vertical-align: middle;">
+                <input type="text" id="txtCaption{{:chartfieldid}}" name="Caption{{:chartfieldid}}" value="{{:caption}}" class="form-control caption"/>
+            </td>
+            <td style="text-align: center;">
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input class="XAxis" id="ChkX{{:chartfieldid}}" type="checkbox" name="XAXIS{{:chartfieldid}}" {{if isxaxiscol == 1}} checked {{/if}} />
+                    <label for="ChkX{{:chartfieldid}}"></label>
+                </div>
+            </td>
+            <td style="text-align: center;">
+                {{if datatype == 'Int' || datatype == 'Decimal'}}
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input class="YAxis" id="ChkY{{:chartfieldid}}" type="checkbox" name="YAXIS{{:chartfieldid}}" {{if isyaxiscol == 1}} checked {{/if}} />
+                    <label for="ChkY{{:chartfieldid}}"></label>
+                </div>
+                {{/if}}
+            </td>
+            <td style="text-align: center;">
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input id="ChkF{{:chartfieldid}}" type="checkbox" name="FILTER{{:chartfieldid}}" {{if isfilter == 1}} checked {{/if}} />
+                    <label for="ChkF{{:chartfieldid}}"></label>
+                </div>
+            </td>
+            <td>
+                <select id="Selection{{:chartfieldid}}" name="Selection{{:chartfieldid}}" class="form-control" selecteddata="{{:iscompulsary}}">
+                    {{if iscompulsary == 1}}
+                    <option value="Compulsory" selected>Compulsory</option>
+                    <option value="Optional">Optional</option>
+                    {{else}}
+                    <option value="Compulsory">Compulsory</option>
+                    <option value="Optional" selected>Optional</option>
+                    {{/if}}
+
+                </select>
+            </td>
+            <td style="text-align: center;">
+                {{if datatype == 'Combobox' || datatype == 'AutoSuggest'}}
+                <div class="checkboxdata checkbox-primary checkbox-inline">
+                    <input id="ChkM{{:chartfieldid}}" type="checkbox" name="MULTISELECT{{:chartfieldid}}" {{if ismultiselect == 1}} checked {{/if}} onchange="ChartDesignerView.OnMultiSelectCheckChange(this);" />
+                    <label for="ChkM{{:chartfieldid}}"></label>
+                </div>
+                {{/if}}
+            </td>
+            <td>
+                <select id="ddlOperator{{:chartfieldid}}" name="ddlOperator{{:chartfieldid}}" class="form-control FilterOper" selecteddata="{{:defaultoperator}}">
+                    {{if ismultiselect==1 && (datatype == 'Combobox' || datatype == 'AutoSuggest')}}
+                    <option value="in">In</option>
+                    <option value="notin">Not In</option>
+                    {{else ismultiselect==0 && (datatype == 'Combobox' || datatype == 'AutoSuggest')}}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="Like">Like</option>
+                    {{else datatype == 'String'}}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="Like">Like</option>
+                    {{else datatype == 'Date'}}
+
+                    <option value="Today">Today</option>
+                    <option value="Yesterday">Yesterday</option>
+                    <option value="Last7Days">Last 7 Days</option>
+                    <option value="Last30Days">Last 30 Days</option>
+                    <option value="ThisMonth">This Month</option>
+                    <option value="LastMonth">Last Month</option>
+                    <option value="ThisYear">This Year</option>
+                    <option value="CustomRange">Custom Range</option>
+
+                    {{else datatype == 'Int' || datatype == 'Decimal'}}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="gt">&gt;</option>
+                    <option value="lt">&lt;</option>
+                    <option value="gte">&gt;=</option>
+                    <option value="lte">&lt;=</option>
+                    {{/if}}                
+                    @*{{if datatype == 'String' }}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="Like">Like</option>
+                    {{else datatype == 'Date' }}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="gt">&gt;</option>
+                    <option value="lt">&lt;</option>
+                    <option value="gte">&gt;=</option>
+                    <option value="lte">&lt;=</option>
+                    <option value="Between">Between</option>
+                    {{else datatype == "Int" || datatype == "Decimal"}}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="gt">&gt;</option>
+                    <option value="lt">&lt;</option>
+                    <option value="gte">&gt;=</option>
+                    <option value="lte">&lt;=</option>';
+                    {{else datatype == "Combobox"}}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="Like">Like</option>';
+                    {{else datatype == "AutoSuggest"}}
+                    <option value="eq">=</option>
+                    <option value="neq">!=</option>
+                    <option value="Like">Like</option>';
+                    {{/if}}}*@
+                </select>
+            </td>
+        </tr>
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="padding-top: 15px;">
+    <div class="panel" id="panelmaingoldview">
+        <div class="panel-body">
+            <form id="fromproduct">
+                <input type="hidden" id="hdnproductlistads" value="" />
+                <div id="editproductlistads" style="display:none;background-color:#fff">
+                    <div style="height:32px;margin-bottom: 30px;margin-right: 19px">
+                        <button id="btn_bestcategory_cancle" class="btn btn-sm pull-right purple" type="button" style="margin-top: 10px;"><i class="fa fa-arrow-left"></i>&nbsp;Back</button>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Title<span style="color:red"> *</span> </label>
+                        <div class="col-sm-4">
+                            <input class="form-control required" type="text" name="titlename" id="text_producttitlename" placeholder="Title" tabindex="1">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Ratio<span style="color:red"> *</span> </label>
+                        <div class="col-sm-4">
+                            <select name="rationproduct" class="form-control required" id="text_ratio" tabindex="2">
+                                <option value="" selected>Select Ratio</option>
+                                <option value="1:1">1:1</option>
+                                <option value="1:2">1:2</option>
+                            </select>
+                            @*<input class="form-control required" type="text" name="rationproduct" id="text_ratio" placeholder="1:1 Or 1:2" tabindex="2">*@
+                        </div>
+                    </div>
+                    <input type="hidden" id="hdnWebPath" value="" />
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Picture<span style="color:red"> *</span> </label>
+                        <div class="col-sm-2">
+                            <img src="~/Content/images/upimg.png" class="required" id="ItemimgWebPreview" style="width: 180px; height: 180px; border:1px solid rgba(0, 0, 0, .15); border-radius:.25rem;" alt="no image" />
+                        </div>
+                        <div class="col-sm-2">
+                            <span class="btn btn-primary btn-file">
+                                <input type="file" accept="image/*" name="file" id="inputItemWebImage" class="file-styled" tabindex="3"><i class="fa fa-plus"></i>&nbsp;Upload File
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <label id="ItemimgWebError" class="error" style="margin-left:2px; display:none">This field is required.</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label">Is Active </label>
+                        <div class="col-sm-4">
+                            <div class="checkbox" style="margin-top:0px!important">
+                                <label class="form-control-label collectionswitch">
+                                    <input type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" id="activeswichonoff" tabindex="7" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10 col-sm-offset-2" style="padding-bottom: 13px;">
+                            <button id="btn_productads_Csave" type="button" class="btn btn-success waves-effect waves-light" tabindex="4">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="viewproductlistads" style="display:block;background-color:#fff">
+
+                    <div class="table-responsive" style="padding:12px 0px;">
+                        <div class="jqGrid_wrapper" id="jqGrid_productlistads">
+                            <table id="table_list_productlistads"></table>
+                            <div id="pager_list_productlistads"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @*<script src="~/Content/plugin/maskeditor/maskeditor.js"></script>
+    <script src="~/Script/B2C/ProductListAds.js"></script>*@
+    <script src="~/Script/B2C/CustomerList.js"></script>
+}
